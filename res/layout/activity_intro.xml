@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    
+    tools:context=".IntroActivity" >
+
+   
+    <ProgressBar
+        android:id="@+id/inPb"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="25dp"
+        
+        />
+
+    <TextView
+        android:id="@+id/inTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/inPb"
+        android:layout_centerHorizontal="true"
+        android:text="로딩중..." />
+
+</RelativeLayout>
+
+
+
+<!--  
+         android:progressDrawable="@drawable/intro_pb"
+        -->

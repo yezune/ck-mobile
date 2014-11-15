@@ -34,6 +34,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="IntroActivity"></activity>
+        <activity android:name="AddUser"></activity>
+        <activity android:name="Cart"></activity>
+        <activity android:name=".setaddr.SetAddr"></activity>
 
     </application>
 

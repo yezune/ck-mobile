@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="red">#e50302</color>
+    <color name="blue">#1b67bc</color>
+    <color name="white">#ffffff</color>
+    <color name="red_cart">#b0dc2d</color>
+    <color name="tab_focus_off">#f0f0f0</color>
+    <color name="tab_focus_on">#ffffff</color>
+    <color name="black">#000000</color>
+</resources>
