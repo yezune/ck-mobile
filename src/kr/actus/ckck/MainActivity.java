@@ -31,12 +31,14 @@ import android.app.ActionBar.LayoutParams;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.provider.Settings.Secure;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -52,7 +54,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnClickListener{
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private LinearLayout mDrawerLinear;
@@ -61,7 +63,7 @@ public class MainActivity extends Activity {
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
 	private String[] mCategory;
-
+	private Button addrOther;
 	private final String TAG = "MainActivity";
 
 	@Override
@@ -77,7 +79,8 @@ public class MainActivity extends Activity {
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 		mDrawerLinear = (LinearLayout) findViewById(R.id.drawer_linear);
-
+		addrOther = (Button) findViewById(R.id.addrOther);
+		addrOther.setOnClickListener(this);
 		
 		// drawer를 열때 drawer내용 오버레이
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
@@ -213,7 +216,7 @@ public class MainActivity extends Activity {
 			OnClickListener {
 		public static final String MENU_NUM = "menu_num";
 		private ImageView imgAd;
-		private Button addrOther;
+//		private Button addrOther;
 		private GridView gridList;
 		private GridAdapter gAdapter;
 		private GridItem gItem;
@@ -235,7 +238,7 @@ public class MainActivity extends Activity {
 					false);
 			int i = getArguments().getInt(MENU_NUM);
 //			imgAd = (ImageView) cView.findViewById(R.id.imgAd);
-			addrOther = (Button) cView.findViewById(R.id.addrOther);
+//			addrOther = (Button) cView.findViewById(R.id.addrOther);
 			
 			mPager = (ViewPager) cView.findViewById(R.id.content_pager);
 			mPageMark=(LinearLayout) cView.findViewById(R.id.page_mark);
@@ -243,7 +246,7 @@ public class MainActivity extends Activity {
 			setGrid();
 			
 //			imgAd.setOnClickListener(this);
-			addrOther.setOnClickListener(this);
+//			addrOther.setOnClickListener(this);
 			
 			
 			//drawer메뉴 리스트뷰 테스트용
@@ -296,13 +299,14 @@ public class MainActivity extends Activity {
 		private void initPageMark() {	//광고 포지션 위치 확인용 서클
 			for (int i = 0; i < mRes.length; i++) {
 				ImageView iv = new ImageView(getActivity().getApplicationContext());
-				iv.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
-						LayoutParams.WRAP_CONTENT));
-				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0,
-						0);
-
+				
+				LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
+						LayoutParams.WRAP_CONTENT);
+				params.gravity = Gravity.CENTER;
+			
+				iv.setLayoutParams(params);
 				iv.setPadding(10, 10, 10, 10);
-
+				
 				if (i == 0)
 					iv.setBackgroundResource(R.drawable.board_circle);
 				else
@@ -333,14 +337,24 @@ public class MainActivity extends Activity {
 //				Toast.makeText(getActivity(), "imgAd click!",
 //						Toast.LENGTH_SHORT).show();
 //				break;
-			case R.id.addrOther:	//다른배송지 클릭시
-				Intent intent = new Intent(getActivity(), SetAddr.class);
-				startActivity(intent);
-				break;
+			
 
 			}
 
 		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch(v.getId()){
+		
+		case R.id.addrOther:
+			
+			Intent intent = new Intent(this, SetAddr.class);
+			startActivity(intent);
+			break;
+		}
+		
 	}
 	
 }

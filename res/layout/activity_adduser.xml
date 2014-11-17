@@ -17,7 +17,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
-            android:id="@+id/EditText07"
+            android:id="@+id/user_cNum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -41,12 +41,12 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
-            android:id="@+id/EditText06"
+            android:id="@+id/user_cName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="phone" />
+            android:inputType="textPersonName" />
     </LinearLayout>
 
     <LinearLayout
@@ -62,12 +62,12 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
-            android:id="@+id/EditText05"
+            android:id="@+id/user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="textPersonName" />
     </LinearLayout>
 
     <LinearLayout
@@ -83,12 +83,12 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
-            android:id="@+id/EditText04"
+            android:id="@+id/user_add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="textPostalAddress" />
     </LinearLayout>
 
     <LinearLayout
@@ -104,12 +104,12 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
-            android:id="@+id/EditText03"
+            android:id="@+id/user_dadd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="textPostalAddress" />
     </LinearLayout>
 
     <LinearLayout
@@ -125,12 +125,12 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
-            android:id="@+id/EditText02"
+            android:id="@+id/user_mobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="phone" />
     </LinearLayout>
 
   
@@ -141,25 +141,25 @@
         android:orientation="vertical" >
 
         <CheckBox
-            android:id="@+id/CheckBox02"
+            android:id="@+id/user_check_sms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/check_sms" />
 
         <CheckBox
-            android:id="@+id/CheckBox3"
+            android:id="@+id/user_check_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/check_email" />
 
         <CheckBox
-            android:id="@+id/checkBox1"
+            android:id="@+id/user_check_agree1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/check_agree1" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/user_check_agree2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/check_agree2" />
@@ -168,13 +168,13 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tv1" />
+            android:text="@string/adduser_tv1" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tv2" />
+            android:text="@string/adduser_tv2" />
 
     </LinearLayout>
       <LinearLayout
@@ -183,7 +183,7 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/user_btn_reg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/add_user" />
