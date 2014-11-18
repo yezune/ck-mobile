@@ -92,6 +92,7 @@ public class MainActivity extends Activity implements OnClickListener{
 
 		// 액션바 아이콘 활성화
 		getActionBar().setDisplayHomeAsUpEnabled(false);
+		
 		getActionBar().setHomeButtonEnabled(true);
 
 		
