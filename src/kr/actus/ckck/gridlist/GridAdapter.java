@@ -4,14 +4,20 @@ package kr.actus.ckck.gridlist;
 
 import java.util.ArrayList;
 
+import kr.actus.ckck.MainActivity;
 import kr.actus.ckck.R;
 import kr.actus.ckck.StoreActivity;
+import kr.actus.ckck.fragment.MainTab;
+import kr.actus.ckck.fragment.StoreTab;
 
 
 
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +27,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class GridAdapter extends BaseAdapter {
+public class GridAdapter extends BaseAdapter  {
 	private static final String TAG = "MainActivity";
+	
 	Context context;
 	LayoutInflater Inflater;
 	
@@ -31,9 +38,8 @@ public class GridAdapter extends BaseAdapter {
 	ArrayList<GridItem> data = new ArrayList<GridItem>();
 	GridItem item;
 	int layout;
-	BaseAdapter hndle = this;
-	
-	
+
+	Fragment fragment = null;
 	
 	public GridAdapter(Context context, int layout, ArrayList<GridItem> data){
 		this.context = context;
@@ -53,6 +59,8 @@ public class GridAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		return position;
 	}
+
+	
 	
 	public View getView(final int position , View cView, ViewGroup parent) {
 
@@ -79,15 +87,33 @@ public class GridAdapter extends BaseAdapter {
 		menuImg.setOnClickListener(new OnClickListener() {				
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(context, StoreActivity.class);
-				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				intent.putExtra("title", tvTitle.getText().toString());
-				context.startActivity(intent);
+//				Intent intent = new Intent(context, StoreActivity.class);
+//				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//				intent.putExtra("title", tvTitle.getText().toString());
+//				context.startActivity(intent);
+				
+				fragment = new StoreTab();
+				Bundle bundle = new Bundle();
+				bundle.putString("title", tvTitle.getText().toString());
+				bundle.putString("type", tvType.getText().toString());
+				bundle.putString("min", tvMin.getText().toString());
+				bundle.putString("delivery", tvDelivery.getText().toString());
+				bundle.putInt("menuImg", menuImg.getId());
+				
+				
+				fragment.setArguments(bundle);
+				nextActivity();
 				//Log.v(TAG,"getItematpostion :"+gridList.getItemAtPosition(pos));
 				}
 		});
 		return cView;
 	
+	}
+	void nextActivity(){
+		if(fragment!=null){
+			MainTab mt = new MainTab();
+//			mt.trans(fragment);
+		}
 	}
 	}
 

@@ -9,38 +9,43 @@ import kr.actus.ckck.gridlist.GridItem;
 import kr.actus.ckck.setaddr.SetAddrActivity;
 import kr.actus.ckck.viewpager.ViewPagerAdapter;
 import android.app.ActionBar.LayoutParams;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-public class MainFragment extends Fragment implements OnClickListener {
+public class MainTab extends Fragment implements OnClickListener {
 
 	public static final String MENU_NUM = "menu_num";
-	private ImageView imgAd;
-	private Button addrOther;
+
 	private GridView gridList;
 	private GridAdapter gAdapter;
 	private GridItem gItem;
 	private LinearLayout mPageMark;
 	private ArrayList<GridItem> gListItem = new ArrayList<GridItem>();
+	
 	private ViewPager mPager;
 	public int[] mRes = new int[]{R.drawable.menu_sample,R.drawable.menu_sample,R.drawable.menu_sample,R.drawable.menu_sample,R.drawable.menu_sample};
 	private int prePosition;
 	View cView;
+	private MainOnClickListener mListener;
 	
-	public MainFragment() {
-		//서브 클래스용 생성자
-	}
+//	public MainTab() {
+//		//서브 클래스용 생성자
+//	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,7 +54,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 				false);
 		int i = getArguments().getInt(MENU_NUM);
 //		imgAd = (ImageView) cView.findViewById(R.id.imgAd);
-		addrOther = (Button) cView.findViewById(R.id.addrOther);
+//		addrOther = (Button) cView.findViewById(R.id.addrOther);
 		
 		mPager = (ViewPager) cView.findViewById(R.id.content_pager);
 		mPageMark=(LinearLayout) cView.findViewById(R.id.page_mark);
@@ -57,7 +62,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 		setGrid();
 		
 //		imgAd.setOnClickListener(this);
-		addrOther.setOnClickListener(this);
+//		addrOther.setOnClickListener(this);
 		
 		
 		//drawer메뉴 리스트뷰 테스트용
@@ -69,10 +74,14 @@ public class MainFragment extends Fragment implements OnClickListener {
 				getActivity().getPackageName());
 		
 		getActivity().setTitle(category);
+		
 		return cView;
 	}
 
-
+	
+	public interface MainOnClickListener{
+		public void onclicked(Bundle bundle);
+	}
 	
 	
 	private void setViewPager() {	//광고창 뷰페이져
@@ -147,14 +156,32 @@ public class MainFragment extends Fragment implements OnClickListener {
 //			Toast.makeText(getActivity(), "imgAd click!",
 //					Toast.LENGTH_SHORT).show();
 //			break;
-		case R.id.addrOther:	//다른배송지 클릭시
-			Intent intent = new Intent(getActivity(), SetAddrActivity.class);
-			startActivity(intent);
-			break;
+//		case R.id.addrOther:	//다른배송지 클릭시
+//			Intent intent = new Intent(getActivity(), SetAddrActivity.class);
+//			startActivity(intent);
+//			break;
 
 		}
 
 	}
+
+
+
+
+	@Override
+	public void onAttach(Activity activity) {
+//		mListener = (MainOnClickListener)activity;
+		super.onAttach(activity);
+	}
+	
+	
+//	public void trans(Fragment fragment) {
+//		   FragmentManager fragmentmanager = getChildFragmentManager();
+//	         FragmentTransaction ft = fragmentmanager.beginTransaction();
+//	         ft.replace(R.id.content_frame,fragment).commit();
+//	         Intent ine = new Intent(Intent.ACTION_VIEW);     
+//		
+//	}
 }
 	
 	
