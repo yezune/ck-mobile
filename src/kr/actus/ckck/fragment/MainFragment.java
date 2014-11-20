@@ -6,7 +6,7 @@ import java.util.Locale;
 import kr.actus.ckck.R;
 import kr.actus.ckck.gridlist.GridAdapter;
 import kr.actus.ckck.gridlist.GridItem;
-import kr.actus.ckck.setaddr.SetAddr;
+import kr.actus.ckck.setaddr.SetAddrActivity;
 import kr.actus.ckck.viewpager.ViewPagerAdapter;
 import android.app.ActionBar.LayoutParams;
 import android.content.Intent;
@@ -148,7 +148,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 //					Toast.LENGTH_SHORT).show();
 //			break;
 		case R.id.addrOther:	//다른배송지 클릭시
-			Intent intent = new Intent(getActivity(), SetAddr.class);
+			Intent intent = new Intent(getActivity(), SetAddrActivity.class);
 			startActivity(intent);
 			break;
 

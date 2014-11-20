@@ -7,22 +7,25 @@
     >
 
  <RelativeLayout
+     android:id="@+id/grid_item_layout"
      android:layout_width="match_parent"
-     android:layout_height="match_parent" >
+     android:layout_height="match_parent"
+     >
 
      <ImageView
          android:id="@+id/grid_img"
          android:layout_width="match_parent"
          android:layout_height="match_parent"
          android:src="@drawable/menu_sample" 
-         android:clickable="true"/>
-
-     <TextView
+         android:focusable="false"
+        
+     />
+          <TextView
          android:id="@+id/grid_tv_deli"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:layout_alignParentBottom="true"
-         
+         android:focusable="false"
          android:gravity="center"
          android:background="@color/black"
          android:text="배달가능"
@@ -38,6 +41,7 @@
          android:gravity="center"
          android:background="@color/black"
          android:singleLine="true"
+         android:focusable="false"
          android:text="최소주문:30,000원"
          android:textAppearance="?android:attr/textAppearanceSmall"
          android:textColor="@color/white" />
@@ -51,6 +55,7 @@
          android:background="@color/black"
          android:singleLine="true"
          android:text="오리, 게장"
+         android:focusable="false"
          android:textAppearance="?android:attr/textAppearanceSmall"
          android:textColor="@color/white" />
 
@@ -63,6 +68,7 @@
          android:background="@color/black"
          android:singleLine="true"
          android:text="오리와 꽃게 사당역점"
+         android:focusable="false"
          android:textAppearance="?android:attr/textAppearanceMedium"
          android:textColor="@color/menu_title" />
 

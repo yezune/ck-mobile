@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class SetAddr extends FragmentActivity implements OnClickListener{ 
+public class SetAddrActivity extends FragmentActivity implements OnClickListener{ 
 	//OnArticleSelectedListener{
 
 

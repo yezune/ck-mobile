@@ -36,9 +36,10 @@
             </intent-filter>
         </activity>
         <activity android:name="IntroActivity"></activity>
-        <activity android:name="AddUser"></activity>
-        <activity android:name="Cart"></activity>
-        <activity android:name=".setaddr.SetAddr"></activity>
+        <activity android:name="AddUserActivity"></activity>
+        <activity android:name="CartActivity"></activity>
+        <activity android:name=".setaddr.SetAddrActivity"></activity>
+        <activity android:name="StoreActivity"></activity>
 
     </application>
 

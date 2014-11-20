@@ -21,7 +21,7 @@ import java.util.Locale;
 
 import kr.actus.ckck.gridlist.GridAdapter;
 import kr.actus.ckck.gridlist.GridItem;
-import kr.actus.ckck.setaddr.SetAddr;
+import kr.actus.ckck.setaddr.SetAddrActivity;
 import kr.actus.ckck.viewpager.ViewPagerAdapter;
 
 import android.app.Activity;
@@ -47,12 +47,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener{
 	private DrawerLayout mDrawerLayout;
@@ -64,7 +66,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	private CharSequence mTitle;
 	private String[] mCategory;
 	private Button addrOther;
-	private final String TAG = "MainActivity";
+	private final static String TAG = "MainActivity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -147,12 +149,12 @@ public class MainActivity extends Activity implements OnClickListener{
         switch(item.getItemId()) {
         case R.id.action_cart: //장바구니 선택시 화면 전환
            
-          Intent intent = new Intent(this,Cart.class);
+          Intent intent = new Intent(this,CartActivity.class);
            startActivity(intent);
             return true;
         case R.id.action_addUser: //회원가입선택시 화면전환
         	
-        	Intent intentUser = new Intent(this,AddUser.class);
+        	Intent intentUser = new Intent(this,AddUserActivity.class);
         	
         	startActivity(intentUser);
         
@@ -268,7 +270,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		private void setViewPager() {	//광고창 뷰페이져
 			ViewPagerAdapter vpAdapter = new ViewPagerAdapter(getActivity(),mRes);
 			mPager.setAdapter(vpAdapter);
-			
+		
 			mPager.setOnPageChangeListener(new OnPageChangeListener() {
 				
 				@Override
@@ -278,6 +280,8 @@ public class MainActivity extends Activity implements OnClickListener{
 					mPageMark.getChildAt(position).setBackgroundResource(
 							R.drawable.board_circle);
 					prePosition = position;
+					
+					
 					
 				}
 				
@@ -292,7 +296,9 @@ public class MainActivity extends Activity implements OnClickListener{
 					// TODO Auto-generated method stub
 					
 				}
+				
 			});
+			
 			initPageMark();
 			
 		}
@@ -320,13 +326,16 @@ public class MainActivity extends Activity implements OnClickListener{
 		}
 
 		private void setGrid() {// 그리드뷰 아이템 테스트
-			for(int k=0;k<10;k++){
+			for(int k=0;k<4;k++){
 				gItem = new GridItem(R.drawable.menu_sample, "상호명", "타입", "최소주문금액", "배달여부");
 				gListItem.add(gItem);
 				}
 				gridList = (GridView)cView.findViewById(R.id.gridView1);
 				gAdapter = new GridAdapter(getActivity(), R.layout.gridview_item, gListItem);
 				gridList.setAdapter(gAdapter);
+//				Log.v(TAG,"getItem :"+gridList);
+			
+				
 				
 			
 		}
@@ -334,10 +343,10 @@ public class MainActivity extends Activity implements OnClickListener{
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
-//			case R.id.imgAd:	//광고항목 클릭시
-//				Toast.makeText(getActivity(), "imgAd click!",
-//						Toast.LENGTH_SHORT).show();
-//				break;
+			case R.id.grid_img:	//광고항목 클릭시
+				Toast.makeText(getActivity(), "imgAd click!",
+						Toast.LENGTH_SHORT).show();
+				break;
 			
 
 			}
@@ -351,7 +360,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		
 		case R.id.addrOther:
 			
-			Intent intent = new Intent(this, SetAddr.class);
+			Intent intent = new Intent(this, SetAddrActivity.class);
 			startActivity(intent);
 			break;
 		}

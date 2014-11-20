@@ -25,7 +25,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class AddUser extends Activity implements OnClickListener{
+public class AddUserActivity extends Activity implements OnClickListener{
 	private final String TAG = "MainActivity";
 	String androidId;
 	EditText cNum,cName, name, add, dAdd, mobile;

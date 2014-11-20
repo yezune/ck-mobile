@@ -52,8 +52,8 @@ public final class R {
         public static final int TextView05=0x7f080004;
         public static final int TextView06=0x7f080002;
         public static final int TextView07=0x7f080000;
-        public static final int action_addUser=0x7f080034;
-        public static final int action_cart=0x7f080033;
+        public static final int action_addUser=0x7f080035;
+        public static final int action_cart=0x7f080034;
         public static final int addrMain=0x7f08001e;
         public static final int addrOther=0x7f08001f;
         public static final int btn_cart_insert=0x7f080015;
@@ -66,11 +66,12 @@ public final class R {
         public static final int drawer_layout=0x7f08001c;
         public static final int drawer_linear=0x7f080021;
         public static final int gridView1=0x7f08002d;
-        public static final int grid_img=0x7f08002e;
-        public static final int grid_tv_deli=0x7f08002f;
-        public static final int grid_tv_min=0x7f080030;
-        public static final int grid_tv_title=0x7f080032;
-        public static final int grid_tv_type=0x7f080031;
+        public static final int grid_img=0x7f08002f;
+        public static final int grid_item_layout=0x7f08002e;
+        public static final int grid_tv_deli=0x7f080030;
+        public static final int grid_tv_min=0x7f080031;
+        public static final int grid_tv_title=0x7f080033;
+        public static final int grid_tv_type=0x7f080032;
         public static final int inPb=0x7f08001a;
         public static final int inTxt=0x7f08001b;
         public static final int left_drawer=0x7f080023;
@@ -105,14 +106,15 @@ public final class R {
         public static final int activity_cart=0x7f030001;
         public static final int activity_intro=0x7f030002;
         public static final int activity_main=0x7f030003;
-        public static final int activity_setaddr=0x7f030004;
-        public static final int drawer_list_item=0x7f030005;
-        public static final int fragment_main=0x7f030006;
-        public static final int gridview_item=0x7f030007;
-        public static final int tab_setaddr=0x7f030008;
-        public static final int tab_setdistance=0x7f030009;
-        public static final int tab_setmap=0x7f03000a;
-        public static final int test_drawer=0x7f03000b;
+        public static final int activity_menustore=0x7f030004;
+        public static final int activity_setaddr=0x7f030005;
+        public static final int drawer_list_item=0x7f030006;
+        public static final int fragment_main=0x7f030007;
+        public static final int gridview_item=0x7f030008;
+        public static final int tab_setaddr=0x7f030009;
+        public static final int tab_setdistance=0x7f03000a;
+        public static final int tab_setmap=0x7f03000b;
+        public static final int test_drawer=0x7f03000c;
     }
     public static final class menu {
         public static final int main=0x7f070000;
