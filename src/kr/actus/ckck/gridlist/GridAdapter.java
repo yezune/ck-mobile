@@ -6,17 +6,18 @@ import java.util.ArrayList;
 
 import kr.actus.ckck.MainActivity;
 import kr.actus.ckck.R;
-import kr.actus.ckck.StoreActivity;
 import kr.actus.ckck.fragment.MainTab;
 import kr.actus.ckck.fragment.StoreTab;
 
 
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,15 +39,21 @@ public class GridAdapter extends BaseAdapter  {
 	ArrayList<GridItem> data = new ArrayList<GridItem>();
 	GridItem item;
 	int layout;
-
+	MainActivity activity;
+	
 	Fragment fragment = null;
 	
-	public GridAdapter(Context context, int layout, ArrayList<GridItem> data){
+	public GridAdapter(MainActivity activity,Context context, int layout, ArrayList<GridItem> data){
 		this.context = context;
 		this.Inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.data = data;
 		this.layout = layout;
+		this.activity = activity;
 	}
+
+	
+	
+
 
 	public int getCount() {
 		return data.size();
@@ -92,29 +99,27 @@ public class GridAdapter extends BaseAdapter  {
 //				intent.putExtra("title", tvTitle.getText().toString());
 //				context.startActivity(intent);
 				
-				fragment = new StoreTab();
-				Bundle bundle = new Bundle();
-				bundle.putString("title", tvTitle.getText().toString());
-				bundle.putString("type", tvType.getText().toString());
-				bundle.putString("min", tvMin.getText().toString());
-				bundle.putString("delivery", tvDelivery.getText().toString());
-				bundle.putInt("menuImg", menuImg.getId());
+				
+				Bundle savebundle = new Bundle();
+				savebundle.putString("title", data.get(position).getTitle().toString());
+				savebundle.putString("type", data.get(position).getType().toString());
+				savebundle.putString("min", data.get(position).getMinMoney().toString());
+				savebundle.putString("delivery", data.get(position).getDelivery().toString());
+				savebundle.putInt("menuImg", data.get(position).getImg());
+				
+				activity.receive(savebundle,activity.STORETAB);
 				
 				
-				fragment.setArguments(bundle);
-				nextActivity();
+				
+				//				nextActivity();
+				
 				//Log.v(TAG,"getItematpostion :"+gridList.getItemAtPosition(pos));
 				}
 		});
 		return cView;
 	
 	}
-	void nextActivity(){
-		if(fragment!=null){
-			MainTab mt = new MainTab();
-//			mt.trans(fragment);
-		}
-	}
+	
 	}
 
  

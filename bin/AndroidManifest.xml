@@ -39,7 +39,8 @@
         <activity android:name="AddUserActivity"></activity>
         <activity android:name="CartActivity"></activity>
         <activity android:name=".setaddr.SetAddrActivity"></activity>
-        <activity android:name="StoreActivity"></activity>
+        <activity android:name="SelectOrderActivity"></activity>
+        <activity android:name="SendOrderActivity"></activity>
 
     </application>
 

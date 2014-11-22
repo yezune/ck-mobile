@@ -1,5 +1,6 @@
 package kr.actus.ckck.fragment;
 
+import kr.actus.ckck.MainActivity;
 import kr.actus.ckck.R;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class MenuTab extends Fragment {
+	MainActivity mainactivity;
+	public MenuTab(MainActivity mainActivity) {
+		this.mainactivity = mainActivity;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,

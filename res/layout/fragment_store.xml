@@ -17,7 +17,7 @@
             android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/btn_setaddr_addr"
+                android:id="@+id/store_btn_menu"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
@@ -30,7 +30,7 @@
                />
 
             <Button
-                android:id="@+id/btn_setaddr_map"
+                android:id="@+id/store_btn_inform"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -51,13 +51,15 @@
             android:layout_weight="1">
 
             <LinearLayout
-                android:id="@+id/sotre_lay_list"
+                android:id="@+id/store_lay_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical" >
+                android:orientation="vertical" 
+                android:visibility="visible"
+                >
 
                 <ListView
-                    android:id="@+id/listView1"
+                    android:id="@+id/store_listview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
                 </ListView>
@@ -65,9 +67,10 @@
             </LinearLayout>
 
             <LinearLayout
-                 android:id="@+id/sotre_lay_inform"
+                 android:id="@+id/store_lay_inform"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="invisible"
                 android:orientation="vertical" >
 
                 <TableLayout

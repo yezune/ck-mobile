@@ -16,50 +16,31 @@
 
 package kr.actus.ckck;
 
-import java.util.ArrayList;
-import java.util.Locale;
-
 import kr.actus.ckck.fragment.MainTab;
 import kr.actus.ckck.fragment.MenuTab;
 import kr.actus.ckck.fragment.StoreTab;
-import kr.actus.ckck.gridlist.GridAdapter;
-import kr.actus.ckck.gridlist.GridItem;
 import kr.actus.ckck.setaddr.SetAddrActivity;
-import kr.actus.ckck.viewpager.ViewPagerAdapter;
 
-import android.app.Activity;
-import android.app.ActionBar.LayoutParams;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.provider.Settings.Secure;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity implements OnClickListener {
 	private DrawerLayout mDrawerLayout;
@@ -78,7 +59,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	public final static int MENUTAB = 2;
 
 	int mCurrentFragmentIndex;
-
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -90,7 +72,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 		mCategory = getResources().getStringArray(R.array.category_arr);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		mDrawerList = (ListView) findViewById(R.id.left_drawer);
+		mDrawerLayout.setOnClickListener(this);
+//		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 		mDrawerLinear = (LinearLayout) findViewById(R.id.drawer_linear);
 		addrOther = (Button) findViewById(R.id.addrOther);
 		addrOther.setOnClickListener(this);
@@ -99,9 +82,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
 				GravityCompat.START);
 		// drawer 리스트뷰 어댑터 연결
-		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-				R.layout.drawer_list_item, mCategory));
-		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+//		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+//				R.layout.drawer_list_item, mCategory));
+		
+//		mDrawerList.setAdapter(new )
+//		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 		// 액션바 아이콘 활성화
 		getActionBar().setDisplayHomeAsUpEnabled(false);
@@ -133,7 +118,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		fragmentReplace(mCurrentFragmentIndex);
 
 	}
-
+	Bundle savebundle = new Bundle();
 	public void fragmentReplace(int fragmentIndex) {
 
 		Fragment newFragment = null;
@@ -141,11 +126,13 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		// 플래그먼트 교체
 		final FragmentTransaction transaction = getSupportFragmentManager()
 				.beginTransaction();
-		Bundle savebundle = new Bundle();
-		savebundle.putString("title", "bundle value");
+//		Bundle savebundle = new Bundle();
+//		savebundle.putString("title", "bundle value");
+		
 		newFragment.setArguments(savebundle);
-
+		Log.v(TAG,"savebundle :"+savebundle);
 		transaction.replace(R.id.content_frame, newFragment);
+		Log.v(TAG,"newFragment :"+newFragment);
 		transaction.commit();
 
 	}
@@ -154,14 +141,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		Fragment newFragment = null;
 		switch (idx) {
 		case MAINTAB:
-			newFragment = new MainTab();
+			newFragment = new MainTab(this);
 
 			break;
 		case STORETAB:
-			newFragment = new StoreTab();
+			newFragment = new StoreTab(this);
 			break;
 		case MENUTAB:
-			newFragment = new MenuTab();
+			newFragment = new MenuTab(this);
 			break;
 		default:
 			
@@ -277,6 +264,16 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		}
 
 	}
+
+	public void receive(Bundle bundle, int index){
+		if(savebundle!=null){
+			savebundle=null;
+		}
+		savebundle = bundle;
+		fragmentReplace(index);
+	}
+
+	
 	
 
 }

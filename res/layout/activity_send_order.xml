@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="어디로 배달할까요?"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <CheckBox
+                android:id="@+id/send_cb_addrg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="등록된 배송지" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/send_edit_post_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/send_edit_detail_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPostalAddress" />
+
+        <EditText
+            android:id="@+id/send_edit_request"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="주문시 요청사항이 있으면 남겨주세요"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/send_edit_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="phone" />
+
+        <CheckBox
+            android:id="@+id/send_cb_sms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SMS 수신동의" />
+
+        <CheckBox
+            android:id="@+id/send_cb_agree1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_agree1" />
+
+        <CheckBox
+            android:id="@+id/send_cb_agree2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_agree2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="결제 방법" />
+   <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+            <CheckBox
+                android:id="@+id/send_cb_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="카드" />
+
+            <CheckBox
+                android:id="@+id/send_cb_cash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="현금" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="주문 내역" />
+
+            <ListView
+                android:id="@+id/listView1"
+                android:layout_width="match_parent"
+                android:layout_height="100dp" >
+            </ListView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="총결제 금액"
+                 android:textColor="@color/red"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+               <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+                 <TextView
+                android:id="@+id/send_tv_sum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="114,000 원"
+                android:textColor="@color/red"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal"
+            android:text="주문 완료 후 음식 조리가 시작되면 주문을 취소하실 수 없습니다."
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <Button
+            android:id="@+id/send_btn_finish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="주문 완료" />
+
+    </LinearLayout>
+
+</LinearLayout>
