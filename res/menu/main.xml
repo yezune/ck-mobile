@@ -15,12 +15,13 @@
   -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_search"
+          android:icon="@drawable/action_search"
+          android:title="@string/action_search"
+          android:showAsAction="ifRoom|withText" />
     <item android:id="@+id/action_cart"
           android:icon="@drawable/action_cart"
           android:title="@string/action_cart"
           android:showAsAction="ifRoom|withText" />
-     <item android:id="@+id/action_addUser"
-          android:icon="@drawable/action_user"
-          android:title="@string/action_user"
-          android:showAsAction="ifRoom|withText" />
+    
 </menu>

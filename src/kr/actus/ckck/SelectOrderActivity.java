@@ -30,8 +30,9 @@ public class SelectOrderActivity extends Activity implements OnClickListener {
 	count=(EditText) findViewById(R.id.order_edit_count);
 	
 	findViewById(R.id.order_btn_cart).setOnClickListener(this);
+	findViewById(R.id.order_btn_cancel).setOnClickListener(this);
 	  getActionBar().setDisplayHomeAsUpEnabled(true);
-	
+	getActionBar().setTitle(R.string.action_selectorder);
 	
 	    // TODO Auto-generated method stub
 	}

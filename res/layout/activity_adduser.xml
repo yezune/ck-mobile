@@ -17,7 +17,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
-            android:id="@+id/user_cNum"
+            android:id="@+id/user_regKey"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

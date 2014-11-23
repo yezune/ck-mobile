@@ -16,14 +16,28 @@
 
 package kr.actus.ckck;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
 import kr.actus.ckck.fragment.MainTab;
 import kr.actus.ckck.fragment.MenuTab;
 import kr.actus.ckck.fragment.StoreTab;
 import kr.actus.ckck.setaddr.SetAddrActivity;
+import kr.actus.ckck.util.ServerResponse;
+import kr.actus.ckck.util.SetURL;
+import kr.actus.ckck.util.SetUtil;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.provider.Settings.Secure;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -57,10 +71,15 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	public final static int MAINTAB = 0;
 	public final static int STORETAB = 1;
 	public final static int MENUTAB = 2;
-
+	ServerResponse sResponese;
+	SetUtil util;
+	SetURL url;
 	int mCurrentFragmentIndex;
-	
-	
+	SharedPreferences pref;
+	SharedPreferences.Editor editor;
+	String uniqueKey;
+//	ServerResponse sr = new ServerResponse();
+	AsyncHttpClient client = new AsyncHttpClient();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,12 +87,15 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 		getActionBar().setTitle(getTitle());
 
-		mDrawerTitle = getText(R.string.menu);
+		pref = getSharedPreferences(url.pref, 0);
+		editor = pref.edit();
+//		uniqueKey = pref.getString("uniqueKey", null);
 
-		mCategory = getResources().getStringArray(R.array.category_arr);
+		mDrawerTitle = getText(R.string.menu);
+		// mCategory = getResources().getStringArray(R.array.category_arr);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerLayout.setOnClickListener(this);
-//		mDrawerList = (ListView) findViewById(R.id.left_drawer);
+		// mDrawerList = (ListView) findViewById(R.id.left_drawer);
 		mDrawerLinear = (LinearLayout) findViewById(R.id.drawer_linear);
 		addrOther = (Button) findViewById(R.id.addrOther);
 		addrOther.setOnClickListener(this);
@@ -82,12 +104,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
 				GravityCompat.START);
 		// drawer 리스트뷰 어댑터 연결
-//		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-//				R.layout.drawer_list_item, mCategory));
-		
-//		mDrawerList.setAdapter(new )
-//		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+		// mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+		// R.layout.drawer_list_item, mCategory));
 
+		// mDrawerList.setAdapter(new )
+		// mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+	
 		// 액션바 아이콘 활성화
 		getActionBar().setDisplayHomeAsUpEnabled(false);
 
@@ -110,15 +132,57 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		};
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-//		if (savedInstanceState == null) {
-//			selectItem(0);
-//		}
+		if (savedInstanceState == null) {
+			setTitle(R.string.app_name);
+		}
 
 		mCurrentFragmentIndex = MAINTAB;
 		fragmentReplace(mCurrentFragmentIndex);
 
+	
+			setStatus();
+			setActionBar();
+		
 	}
+	//액션바 아이콘 변경으로 인해서 회원정보 리턴값 처리해야함             14/11/23
+	private void setStatus() {
+		String uniKey = Secure.getString(this.getContentResolver(),
+				Secure.ANDROID_ID);
+		RequestParams param = new RequestParams();
+		param.put("uniqueKey", uniKey);
+//		JSONArray result = sr.postJSONArray(SetURL.MEMINFO, param);
+		
+		//			editor.putString("regKey", result.getString(0));
+		
+		client.post(SetURL.MEMINFO, param, new JsonHttpResponseHandler(){
+
+			@Override
+			public void onFailure(Throwable e, JSONArray errorResponse) {
+				Log.v(TAG,"array failure : "+errorResponse);
+				super.onFailure(e, errorResponse);
+			}
+
+			@Override
+			public void onSuccess(JSONArray response) {
+				try {
+					Log.v(TAG,"array success : "+response.getString(0));
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				
+				super.onSuccess(response);
+			}
+			
+		});	
+				
+		
+	}
+
 	Bundle savebundle = new Bundle();
+
 	public void fragmentReplace(int fragmentIndex) {
 
 		Fragment newFragment = null;
@@ -126,13 +190,13 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		// 플래그먼트 교체
 		final FragmentTransaction transaction = getSupportFragmentManager()
 				.beginTransaction();
-//		Bundle savebundle = new Bundle();
-//		savebundle.putString("title", "bundle value");
-		
+		// Bundle savebundle = new Bundle();
+		// savebundle.putString("title", "bundle value");
+
 		newFragment.setArguments(savebundle);
-		Log.v(TAG,"savebundle :"+savebundle);
+		Log.v(TAG, "savebundle :" + savebundle);
 		transaction.replace(R.id.content_frame, newFragment);
-		Log.v(TAG,"newFragment :"+newFragment);
+		Log.v(TAG, "newFragment :" + newFragment);
 		transaction.commit();
 
 	}
@@ -151,8 +215,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			newFragment = new MenuTab(this);
 			break;
 		default:
-			
-			
+
 			break;
 		}
 
@@ -160,10 +223,26 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	}
 
+	int ACTION_MENU;
+	//액션바 아이콘 변경 작업용.....
+	public void setActionBar() {
+		if (pref.getString("uniqueKey", null) != null) {
+
+			ACTION_MENU = R.menu.main;
+
+		} else {
+
+			ACTION_MENU = R.menu.main_adduser;
+
+		}
+
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main, menu);
+		inflater.inflate(ACTION_MENU, menu);
+
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -173,7 +252,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 		// drawer 메뉴가 열려있을때 액션바 아이콘 설정
 		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerLinear);
-		menu.findItem(R.id.action_cart).setVisible(!drawerOpen);
+		// menu.findItem(R.id.action_cart).setVisible(!drawerOpen);
+
 		return super.onPrepareOptionsMenu(menu);
 	}
 
@@ -251,7 +331,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -265,15 +344,18 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	}
 
-	public void receive(Bundle bundle, int index){
-		if(savebundle!=null){
-			savebundle=null;
+	public void receive(Bundle bundle, int index) {
+		if (savebundle != null) {
+			savebundle = null;
 		}
 		savebundle = bundle;
 		fragmentReplace(index);
 	}
 
-	
-	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+	}
 
 }

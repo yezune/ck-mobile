@@ -10,6 +10,8 @@ public class SetUtil {
 
 	
 	
+		
+		
 	//로딩중 표시 프로그래스바
 	public static Dialog setProgress(Context context){
 		Dialog dg = new Dialog(context, android.R.style.Theme_Dialog);

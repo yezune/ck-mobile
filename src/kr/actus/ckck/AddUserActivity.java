@@ -1,5 +1,6 @@
 package kr.actus.ckck;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,6 +11,7 @@ import kr.actus.ckck.util.SetURL;
 import kr.actus.ckck.util.SetUtil;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.util.Log;
@@ -27,27 +29,35 @@ import android.widget.Toast;
 
 public class AddUserActivity extends Activity implements OnClickListener{
 	private final String TAG = "MainActivity";
-	String androidId;
-	EditText cNum,cName, name, add, dAdd, mobile;
+	String uniqueKey;
+	EditText regKey,cName, name, address1, address2, mobile;
 	CheckBox sms,email,agree1,agree2;
 	Button inReg;
+	SetURL url;
 	SetUtil util;
 	Spinner mobileSpin;
 	String fMobileNum;
 	ArrayAdapter<CharSequence> spinAdapter;
+	SharedPreferences pref;
+	SharedPreferences.Editor editor;
+	
+	ServerResponse sr = new ServerResponse();
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_adduser);
 	    getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setTitle(R.string.action_user);
+	    pref = getSharedPreferences(url.pref, 0);
+		editor = pref.edit();
+		
 	    init();
 	    setSpinner();
-	    Log.v(TAG,"moNum :"+fMobileNum);
-	    androidId = Secure.getString(this.getContentResolver(),Secure.ANDROID_ID);
+	    
+//	    uniqueKey = Secure.getString(this.getContentResolver(),Secure.ANDROID_ID);
 		
-	    
-	    
+	  
 	}
 
 	private void setSpinner() {
@@ -81,11 +91,11 @@ public class AddUserActivity extends Activity implements OnClickListener{
 	}
 
 	private void init() {
-		cNum = (EditText) findViewById(R.id.user_cNum);
+		regKey = (EditText) findViewById(R.id.user_regKey);
 		cName= (EditText) findViewById(R.id.user_cName);
 		name= (EditText) findViewById(R.id.user_name);
-		add= (EditText) findViewById(R.id.user_add);
-		dAdd= (EditText) findViewById(R.id.user_dadd);
+		address1= (EditText) findViewById(R.id.user_add);
+		address2= (EditText) findViewById(R.id.user_dadd);
 		mobile= (EditText) findViewById(R.id.user_mobile);
 		
 		sms = (CheckBox) findViewById(R.id.user_check_sms);
@@ -121,25 +131,33 @@ public class AddUserActivity extends Activity implements OnClickListener{
 				Dialog pro = util.setProgress(this);
 				
 				RequestParams param = new RequestParams();
-				param.put("uniqueKey","2");
-				param.put("memeName", name);
-				param.put("regKey", cNum);
-				param.put("mobile", mobile);
-				param.put("address1",add);
-				param.put("address2", dAdd);
+				param.put("uniqueKey",uniqueKey);
+				param.put("memName", name.getText().toString());
+				param.put("regKey", regKey.getText().toString());
+				param.put("mobile", fMobileNum+mobile.getText().toString());
+				param.put("address1",address1.getText().toString());
+				param.put("address2", address2.getText().toString());
 				
 				
-				JSONObject result = ServerResponse.postRequest(SetURL.basic+SetURL.join, param);
+				JSONArray result = sr.postJSONArray(SetURL.JOIN, param);
 				Log.v(TAG,"result :"+result);
 				try {
 				if(result!=null){
 					
-						if(result.getJSONObject("ResultCode").equals("ok")){
+						if(result.getJSONArray(0).equals("ok")){
 							pro.dismiss();
 							Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-						}else if(result.getJSONObject("ResultCode").equals("fail")){
+							editor.putString("uniqueKey", uniqueKey);
+							editor.putString("memName", name.getText().toString());
+							editor.putString("regKey", regKey.getText().toString());
+							editor.putString("mobile", mobile.getText().toString());
+							editor.putString("address1", address1.getText().toString());
+							editor.putString("address2", address2.getText().toString());
+							editor.commit();
+							
+						}else if(result.getJSONArray(0).equals("fail")){
 							pro.dismiss();
-							Toast.makeText(this, "오류 : "+result.getString("error"), Toast.LENGTH_SHORT).show();
+							Toast.makeText(this, "오류 : "+result.getJSONArray(1), Toast.LENGTH_SHORT).show();
 							
 						}
 						
