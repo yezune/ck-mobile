@@ -16,6 +16,8 @@
 
 package kr.actus.ckck;
 
+import java.util.ArrayList;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +26,8 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import kr.actus.ckck.drawerlist.DrawerAdapter;
+import kr.actus.ckck.drawerlist.DrawerItem;
 import kr.actus.ckck.fragment.MainTab;
 import kr.actus.ckck.fragment.MenuTab;
 import kr.actus.ckck.fragment.StoreTab;
@@ -52,14 +56,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity implements OnClickListener {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
-	private LinearLayout mDrawerLinear;
+	
+	DrawerAdapter drawerAdapter;
+	DrawerItem drawerItem;
+	ArrayList<DrawerItem> drawerItemList = new ArrayList<DrawerItem>();
+//	private LinearLayout mDrawerLinear;
 	private ActionBarDrawerToggle mDrawerToggle;
 
 	private CharSequence mDrawerTitle;
@@ -78,6 +88,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	SharedPreferences pref;
 	SharedPreferences.Editor editor;
 	String uniqueKey;
+	TextView addrBasic;
 //	ServerResponse sr = new ServerResponse();
 	AsyncHttpClient client = new AsyncHttpClient();
 	@Override
@@ -89,26 +100,16 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 		pref = getSharedPreferences(url.pref, 0);
 		editor = pref.edit();
-//		uniqueKey = pref.getString("uniqueKey", null);
-
-		mDrawerTitle = getText(R.string.menu);
-		// mCategory = getResources().getStringArray(R.array.category_arr);
-		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		mDrawerLayout.setOnClickListener(this);
-		// mDrawerList = (ListView) findViewById(R.id.left_drawer);
-		mDrawerLinear = (LinearLayout) findViewById(R.id.drawer_linear);
-		addrOther = (Button) findViewById(R.id.addrOther);
+		
+		
+		setDrawer();
+	
+		addrOther = (Button) findViewById(R.id.main_btn_addr_reg);
 		addrOther.setOnClickListener(this);
-
-		// drawer를 열때 drawer내용 오버레이
-		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
-				GravityCompat.START);
-		// drawer 리스트뷰 어댑터 연결
-		// mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-		// R.layout.drawer_list_item, mCategory));
-
-		// mDrawerList.setAdapter(new )
-		// mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+		addrBasic = (TextView) findViewById(R.id.main_tv_addr_basic);
+		
+//		findViewById(R.id.drawer_myorder).setOnClickListener(this);
+	
 	
 		// 액션바 아이콘 활성화
 		getActionBar().setDisplayHomeAsUpEnabled(false);
@@ -141,7 +142,33 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	
 			setStatus();
-			setActionBar();
+//			setActionBar();
+		
+	}
+	private void setDrawer() {
+		mDrawerTitle = getText(R.string.menu);
+		 mCategory = getResources().getStringArray(R.array.category_arr);
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		mDrawerLayout.setOnClickListener(this);
+		 mDrawerList = (ListView) findViewById(R.id.left_drawer);
+//		mDrawerLinear = (LinearLayout) findViewById(R.id.drawer_linear);
+		
+		// drawer를 열때 drawer내용 오버레이
+		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
+				GravityCompat.START);
+		// drawer 리스트뷰 어댑터 연결
+		View header = getLayoutInflater().inflate(R.layout.drawer_list_item_header, null,false);
+		View footer = getLayoutInflater().inflate(R.layout.drawer_list_item_footer, null,false);
+		drawerItem = new DrawerItem(1,"전체");
+		drawerItemList.add(drawerItem);
+		
+		mDrawerList.addHeaderView(header);
+		mDrawerList.addFooterView(footer);
+		drawerAdapter = new DrawerAdapter(this,this,R.layout.drawer_list_item,drawerItemList);  
+		mDrawerList.setAdapter(drawerAdapter);
+
+		// mDrawerList.setAdapter(new )
+//		 mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 		
 	}
 	//액션바 아이콘 변경으로 인해서 회원정보 리턴값 처리해야함             14/11/23
@@ -165,7 +192,23 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			@Override
 			public void onSuccess(JSONArray response) {
 				try {
-					Log.v(TAG,"array success : "+response.getString(0));
+					Log.v(TAG,"array success : "+response.getJSONObject(0));
+					JSONObject con = response.getJSONObject(0);
+//					editor.clear();
+					editor.putString("memPoint", con.getString("memPoint"));
+					editor.putString("regDate", con.getString("regDate"));
+					editor.putString("address1", con.getString("address1"));
+					editor.putString("address2", con.getString("address2"));
+					editor.putString("memName", con.getString("memName"));
+					editor.putString("uniqueKey", con.getString("uniqueKey"));
+					editor.putString("mobile", con.getString("mobile"));
+					
+					editor.commit();
+					
+					addrBasic.setText(con.getString("address1"));
+					pref.getString("uniqueKey", null);
+					Log.v(TAG,"pref : "+pref.getString("uniqueKey", null));
+					
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -223,25 +266,25 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	}
 
-	int ACTION_MENU;
-	//액션바 아이콘 변경 작업용.....
-	public void setActionBar() {
-		if (pref.getString("uniqueKey", null) != null) {
-
-			ACTION_MENU = R.menu.main;
-
-		} else {
-
-			ACTION_MENU = R.menu.main_adduser;
-
-		}
-
-	}
+//	int ACTION_MENU;
+//	//액션바 아이콘 변경 작업용.....
+//	public void setActionBar() {
+//		if (pref.getString("uniqueKey", null) != null) {
+//			
+//			ACTION_MENU = R.menu.main;
+//
+//		} else {
+//
+//			ACTION_MENU = R.menu.main_adduser;
+//
+//		}
+//
+//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(ACTION_MENU, menu);
+		inflater.inflate(R.menu.main, menu);
 
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -251,7 +294,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	public boolean onPrepareOptionsMenu(Menu menu) {
 
 		// drawer 메뉴가 열려있을때 액션바 아이콘 설정
-		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerLinear);
+//		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerLinear);
 		// menu.findItem(R.id.action_cart).setVisible(!drawerOpen);
 
 		return super.onPrepareOptionsMenu(menu);
@@ -285,20 +328,20 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	}
 
 	// drawer메뉴에서 리스트뷰의 아이템 클릭했을때
-	private class DrawerItemClickListener implements
-			ListView.OnItemClickListener {
-		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
-			selectItem(position);
-		}
-	}
+//	private class DrawerItemClickListener implements
+//			ListView.OnItemClickListener {
+//		@Override
+//		public void onItemClick(AdapterView<?> parent, View view, int position,
+//				long id) {
+//			selectItem(position);
+//		}
+//	}
 
-	private void selectItem(int position) {
+	private void selectItem(String title) {
 		// drawer메뉴에서 아이템을 클릭했을때 fragment 화면 변경
 		Fragment fragment = getFragment(MENUTAB);
 		Bundle args = new Bundle();
-		args.putInt(MainTab.MENU_NUM, position);
+		args.putString(MainTab.MENU_NUM, title);
 		fragment.setArguments(args);
 
 		FragmentManager fragmentManager = getSupportFragmentManager();
@@ -306,9 +349,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				.replace(R.id.content_frame, fragment).commit();
 
 		// update selected item and title, then close the drawer
-		mDrawerList.setItemChecked(position, true);
-		setTitle(mCategory[position]);
-		mDrawerLayout.closeDrawer(mDrawerLinear);
+//		mDrawerList.setItemChecked(title, true);
+		setTitle(title);
+		mDrawerLayout.closeDrawer(mDrawerList);
 	}
 
 	@Override
@@ -335,10 +378,13 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 
-		case R.id.addrOther:
+		case R.id.main_btn_addr_reg:
 
 			Intent intent = new Intent(this, SetAddrActivity.class);
 			startActivity(intent);
+			break;
+		case R.id.drawer_myorder:
+			Log.v(TAG,"myorder");
 			break;
 		}
 
@@ -350,6 +396,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		}
 		savebundle = bundle;
 		fragmentReplace(index);
+	}
+	public void receive(String title){
+		
+		selectItem(title);
 	}
 
 	@Override

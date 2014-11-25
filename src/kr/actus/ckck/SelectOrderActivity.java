@@ -1,5 +1,6 @@
 package kr.actus.ckck;
 
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,11 +13,12 @@ import android.widget.TextView;
 
 public class SelectOrderActivity extends Activity implements OnClickListener {
 
-	
-	Button btnCart;
+	private static final String TAG = "MainActivity";
+	Button btnCart, btnMinus, btnPlus;
 	TextView price, service;
-	EditText count;
 	
+	EditText count;
+	int flagCount;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -28,14 +30,24 @@ public class SelectOrderActivity extends Activity implements OnClickListener {
 	price=(TextView) findViewById(R.id.order_tv_price);
 	service=(TextView) findViewById(R.id.order_tv_service);
 	count=(EditText) findViewById(R.id.order_edit_count);
+	btnMinus = (Button) findViewById(R.id.order_btn_minus);
+	btnPlus = (Button)	findViewById(R.id.order_btn_plus);
+	
+	flagCount = Integer.parseInt(count.getText().toString());
+	
 	
 	findViewById(R.id.order_btn_cart).setOnClickListener(this);
 	findViewById(R.id.order_btn_cancel).setOnClickListener(this);
+	findViewById(R.id.order_btn_minus).setOnClickListener(this);
+	findViewById(R.id.order_btn_plus).setOnClickListener(this);
 	  getActionBar().setDisplayHomeAsUpEnabled(true);
 	getActionBar().setTitle(R.string.action_selectorder);
 	
 	    // TODO Auto-generated method stub
 	}
+	
+	
+	
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
@@ -49,10 +61,23 @@ public class SelectOrderActivity extends Activity implements OnClickListener {
 			case R.id.order_btn_cancel:
 				finish();
 				break;
+			case R.id.order_btn_minus:
+				
+				
+				if(flagCount>0){
+					flagCount -= 1;
+				}
+				count.setText(flagCount+"");
+				break;
+			case R.id.order_btn_plus:
+				flagCount += 1;
+				count.setText(flagCount+"");
+				break;
 				
 		}
 		
 	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()){
@@ -64,3 +89,8 @@ public class SelectOrderActivity extends Activity implements OnClickListener {
 	}
 
 }
+
+
+	
+
+	

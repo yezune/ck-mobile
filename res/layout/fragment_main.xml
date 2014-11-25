@@ -52,7 +52,7 @@
         android:orientation="vertical" >
 
         <GridView
-            android:id="@+id/gridView1"
+            android:id="@+id/main_grid_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:numColumns="2"

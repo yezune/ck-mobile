@@ -140,7 +140,7 @@ public class MainTab extends Fragment {
 					"배달여부");
 			gListItem.add(gItem);
 		}
-		gridList = (GridView) cView.findViewById(R.id.gridView1);
+		gridList = (GridView) cView.findViewById(R.id.main_grid_list);
 		gAdapter = new GridAdapter(mainActivity, getActivity(),
 				R.layout.gridview_item, gListItem);
 		gridList.setAdapter(gAdapter);

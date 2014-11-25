@@ -1,6 +1,10 @@
 package kr.actus.ckck;
 
 
+import java.util.ArrayList;
+
+import kr.actus.ckck.cartlist.CartAdapter;
+import kr.actus.ckck.cartlist.CartItem;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,8 +21,11 @@ public class CartActivity extends Activity implements OnClickListener{
 	/** Called when the activity is first created. */
 	Button order;
 	ListView cartList;
+	CartItem cItem;
+	ArrayList<CartItem> cItemList = new ArrayList<CartItem>();
 	TextView cartTitle, cartPrice;
 	EditText cartCount;
+	CartAdapter cartAdapter;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -29,7 +36,14 @@ public class CartActivity extends Activity implements OnClickListener{
 	   
 	   order = (Button) findViewById(R.id.cart_btn_order);
 			   order.setOnClickListener(this);
-			   cartList.setAdapter(adapter)
+			  
+			   
+			   cartList = (ListView)findViewById(R.id.cart_listview);
+			   cItem = new CartItem("유황오리 진흙구이",1,"50,000원");
+			   cItemList.add(cItem);
+			   cartAdapter = new CartAdapter(this,R.layout.cart_list_item,cItemList);
+			   cartList.setAdapter(cartAdapter);
+			   
 	}
 
 	@Override

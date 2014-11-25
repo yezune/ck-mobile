@@ -45,7 +45,8 @@
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
     <string name="menu">메뉴</string>
     <string name="loc">배송지 | </string>
-      <string name="addr">다른배송지</string>
+      <string name="otheraddr">다른배송지</string>
+      <string name="addr">등록된 배송지가 없습니다.</string>
     <string name="check_sms"> SMS 수신 동의</string>
      <string name="check_email"> 이메일 수신 동의</string>
       <string name="check_agree1"> 이용약관 및 청소년 보호정책에 동의 합니다.</string>

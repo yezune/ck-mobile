@@ -1,28 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="240dp"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="10" >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical" 
-        android:layout_weight="2">
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:id="@+id/drawer_linear"
+     android:layout_width="wrap_content"
+     android:layout_height="match_parent"
+     android:layout_gravity="start"
+     android:background="@color/black"
+     android:choiceMode="singleChoice"
+     android:divider="@android:color/transparent"
+     android:dividerHeight="1dp"
+     android:orientation="vertical"
+     android:weightSum="14" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/drawer_myorder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="내 주문내역"
+            android:layout_weight="1"
+            android:textColor="@color/white"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/drawer_adduser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="회원가입 / 로그인"
+            android:layout_weight="1"
+             android:textColor="@color/white"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -30,49 +33,110 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="카테고리"
+             android:layout_weight="1"
+              android:textColor="@color/white"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical" 
-        android:layout_weight="6">
-
-        <ListView
-            android:id="@+id/listView1"
+        <View 
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </ListView>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical" 
-        android:layout_weight="2">
+            android:layout_height="1dp"
+            android:background="@color/white"/>
+   
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/drawer_food_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Medium Text"
+            android:text="전체"
+             android:layout_weight="1"
+              android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+ <TextView
+            android:id="@+id/drawer_food_chicken"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="치킨"
+             android:layout_weight="1"
+              android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+  <TextView
+            android:id="@+id/drawer_food_pig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="족발/보쌈"
+             android:layout_weight="1"
+              android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+   <TextView
+            android:id="@+id/drawer_food_korea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="한식/분식"
+             android:layout_weight="1"
+              android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    <TextView
+            android:id="@+id/drawer_food_night"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="야식"
+             android:layout_weight="1"
+              android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+     <TextView
+            android:id="@+id/drawer_food_japan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="일식/돈까스"
+             android:layout_weight="1"
+              android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+      <TextView
+            android:id="@+id/drawer_food_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="도시락/죽"
+             android:layout_weight="1"
+              android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+       <TextView
+            android:id="@+id/drawer_food_exten"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="기타"
+             android:layout_weight="1"
+              android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        <View 
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white"/>
+   
+       
+        <TextView
+            android:id="@+id/drawer_center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="고객센터"
+             android:layout_weight="1"
+              android:textColor="@color/white"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/drawer_event"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Medium Text"
+            android:text="이벤트" 
+            android:layout_weight="1"
+             android:textColor="@color/white"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+            android:id="@+id/drawer_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="설정"
+             android:layout_weight="1"
+              android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
-
-</LinearLayout>
