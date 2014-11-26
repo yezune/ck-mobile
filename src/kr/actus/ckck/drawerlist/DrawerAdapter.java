@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import kr.actus.ckck.MainActivity;
 import kr.actus.ckck.R;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -59,13 +60,14 @@ public DrawerAdapter(MainActivity activity,Context context,int layout,ArrayList<
 		}
 		
 		tvTitle = (TextView)v.findViewById(R.id.drawer_list_item_body);
+		tvTitle.setText(data.get(position).getTitle());
 		tvTitle.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				
-				activity.receive(data.get(position).getTitle().toString());
-				
+				activity.receive(data.get(position));
+				Log.v(TAG,"data.title : "+data.get(position).getTitle().toString());
 				
 				
 				

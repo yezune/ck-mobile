@@ -4,25 +4,15 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class DrawerItem implements Parcelable {
-	private int num;
+	private String index;
 	private String title;
-	
-	
 
-	
-	public DrawerItem(int num,String title) {
+	public DrawerItem(String index, String title) {
 		// TODO Auto-generated constructor stub
-		this.num = num;
+		this.index = index;
 		this.title = title;
-		
-		
+
 	}
-
-	
-
-	
-
-
 
 	@Override
 	public int describeContents() {
@@ -32,70 +22,46 @@ public class DrawerItem implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(num);
+		dest.writeString(index);
 		dest.writeString(title);
-		
-	
-		
-			
+
 	}
-	
-	public static final Parcelable.Creator<DrawerItem> CREATOR = new Parcelable.Creator<DrawerItem>(){
+
+	public static final Parcelable.Creator<DrawerItem> CREATOR = new Parcelable.Creator<DrawerItem>() {
 
 		@Override
 		public DrawerItem createFromParcel(Parcel src) {
 			// TODO Auto-generated method stub
-			int num = src.readInt();
+			String index = src.readString();
 			String title = src.readString();
-	
-			
-			
-			
-			return new DrawerItem(num,title);
-			
+
+			return new DrawerItem(index, title);
+
 		}
 
 		@Override
 		public DrawerItem[] newArray(int size) {
 			// TODO Auto-generated method stub
 			return new DrawerItem[size];
-			
+
 		}
-		
-		
+
 	};
 
-
-
-
-	public int getNum() {
-		return num;
+	public String getIndex() {
+		return index;
 	}
 
-
-
-
-
-	public void setNum(int num) {
-		this.num = num;
+	public void setIndex(String index) {
+		this.index = index;
 	}
-
-
-
-
 
 	public String getTitle() {
 		return title;
 	}
 
-
-
-
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
-
 }
-

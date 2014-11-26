@@ -31,7 +31,7 @@ public class CartActivity extends Activity implements OnClickListener{
 	    super.onCreate(savedInstanceState);
 	   setContentView(R.layout.activity_cart) ;
 	   getActionBar().setDisplayHomeAsUpEnabled(true);
-	   getActionBar().setTitle(R.string.action_cart);
+	   getActionBar().setTitle(R.string.title_cart);
 	   
 	   
 	   order = (Button) findViewById(R.id.cart_btn_order);

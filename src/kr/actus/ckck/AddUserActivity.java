@@ -48,7 +48,7 @@ public class AddUserActivity extends Activity implements OnClickListener{
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_adduser);
 	    getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setTitle(R.string.action_user);
+		getActionBar().setTitle(R.string.title_add_user);
 	    pref = getSharedPreferences(url.pref, 0);
 		editor = pref.edit();
 		
@@ -56,10 +56,8 @@ public class AddUserActivity extends Activity implements OnClickListener{
 	    setSpinner();
 	    
 //	    uniqueKey = Secure.getString(this.getContentResolver(),Secure.ANDROID_ID);
-		
-	  
 	}
-
+	   
 	private void setSpinner() {
 		spinAdapter = ArrayAdapter.createFromResource(this, R.array.user_mobile, android.R.layout.simple_spinner_item);
 		spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

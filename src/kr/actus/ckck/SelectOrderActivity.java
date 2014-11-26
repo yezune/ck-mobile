@@ -41,7 +41,7 @@ public class SelectOrderActivity extends Activity implements OnClickListener {
 	findViewById(R.id.order_btn_minus).setOnClickListener(this);
 	findViewById(R.id.order_btn_plus).setOnClickListener(this);
 	  getActionBar().setDisplayHomeAsUpEnabled(true);
-	getActionBar().setTitle(R.string.action_selectorder);
+	getActionBar().setTitle(R.string.title_selectorder);
 	
 	    // TODO Auto-generated method stub
 	}

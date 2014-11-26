@@ -31,9 +31,10 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:textColor="#fff"
-    android:text="고객센터"
+    android:text="@string/title_customer"
     android:background="?android:attr/activatedBackgroundIndicator"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+    android:clickable="true"/>
 
     <TextView 
     android:id="@+id/drawer_list_item_footer_tv2"
@@ -44,9 +45,10 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:textColor="#fff"
-    android:text="이벤트"
+    android:text="@string/title_event"
     android:background="?android:attr/activatedBackgroundIndicator"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+    android:clickable="true"/>
     
     
       <TextView 
@@ -58,9 +60,10 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:textColor="#fff"
-    android:text="설정"
+    android:text="@string/title_setting"
     android:background="?android:attr/activatedBackgroundIndicator"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+    android:clickable="true"/>
     
     
     </LinearLayout>

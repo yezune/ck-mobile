@@ -26,6 +26,10 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import kr.actus.ckck.drawer.CenterActivity;
+import kr.actus.ckck.drawer.EventActivity;
+import kr.actus.ckck.drawer.MyHistoryActivity;
+import kr.actus.ckck.drawer.SettingActivity;
 import kr.actus.ckck.drawerlist.DrawerAdapter;
 import kr.actus.ckck.drawerlist.DrawerItem;
 import kr.actus.ckck.fragment.MainTab;
@@ -55,42 +59,45 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity implements OnClickListener {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
-	
+
 	DrawerAdapter drawerAdapter;
 	DrawerItem drawerItem;
 	ArrayList<DrawerItem> drawerItemList = new ArrayList<DrawerItem>();
-//	private LinearLayout mDrawerLinear;
+	// private LinearLayout mDrawerLinear;
 	private ActionBarDrawerToggle mDrawerToggle;
 
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
-	private String[] mCategory;
 	private Button addrOther;
-	private final static String TAG = "MainActivity";
+	final static String TAG = "MainActivity";
 
 	public final static int MAINTAB = 0;
 	public final static int STORETAB = 1;
 	public final static int MENUTAB = 2;
+
+	Dialog dg;
 	ServerResponse sResponese;
 	SetUtil util;
 	SetURL url;
 	int mCurrentFragmentIndex;
+	CharSequence menuIndex;
 	SharedPreferences pref;
 	SharedPreferences.Editor editor;
 	String uniqueKey;
-	TextView addrBasic;
-//	ServerResponse sr = new ServerResponse();
+	TextView addrBasic, drawerAdd, drawerCenter, drawerEvent, drawerSetting;
+
+	JSONObject con;
+	int len;
+	// ServerResponse sr = new ServerResponse();
 	AsyncHttpClient client = new AsyncHttpClient();
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -100,18 +107,19 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 		pref = getSharedPreferences(url.pref, 0);
 		editor = pref.edit();
-		
-		
-		setDrawer();
-	
+
+		try {
+			setDrawer();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		addrOther = (Button) findViewById(R.id.main_btn_addr_reg);
 		addrOther.setOnClickListener(this);
 		addrBasic = (TextView) findViewById(R.id.main_tv_addr_basic);
-		
-//		findViewById(R.id.drawer_myorder).setOnClickListener(this);
-	
-	
-		// 액션바 아이콘 활성화
+
+	// 액션바 아이콘 활성화
 		getActionBar().setDisplayHomeAsUpEnabled(false);
 
 		getActionBar().setHomeButtonEnabled(true);
@@ -140,90 +148,177 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		mCurrentFragmentIndex = MAINTAB;
 		fragmentReplace(mCurrentFragmentIndex);
 
-	
-			setStatus();
-//			setActionBar();
-		
+		setStatus();
+		// setActionBar();
+
 	}
-	private void setDrawer() {
+
+	private void setDrawer() throws JSONException {
 		mDrawerTitle = getText(R.string.menu);
-		 mCategory = getResources().getStringArray(R.array.category_arr);
+//		mCategory = getResources().getStringArray(R.array.category_arr);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerLayout.setOnClickListener(this);
-		 mDrawerList = (ListView) findViewById(R.id.left_drawer);
-//		mDrawerLinear = (LinearLayout) findViewById(R.id.drawer_linear);
-		
+		mDrawerList = (ListView) findViewById(R.id.left_drawer);
+		// mDrawerLinear = (LinearLayout) findViewById(R.id.drawer_linear);
+
 		// drawer를 열때 drawer내용 오버레이
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
 				GravityCompat.START);
-		// drawer 리스트뷰 어댑터 연결
-		View header = getLayoutInflater().inflate(R.layout.drawer_list_item_header, null,false);
-		View footer = getLayoutInflater().inflate(R.layout.drawer_list_item_footer, null,false);
-		drawerItem = new DrawerItem(1,"전체");
-		drawerItemList.add(drawerItem);
-		
-		mDrawerList.addHeaderView(header);
-		mDrawerList.addFooterView(footer);
-		drawerAdapter = new DrawerAdapter(this,this,R.layout.drawer_list_item,drawerItemList);  
-		mDrawerList.setAdapter(drawerAdapter);
 
-		// mDrawerList.setAdapter(new )
-//		 mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-		
-	}
-	//액션바 아이콘 변경으로 인해서 회원정보 리턴값 처리해야함             14/11/23
-	private void setStatus() {
-		String uniKey = Secure.getString(this.getContentResolver(),
-				Secure.ANDROID_ID);
-		RequestParams param = new RequestParams();
-		param.put("uniqueKey", uniKey);
-//		JSONArray result = sr.postJSONArray(SetURL.MEMINFO, param);
-		
-		//			editor.putString("regKey", result.getString(0));
-		
-		client.post(SetURL.MEMINFO, param, new JsonHttpResponseHandler(){
+		dg = util.setProgress(this);
+		client.post(url.SHOPCATE, new JsonHttpResponseHandler() {
 
 			@Override
 			public void onFailure(Throwable e, JSONArray errorResponse) {
-				Log.v(TAG,"array failure : "+errorResponse);
+				Log.v(TAG, "shopcate failure :" + e + "::" + errorResponse);
+				super.onFailure(e, errorResponse);
+			}
+
+			@Override
+			public void onSuccess(int statusCode, JSONArray response) {
+
+				// con = response.getJSONObject(i);
+				try {
+					Log.v(TAG, "response.length :" + response.length());
+					for (int i = 0; i < response.length(); i++) {
+						con = response.getJSONObject(i);
+						//
+						drawerItem = new DrawerItem(con.getString("shopCate"), con
+								.getString("cateName"));
+						Log.v(TAG,
+								"" + con.getInt("shopCate")
+										+ con.getString("cateName"));
+						drawerItemList.add(drawerItem);
+
+					}
+					setAdapter();
+
+					Log.v(TAG, drawerItemList.get(0).getTitle());
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				super.onSuccess(statusCode, response);
+			}
+
+			@Override
+			protected Object parseResponse(String responseBody)
+					throws JSONException {
+				Log.v(TAG, "shopcate parseResponse :" +responseBody);
+				return super.parseResponse(responseBody);
+			}
+
+		});
+
+		
+
+	}
+
+	private void setAdapter() {	//drawer리스트뷰연결
+		// TODO Auto-generated method stub
+		View header = getLayoutInflater().inflate(
+				R.layout.drawer_list_item_header, null, false);
+		View footer = getLayoutInflater().inflate(
+				R.layout.drawer_list_item_footer, null, false);
+
+		header.findViewById(R.id.drawer_list_item_header_tv1)
+				.setOnClickListener(this);
+		header.findViewById(R.id.drawer_list_item_header_tv2)
+				.setOnClickListener(this);
+		header.findViewById(R.id.drawer_list_item_header_tv3)
+				.setOnClickListener(this);
+		footer.findViewById(R.id.drawer_list_item_footer_tv1)
+				.setOnClickListener(this);
+		footer.findViewById(R.id.drawer_list_item_footer_tv2)
+				.setOnClickListener(this);
+		footer.findViewById(R.id.drawer_list_item_footer_tv3)
+				.setOnClickListener(this);
+
+		mDrawerList.addHeaderView(header);
+		mDrawerList.addFooterView(footer);
+
+		drawerAdapter = new DrawerAdapter(this, this,
+				R.layout.drawer_list_item, drawerItemList);
+		mDrawerList.setAdapter(drawerAdapter);
+		dg.dismiss();
+	}
+
+	// 액션바 아이콘 변경으로 인해서 회원정보 리턴값 처리해야함 14/11/23
+	private void setStatus() {
+//		dg = util.setProgress(this);
+		uniqueKey = Secure.getString(this.getContentResolver(),
+				Secure.ANDROID_ID);
+		RequestParams param = new RequestParams();
+		param.put("uniqueKey", uniqueKey);
+		// JSONArray result = sr.postJSONArray(SetURL.MEMINFO, param);
+
+		// editor.putString("regKey", result.getString(0));
+
+		client.post(SetURL.MEMINFO, param, new JsonHttpResponseHandler() {
+
+			@Override
+			public void onFailure(Throwable e, JSONArray errorResponse) {
+				Log.v(TAG, "array failure : " + errorResponse);
 				super.onFailure(e, errorResponse);
 			}
 
 			@Override
 			public void onSuccess(JSONArray response) {
 				try {
-					Log.v(TAG,"array success : "+response.getJSONObject(0));
-					JSONObject con = response.getJSONObject(0);
-//					editor.clear();
-					editor.putString("memPoint", con.getString("memPoint"));
-					editor.putString("regDate", con.getString("regDate"));
-					editor.putString("address1", con.getString("address1"));
-					editor.putString("address2", con.getString("address2"));
-					editor.putString("memName", con.getString("memName"));
-					editor.putString("uniqueKey", con.getString("uniqueKey"));
-					editor.putString("mobile", con.getString("mobile"));
+					 Log.v(TAG,"array success : "+response.getJSONObject(0));
+					con = response.getJSONObject(0);
+					saveInfo();
 					
-					editor.commit();
+//					Log.v(TAG, "array success : " + con.getString("address1"));
+					// addrBasic.setText(con.getString("address1"));
+					// pref.getString("uniqueKey", null);
 					
-					addrBasic.setText(con.getString("address1"));
-					pref.getString("uniqueKey", null);
-					Log.v(TAG,"pref : "+pref.getString("uniqueKey", null));
-					
+					// Log.v(TAG,"array success : "+addrBasic.getText().toString());
+//					Log.v(TAG, "pref : " + pref.getString("uniqueKey", null));
+
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				
-				
+
 				super.onSuccess(response);
 			}
+
+		
+
 			
-		});	
-				
+
+		});
+		
+		
+
+	}
+	
+	public void saveInfo() {
+		 editor.clear();
+			 try {
+			editor.putString("memPoint", con.getString("memPoint"));
+//			 editor.putString("RegDate", con.getString("regDate"));
+			 editor.putString("address1", con.getString("address1"));
+			 editor.putString("address2", con.getString("address2"));
+			 editor.putString("memName", con.getString("memName"));
+			 editor.putString("uniqueKey",con.getString("uniqueKey"));
+			 editor.putString("mobile", con.getString("mobile"));
+
+			 editor.commit();
+//			 dg.dismiss();
+			 addrBasic.setText(con.getString("address1"));
+			 Log.v(TAG,"check pref uniqueKey : "+pref.getString("uniqueKey", ""));
+			 
+			 } catch (JSONException e) {
+					Log.v(TAG, "error :"+e);
+					e.printStackTrace();
+				}
 		
 	}
-
+	
+	
 	Bundle savebundle = new Bundle();
 
 	public void fragmentReplace(int fragmentIndex) {
@@ -237,9 +332,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		// savebundle.putString("title", "bundle value");
 
 		newFragment.setArguments(savebundle);
-		Log.v(TAG, "savebundle :" + savebundle);
+//		Log.v(TAG, "savebundle :" + savebundle);
 		transaction.replace(R.id.content_frame, newFragment);
-		Log.v(TAG, "newFragment :" + newFragment);
+//		Log.v(TAG, "newFragment :" + newFragment);
 		transaction.commit();
 
 	}
@@ -255,7 +350,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			newFragment = new StoreTab(this);
 			break;
 		case MENUTAB:
-			newFragment = new MenuTab(this);
+			newFragment = new MenuTab(this, menuIndex, mTitle);
 			break;
 		default:
 
@@ -266,36 +361,31 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	}
 
-//	int ACTION_MENU;
-//	//액션바 아이콘 변경 작업용.....
-//	public void setActionBar() {
-//		if (pref.getString("uniqueKey", null) != null) {
-//			
-//			ACTION_MENU = R.menu.main;
-//
-//		} else {
-//
-//			ACTION_MENU = R.menu.main_adduser;
-//
-//		}
-//
-//	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
-
+		
+		menu.findItem(R.id.action_add_user).setVisible(true);
+		menu.findItem(R.id.action_search).setVisible(false);
+		menu.findItem(R.id.action_cart).setVisible(false);
 		return super.onCreateOptionsMenu(menu);
 	}
 
 	// invalidateOptionsMenu()호출
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
-
+		//서버에서 회원정보를 받아왔응ㄹ때 액션바 아이콘 변경
+		
+		menu.findItem(R.id.action_search).setVisible(true);
+		menu.findItem(R.id.action_cart).setVisible(true);
+		menu.findItem(R.id.action_add_user).setVisible(false);
+		
+		
+		
 		// drawer 메뉴가 열려있을때 액션바 아이콘 설정
-//		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerLinear);
-		// menu.findItem(R.id.action_cart).setVisible(!drawerOpen);
+		// boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerLinear);
+//		 menu.findItem(R.id.action_cart).setVisible(!drawerOpen);
 
 		return super.onPrepareOptionsMenu(menu);
 	}
@@ -313,7 +403,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			Intent intent = new Intent(this, CartActivity.class);
 			startActivity(intent);
 			return true;
-		case R.id.action_addUser: // 회원가입선택시 화면전환
+		case R.id.action_add_user: // 회원가입선택시 화면전환
 
 			Intent intentUser = new Intent(this, AddUserActivity.class);
 
@@ -328,16 +418,18 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	}
 
 	// drawer메뉴에서 리스트뷰의 아이템 클릭했을때
-//	private class DrawerItemClickListener implements
-//			ListView.OnItemClickListener {
-//		@Override
-//		public void onItemClick(AdapterView<?> parent, View view, int position,
-//				long id) {
-//			selectItem(position);
-//		}
-//	}
+	// private class DrawerItemClickListener implements
+	// ListView.OnItemClickListener {
+	// @Override
+	// public void onItemClick(AdapterView<?> parent, View view, int position,
+	// long id) {
+	// selectItem(position);
+	// }
+	// }
 
-	private void selectItem(String title) {
+	private void selectItem(DrawerItem drawerItem) {
+		String title = drawerItem.getTitle();
+		menuIndex = drawerItem.getIndex();
 		// drawer메뉴에서 아이템을 클릭했을때 fragment 화면 변경
 		Fragment fragment = getFragment(MENUTAB);
 		Bundle args = new Bundle();
@@ -349,7 +441,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				.replace(R.id.content_frame, fragment).commit();
 
 		// update selected item and title, then close the drawer
-//		mDrawerList.setItemChecked(title, true);
+		// mDrawerList.setItemChecked(title, true);
 		setTitle(title);
 		mDrawerLayout.closeDrawer(mDrawerList);
 	}
@@ -358,6 +450,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	public void setTitle(CharSequence title) {
 		mTitle = title;
 		getActionBar().setTitle(mTitle);
+//		Log.v(TAG, "title : " + mTitle);
 	}
 
 	@Override
@@ -384,8 +477,33 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			startActivity(intent);
 			break;
 		case R.id.drawer_myorder:
-			Log.v(TAG,"myorder");
+			Log.v(TAG, "myorder");
 			break;
+		case R.id.drawer_list_item_header_tv1:
+			Intent intent1 = new Intent(this, MyHistoryActivity.class);
+			startActivity(intent1);
+			break;
+		case R.id.drawer_list_item_header_tv2:
+			Intent intent2 = new Intent(this, AddUserActivity.class);
+			startActivity(intent2);
+			break;
+		case R.id.drawer_list_item_header_tv3:
+			Log.v(TAG, "카테고리 click");
+			break;
+		case R.id.drawer_list_item_footer_tv1:
+			Intent intent3 = new Intent(this, CenterActivity.class);
+			startActivity(intent3);
+			break;
+		case R.id.drawer_list_item_footer_tv2:
+			Intent intent4 = new Intent(this, EventActivity.class);
+			startActivity(intent4);
+			break;
+		case R.id.drawer_list_item_footer_tv3:
+			Intent intent5 = new Intent(this, SettingActivity.class);
+			startActivity(intent5);
+
+			break;
+
 		}
 
 	}
@@ -397,9 +515,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		savebundle = bundle;
 		fragmentReplace(index);
 	}
-	public void receive(String title){
-		
-		selectItem(title);
+
+	public void receive(DrawerItem drawerItem) {
+
+		selectItem(drawerItem);
 	}
 
 	@Override

@@ -190,7 +190,7 @@
             android:id="@+id/user_btn_reg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_user" />
+            android:text="@string/title_add_user" />
 
     </LinearLayout>
 

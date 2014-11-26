@@ -21,6 +21,7 @@
 
     <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="17" />
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:label="@string/app_name"
@@ -41,6 +42,10 @@
         <activity android:name=".setaddr.SetAddrActivity"></activity>
         <activity android:name="SelectOrderActivity"></activity>
         <activity android:name="SendOrderActivity"></activity>
+        <activity android:name=".drawer.CenterActivity"></activity>
+        <activity android:name=".drawer.EventActivity"></activity>
+        <activity android:name=".drawer.SettingActivity"></activity>
+        <activity android:name=".drawer.MyHistoryActivity"></activity>
 
     </application>
 

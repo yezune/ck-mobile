@@ -21,7 +21,11 @@
           android:showAsAction="ifRoom|withText" />
     <item android:id="@+id/action_cart"
           android:icon="@drawable/action_cart"
-          android:title="@string/action_cart"
+          android:title="@string/title_cart"
           android:showAsAction="ifRoom|withText" />
-    
+   
+    <item android:id="@+id/action_add_user"
+          android:icon="@drawable/action_user"
+          android:title="@string/title_add_user"
+          android:showAsAction="ifRoom|withText" />
 </menu>
