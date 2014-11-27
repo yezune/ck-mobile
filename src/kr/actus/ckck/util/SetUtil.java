@@ -1,8 +1,11 @@
 package kr.actus.ckck.util;
 
+import java.io.File;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.Window;
 import android.widget.ProgressBar;
 
@@ -24,5 +27,33 @@ public class SetUtil {
 		
 		return dg;
 		
+	}
+	
+	public static String filePath(String temp) {
+
+		String dir = "";
+//		String [] saveItem = new String[3];
+		String fullPath = null;
+		String fileName = null;
+		
+		int n = temp.lastIndexOf("/");
+
+		if (n >= 0) {
+
+			dir = temp.substring(0, n);
+			fullPath = dir;
+			
+			File file = new File(fullPath);
+			if (!file.exists())
+				file.mkdirs();
+			fileName = temp.substring(n + 1);
+			
+			if (n == 0)
+				dir = "/";
+		}
+		fullPath = fullPath+"/"+fileName; 
+		// SD카드 저장경로및 파일명 리턴.
+		return fullPath;
+
 	}
 }

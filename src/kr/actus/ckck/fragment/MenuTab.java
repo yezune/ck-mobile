@@ -1,17 +1,19 @@
 package kr.actus.ckck.fragment;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.BinaryHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -21,17 +23,18 @@ import kr.actus.ckck.MainActivity;
 import kr.actus.ckck.R;
 import kr.actus.ckck.gridlist.GridAdapter;
 import kr.actus.ckck.gridlist.GridItem;
+import kr.actus.ckck.util.AsyncBinary;
 import kr.actus.ckck.util.SetURL;
 import kr.actus.ckck.util.SetUtil;
 import android.app.Dialog;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 
 public class MenuTab extends Fragment {
 	MainActivity mainactivity;
@@ -39,17 +42,20 @@ public class MenuTab extends Fragment {
 	CharSequence menuIndex;
 	int localID = 1;
 	AsyncHttpClient client = new AsyncHttpClient();
-	SetURL url;
+	SetURL ur;
 	SetUtil util;
-	Dialog dg ;
+	Dialog dg;
 	JSONObject con;
 	GridItem item;
 	GridAdapter adapter;
-	
+	GridView gridList;
 	ArrayList<GridItem> itemList = new ArrayList<GridItem>();
-	String path;
-	
-	public MenuTab(MainActivity mainActivity, CharSequence menuIndex, CharSequence mTitle) {
+	String path = ur.path;
+	AQuery aq;
+	AsyncBinary binary;
+
+	public MenuTab(MainActivity mainActivity, CharSequence menuIndex,
+			CharSequence mTitle) {
 		this.mainactivity = mainActivity;
 		this.menuIndex = menuIndex;
 		title = (String) mTitle;
@@ -58,63 +64,69 @@ public class MenuTab extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
+
 		View v = inflater.inflate(R.layout.fragment_menu, container, false);
-		 path = mainactivity.getExternalFilesDir(path).toString();
-		Log.v(url.TAG,"path :"+path);
+		gridList = (GridView) v.findViewById(R.id.menu_grid_list);
+		Log.v(ur.TAG, "path :" + path);
 		init();
-		
-		
-		
+
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}
 
-	private void init(){
+	private void init() {
 		RequestParams param = new RequestParams();
-		
+
 		param.put("localID", "1");
 		param.put("shopCate", menuIndex);
-		
-		
-		client.post(url.SHOPLIST, param, new JsonHttpResponseHandler(){
+
+		client.post(ur.SHOPLIST, param, new JsonHttpResponseHandler() {
 
 			@Override
 			public void onFailure(Throwable e, JSONObject errorResponse) {
-				Log.v(url.TAG,"menu response error :"+errorResponse);
+				Log.v(ur.TAG, "menu response error :" + errorResponse);
 				dg.dismiss();
 				super.onFailure(e, errorResponse);
 			}
 
 			@Override
 			public void onSuccess(JSONArray response) {
-				
-				Log.v(url.TAG,"menu response array:"+response);
-						try {				
-							for(int i = 0 ;i<response.length();i++){
-							con = response.getJSONObject(i);
-							String title = con.getString("shopName");
-							String type = con.getString("primeMenu");
-							String minMoney = con.getString("minPrice");
-							String delivery = con.getString("delivery");
-							String img = con.getString("shopName");
-							path = img;
-							binaryClient(url.URL+img, path);
-							
-							
-							
-//							item = new GridItem(img, title, type, minMoney, delivery);
-							
-							}
-							
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+
+				Log.v(ur.TAG, "menu response array:" + response);
+				try {
+					for (int i = 0; i < response.length(); i++) {
+						con = response.getJSONObject(i);
+						String title = con.getString("shopName");
+						String type = con.getString("primeMenu");
+						String minMoney = con.getString("minPrice");
+						String delivery = con.getString("delivery");
+						String img = con.getString("shopImage");
+
+						File file = new File(path + img);
+						Log.v(ur.TAG, "file path+img" + path+img);
+						String savefile = path+img;
+						if (!file.exists()) {
+							savefile = util.filePath(path+img);
+							binary = new AsyncBinary();
+							binary.binaryClient(img,savefile);
+
+							// asyncBinary(img);
 						}
 						
-						dg.dismiss();
+
+						 item = new GridItem(savefile, title, type, minMoney, delivery);
+						 itemList.add(item);
+						
+						
+					}
 					
-				
-				
+					 adapter = new GridAdapter(mainactivity, getActivity(), R.layout.gridview_item, itemList);
+					 gridList.setAdapter(adapter);
+					 adapter.notifyDataSetChanged();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 				super.onSuccess(response);
 			}
 
@@ -126,58 +138,51 @@ public class MenuTab extends Fragment {
 
 			@Override
 			public void onStart() {
-			
+
 				dg = util.setProgress(getActivity());
 				super.onStart();
 			}
 
 		});
-		
+
 	}
 
-	public void binaryClient(String hUrl, final String path) {
-		Log.v(url.TAG,"binaryClient :"+path);
-		String[] allow = new String[] { "image/png", "image/jpeg" };
-		
-		client.get(hUrl, new BinaryHttpResponseHandler(allow) {
+	
+	
+	// public void asyncBinary(final String imgUrl){
+	// aq = new AQuery(mainactivity);
+	//
+	// aq.ajax(ur.URL+imgUrl, byte[].class, new AjaxCallback<byte[]>(){
+	//
+	// @Override
+	// public void callback(String url, byte[] object, AjaxStatus status) {
+	// Log.v(ur.TAG,"bytes array:"+object.length);
+	//
+	// FileOutputStream out = null;
+	// fullImg = filePath(imgUrl);
+	// Log.v(ur.TAG,"save path :"+fullImg);
+	// try {
+	// File file = new File(fullImg);
+	//
+	// out = new FileOutputStream(fullImg);
+	//
+	// out.write(object);
+	// out.close();
+	//
+	//
+	//
+	// }catch (FileNotFoundException e1) {
+	// Log.v(ur.TAG,"FileNotFoundException :"+e1);
+	// e1.printStackTrace();
+	// }catch (IOException e) {
+	// Log.v(ur.TAG,"IOException :"+e);
+	// e.printStackTrace();
+	// }
+	// super.callback(url, object, status);
+	// }
+	// });
+	// }
+	// 파일저장 경로 및 파일명 적용.
 
-		
 
-			
-			// 바이너리값다운성공시에 바이너리값을 기본 제공함.
-			@Override
-			public void onSuccess(byte[] fileData) {
-				// TODO Auto-generated method stub
-				Log.v(url.TAG, "JSON Download SUCCESS");
-
-				try {
-					FileOutputStream out = null;
-					out = new FileOutputStream(path);
-
-					out.write(fileData);
-					
-					out.close();
-					Bitmap bitmap = BitmapFactory.decodeFile(path);
-//					imgTitle.setImageBitmap(bitmap);
-					
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-
-			@Override
-			public void onFailure(int statusCode, Header[] headers,
-					byte[] binaryData, Throwable error) {
-				Log.v(url.TAG,"binary failure :"+error);
-
-				super.onFailure(statusCode, headers, binaryData, error);
-			}
-
-		});
-}
 }

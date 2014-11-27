@@ -1,17 +1,21 @@
 package kr.actus.ckck.util;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.http.Header;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.JsonReader;
 import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.BinaryHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-public class ServerResponse {
+public class AsyncBinary {
 	private static final String TAG = "MainActivity";
 	AsyncHttpClient client = new AsyncHttpClient();
 	JSONObject object = null;
@@ -73,4 +77,47 @@ public JSONObject postJSONObject(String getUrl, RequestParams param) {
 		return object;
 
 	}
+
+	public void binaryClient(final String imgUrl, final String saveFile) {
+		
+		String[] allow = new String[] { "image/png","image/jpeg" };
+		client.get(SetURL.URL+imgUrl,new BinaryHttpResponseHandler() {
+					// 바이너리값다운성공시에 바이너리값을 기본 제공함.
+					@Override
+					public void onSuccess(byte[] fileData) {
+						// TODO Auto-generated method stub
+						
+						FileOutputStream out = null;
+						
+					
+						try {
+
+							out = new FileOutputStream(saveFile);
+
+							out.write(fileData);
+							out.close();
+
+						} catch (FileNotFoundException e1) {
+							Log.v(TAG, "FileNotFoundException :" + e1);
+							e1.printStackTrace();
+						} catch (IOException e) {
+							Log.v(TAG, "IOException :" + e);
+							e.printStackTrace();
+						}
+					}
+
+					@Override
+					public void onFailure(int statusCode, Header[] headers,
+							byte[] binaryData, Throwable error) {
+						Log.v(TAG, "BinaryDate error :" + error);
+						super.onFailure(statusCode, headers, binaryData, error);
+					}
+
+				
+				});
+		
+	}
+
+
+
 }

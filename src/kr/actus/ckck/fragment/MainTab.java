@@ -1,30 +1,35 @@
 package kr.actus.ckck.fragment;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import kr.actus.ckck.MainActivity;
 import kr.actus.ckck.R;
 import kr.actus.ckck.gridlist.GridAdapter;
 import kr.actus.ckck.gridlist.GridItem;
-import kr.actus.ckck.setaddr.SetAddrActivity;
+import kr.actus.ckck.util.AsyncBinary;
+import kr.actus.ckck.util.SetURL;
+import kr.actus.ckck.util.SetUtil;
 import kr.actus.ckck.viewpager.ViewPagerAdapter;
 import android.app.ActionBar.LayoutParams;
-import android.app.Activity;
-import android.content.Intent;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,8 +43,15 @@ public class MainTab extends Fragment {
 	private GridItem gItem;
 	private LinearLayout mPageMark;
 	private ArrayList<GridItem> gListItem = new ArrayList<GridItem>();
-
+	
 	private ViewPager mPager;
+	Dialog dg;
+	SetURL ur;
+	SetUtil util;
+	String path = ur.path;
+	AsyncBinary binary;
+	AsyncHttpClient client = new AsyncHttpClient();
+	
 	public int[] mRes = new int[] { R.drawable.menu_sample,
 			R.drawable.menu_sample, R.drawable.menu_sample,
 			R.drawable.menu_sample, R.drawable.menu_sample };
@@ -62,6 +74,7 @@ public class MainTab extends Fragment {
 
 		mPager = (ViewPager) cView.findViewById(R.id.content_pager);
 		mPageMark = (LinearLayout) cView.findViewById(R.id.page_mark);
+		gridList = (GridView) cView.findViewById(R.id.main_grid_list);
 		setViewPager();
 		setGrid();
 
@@ -135,12 +148,83 @@ public class MainTab extends Fragment {
 	}
 
 	private void setGrid() {// 그리드뷰 아이템 테스트
-		for (int k = 0; k < 10; k++) {
-			gItem = new GridItem(R.drawable.menu_sample, "상호명", "타입", "최소주문금액",
-					"배달여부");
-			gListItem.add(gItem);
-		}
-		gridList = (GridView) cView.findViewById(R.id.main_grid_list);
+	
+			RequestParams param = new RequestParams();
+
+			param.put("localID", "1");
+			
+
+			client.post(ur.SHOPLIST, param, new JsonHttpResponseHandler() {
+
+				@Override
+				public void onFailure(Throwable e, JSONObject errorResponse) {
+					Log.v(ur.TAG, "menu response error :" + errorResponse);
+					dg.dismiss();
+					super.onFailure(e, errorResponse);
+				}
+
+				@Override
+				public void onSuccess(JSONArray response) {
+
+					Log.v(ur.TAG, "menu response array:" + response);
+					try {
+						for (int i = 0; i < response.length(); i++) {
+							JSONObject con = response.getJSONObject(i);
+							String title = con.getString("shopName");
+							String type = con.getString("primeMenu");
+							String minMoney = con.getString("minPrice");
+							String delivery = con.getString("delivery");
+							String img = con.getString("shopImage");
+
+							File file = new File(path + img);
+							Log.v(ur.TAG, "file path+img" + img);
+							if (!file.exists()) {
+								String savefile = util.filePath(path+img);
+								binary = new AsyncBinary();
+								binary.binaryClient(img,savefile);
+
+								// asyncBinary(img);
+							}
+							
+
+							 gItem = new GridItem(path+img, title, type, minMoney, delivery);
+							 gListItem.add(gItem);
+							 
+						}
+						gAdapter = new GridAdapter(mainActivity, getActivity(), R.layout.gridview_item, gListItem);
+						 gridList.setAdapter(gAdapter);
+						 
+
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+					super.onSuccess(response);
+				}
+
+				@Override
+				public void onFinish() {
+					dg.dismiss();
+					super.onFinish();
+				}
+
+				@Override
+				public void onStart() {
+
+					dg = util.setProgress(getActivity());
+					super.onStart();
+				}
+
+			});
+
+		
+//		for (int k = 0; k < 10; k++) {
+//			gItem = new GridItem(R.drawable.menu_sample, "상호명", "타입", "최소주문금액",
+//					"배달여부");
+//			gListItem.add(gItem);
+//		}
+		
 		gAdapter = new GridAdapter(mainActivity, getActivity(),
 				R.layout.gridview_item, gListItem);
 		gridList.setAdapter(gAdapter);

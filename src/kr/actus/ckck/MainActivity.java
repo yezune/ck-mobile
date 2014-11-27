@@ -36,7 +36,7 @@ import kr.actus.ckck.fragment.MainTab;
 import kr.actus.ckck.fragment.MenuTab;
 import kr.actus.ckck.fragment.StoreTab;
 import kr.actus.ckck.setaddr.SetAddrActivity;
-import kr.actus.ckck.util.ServerResponse;
+import kr.actus.ckck.util.AsyncBinary;
 import kr.actus.ckck.util.SetURL;
 import kr.actus.ckck.util.SetUtil;
 
@@ -83,7 +83,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	public final static int MENUTAB = 2;
 
 	Dialog dg;
-	ServerResponse sResponese;
+	AsyncBinary sResponese;
 	SetUtil util;
 	SetURL url;
 	int mCurrentFragmentIndex;
@@ -165,7 +165,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
 				GravityCompat.START);
 
-		dg = util.setProgress(this);
+		
 		client.post(url.SHOPCATE, new JsonHttpResponseHandler() {
 
 			@Override
@@ -209,6 +209,18 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				return super.parseResponse(responseBody);
 			}
 
+			@Override
+			public void onFinish() {
+				dg.dismiss();
+				super.onFinish();
+			}
+
+			@Override
+			public void onStart() {
+				dg = util.setProgress(MainActivity.this);
+				super.onStart();
+			}
+
 		});
 
 		
@@ -241,7 +253,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		drawerAdapter = new DrawerAdapter(this, this,
 				R.layout.drawer_list_item, drawerItemList);
 		mDrawerList.setAdapter(drawerAdapter);
-		dg.dismiss();
+		
 	}
 
 	// 액션바 아이콘 변경으로 인해서 회원정보 리턴값 처리해야함 14/11/23

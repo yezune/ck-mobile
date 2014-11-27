@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 import com.loopj.android.http.RequestParams;
 
-import kr.actus.ckck.util.ServerResponse;
+import kr.actus.ckck.util.AsyncBinary;
 import kr.actus.ckck.util.SetURL;
 import kr.actus.ckck.util.SetUtil;
 import android.app.Activity;
@@ -41,7 +41,7 @@ public class AddUserActivity extends Activity implements OnClickListener{
 	SharedPreferences pref;
 	SharedPreferences.Editor editor;
 	
-	ServerResponse sr = new ServerResponse();
+	AsyncBinary sr = new AsyncBinary();
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

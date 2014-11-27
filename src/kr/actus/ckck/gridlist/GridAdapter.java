@@ -15,6 +15,8 @@ import kr.actus.ckck.fragment.StoreTab;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -77,7 +79,8 @@ public class GridAdapter extends BaseAdapter  {
 			cView = Inflater.inflate(layout, parent, false);
 		}
 		menuImg = (ImageView)cView.findViewById(R.id.grid_img);
-		menuImg.setImageResource(data.get(position).getImg());
+		Bitmap bitmap = BitmapFactory.decodeFile(data.get(position).getImgPath());
+		menuImg.setImageBitmap(bitmap);
 		
 		tvTitle = (TextView)cView.findViewById(R.id.grid_tv_title);
 		tvTitle.setText(data.get(position).getTitle().toString());
@@ -105,7 +108,7 @@ public class GridAdapter extends BaseAdapter  {
 				savebundle.putString("type", data.get(position).getType().toString());
 				savebundle.putString("min", data.get(position).getMinMoney().toString());
 				savebundle.putString("delivery", data.get(position).getDelivery().toString());
-				savebundle.putInt("menuImg", data.get(position).getImg());
+				savebundle.putString("menuImg", data.get(position).getImgPath());
 				
 				activity.receive(savebundle,activity.STORETAB);
 				
