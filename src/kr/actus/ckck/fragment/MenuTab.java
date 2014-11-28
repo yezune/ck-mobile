@@ -70,7 +70,7 @@ public class MenuTab extends Fragment {
 		Log.v(ur.TAG, "path :" + path);
 		init();
 
-		return super.onCreateView(inflater, container, savedInstanceState);
+		return v;
 	}
 
 	private void init() {
