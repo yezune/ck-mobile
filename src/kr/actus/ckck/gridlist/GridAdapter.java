@@ -39,9 +39,10 @@ public class GridAdapter extends BaseAdapter  {
 	TextView tvTitle,tvType,tvMin,tvDelivery;
 	ImageView menuImg;
 	ArrayList<GridItem> data = new ArrayList<GridItem>();
-	GridItem item;
+//	GridItem item;
 	int layout;
 	MainActivity activity;
+	Bitmap bitmap;
 	
 	Fragment fragment = null;
 	
@@ -79,7 +80,7 @@ public class GridAdapter extends BaseAdapter  {
 			cView = Inflater.inflate(layout, parent, false);
 		}
 		menuImg = (ImageView)cView.findViewById(R.id.grid_img);
-		Bitmap bitmap = BitmapFactory.decodeFile(data.get(position).getImgPath());
+		bitmap = BitmapFactory.decodeFile(data.get(position).getImgPath());
 		menuImg.setImageBitmap(bitmap);
 		
 		tvTitle = (TextView)cView.findViewById(R.id.grid_tv_title);
@@ -104,11 +105,15 @@ public class GridAdapter extends BaseAdapter  {
 				
 				
 				Bundle savebundle = new Bundle();
-				savebundle.putString("title", data.get(position).getTitle().toString());
+				savebundle.putString("shopName", data.get(position).getTitle().toString());
 				savebundle.putString("type", data.get(position).getType().toString());
 				savebundle.putString("min", data.get(position).getMinMoney().toString());
 				savebundle.putString("delivery", data.get(position).getDelivery().toString());
 				savebundle.putString("menuImg", data.get(position).getImgPath());
+				savebundle.putString("shopId", data.get(position).getShopId());
+				savebundle.putString("telNumber", data.get(position).getTelNumber());
+				savebundle.putString("sTime", data.get(position).getsTime());
+				savebundle.putString("eTime", data.get(position).geteTime());
 				
 				activity.receive(savebundle,activity.STORETAB);
 				

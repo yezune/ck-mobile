@@ -9,7 +9,7 @@
                 android:id="@+id/cart_list_tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="유황오리 진흙구이"
+                android:text="메뉴이름"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <View
@@ -17,30 +17,27 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <Button
-                android:id="@+id/cart_list_btn_minus"
-                style="?android:attr/buttonStyleSmall"
+            <TextView
+                android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-" />
-
-            <EditText
-                android:id="@+id/cart_list_edit_count"
+                android:text="수량 : "
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        
+          
+            <TextView
+                android:id="@+id/cart_list_tv_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="2"
-                android:inputType="number"
-                android:text="1" >
+                android:text="1"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                <requestFocus />
-            </EditText>
+           
 
-            <Button
-                android:id="@+id/cart_list_btn_plus"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+" />
+             <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/cart_list_tv_price"
@@ -48,5 +45,11 @@
                 android:layout_height="wrap_content"
                 android:text="10,000원"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
+             <Button
+                android:id="@+id/cart_list_btn_del"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="삭제" />
             
         </LinearLayout>

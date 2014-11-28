@@ -23,7 +23,7 @@ import kr.actus.ckck.MainActivity;
 import kr.actus.ckck.R;
 import kr.actus.ckck.gridlist.GridAdapter;
 import kr.actus.ckck.gridlist.GridItem;
-import kr.actus.ckck.util.AsyncBinary;
+import kr.actus.ckck.util.AsyncData;
 import kr.actus.ckck.util.SetURL;
 import kr.actus.ckck.util.SetUtil;
 import android.app.Dialog;
@@ -52,7 +52,8 @@ public class MenuTab extends Fragment {
 	ArrayList<GridItem> itemList = new ArrayList<GridItem>();
 	String path = ur.path;
 	AQuery aq;
-	AsyncBinary binary;
+	AsyncData binary;
+	View v;
 
 	public MenuTab(MainActivity mainActivity, CharSequence menuIndex,
 			CharSequence mTitle) {
@@ -65,7 +66,7 @@ public class MenuTab extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		View v = inflater.inflate(R.layout.fragment_menu, container, false);
+		 v = inflater.inflate(R.layout.fragment_menu, container, false);
 		gridList = (GridView) v.findViewById(R.id.menu_grid_list);
 		Log.v(ur.TAG, "path :" + path);
 		init();
@@ -96,24 +97,28 @@ public class MenuTab extends Fragment {
 					for (int i = 0; i < response.length(); i++) {
 						con = response.getJSONObject(i);
 						String title = con.getString("shopName");
+						String shopId = con.getString("shopID");
 						String type = con.getString("primeMenu");
 						String minMoney = con.getString("minPrice");
 						String delivery = con.getString("delivery");
 						String img = con.getString("shopImage");
-
+						
+						String telNumber = con.getString("telNumber");
+						String sTime = con.getString("startTime");
+						String eTime = con.getString("endTime");
 						File file = new File(path + img);
 						Log.v(ur.TAG, "file path+img" + path+img);
 						String savefile = path+img;
 						if (!file.exists()) {
 							savefile = util.filePath(path+img);
-							binary = new AsyncBinary();
+							binary = new AsyncData(v.getContext());
 							binary.binaryClient(img,savefile);
 
 							// asyncBinary(img);
 						}
 						
 
-						 item = new GridItem(savefile, title, type, minMoney, delivery);
+						 item = new GridItem(savefile, shopId, title, type, minMoney, delivery,telNumber,sTime,eTime);
 						 itemList.add(item);
 						
 						
@@ -121,7 +126,7 @@ public class MenuTab extends Fragment {
 					
 					 adapter = new GridAdapter(mainactivity, getActivity(), R.layout.gridview_item, itemList);
 					 gridList.setAdapter(adapter);
-					 adapter.notifyDataSetChanged();
+					
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

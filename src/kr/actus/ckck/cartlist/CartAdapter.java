@@ -20,9 +20,9 @@ private static final String TAG = "MainActivity";
 	Context context;
 	LayoutInflater inflater;
 	
-	TextView tvTitle,tvPrice;
-	EditText edCount;
-	Button btnMinus,btnPlus;
+	TextView tvTitle,tvPrice,tvCount;
+	
+	Button btnDel;
 	CartItem item;
 	ArrayList<CartItem> data = new ArrayList<CartItem>();
 	int layout;
@@ -61,10 +61,17 @@ public CartAdapter(Context context,int layout,ArrayList<CartItem> data){
 		
 		tvTitle = (TextView)v.findViewById(R.id.cart_list_tv_title);
 		tvPrice = (TextView)v.findViewById(R.id.cart_list_tv_price);
-		edCount = (EditText)v.findViewById(R.id.cart_list_edit_count);
+		tvCount = (TextView)v.findViewById(R.id.cart_list_tv_count);
 		tvTitle = (TextView)v.findViewById(R.id.cart_list_tv_title);
-		btnMinus = (Button)v.findViewById(R.id.cart_list_btn_minus);
-		btnPlus = (Button)v.findViewById(R.id.cart_list_btn_plus);
+		btnDel = (Button)v.findViewById(R.id.cart_list_btn_del);
+		
+		
+		tvTitle.setText(data.get(position).getTitle());
+		int price = data.get(position).getPrice();
+		
+		tvPrice.setText(price+"");
+		 
+		tvCount.setText(data.get(position).getCount()+"");
 		
 		
 		return v;

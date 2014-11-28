@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 import com.loopj.android.http.RequestParams;
 
-import kr.actus.ckck.util.AsyncBinary;
+import kr.actus.ckck.util.AsyncData;
 import kr.actus.ckck.util.SetURL;
 import kr.actus.ckck.util.SetUtil;
 import android.app.Activity;
@@ -41,7 +41,7 @@ public class AddUserActivity extends Activity implements OnClickListener{
 	SharedPreferences pref;
 	SharedPreferences.Editor editor;
 	
-	AsyncBinary sr = new AsyncBinary();
+	AsyncData sr; 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -126,7 +126,7 @@ public class AddUserActivity extends Activity implements OnClickListener{
 				
 			Toast.makeText(this, "서비스 제공을 위하여 동의 해주세요.", Toast.LENGTH_SHORT).show();	
 			}else{
-				Dialog pro = util.setProgress(this);
+//				Dialog pro = util.setProgress(this);
 				
 				RequestParams param = new RequestParams();
 				param.put("uniqueKey",uniqueKey);
@@ -136,14 +136,14 @@ public class AddUserActivity extends Activity implements OnClickListener{
 				param.put("address1",address1.getText().toString());
 				param.put("address2", address2.getText().toString());
 				
-				
-				JSONArray result = sr.postJSONArray(SetURL.JOIN, param);
+				sr = new AsyncData(this,SetURL.JOIN, param);
+				JSONArray result = sr.postJSONArray();
 				Log.v(TAG,"result :"+result);
 				try {
 				if(result!=null){
 					
 						if(result.getJSONArray(0).equals("ok")){
-							pro.dismiss();
+//							pro.dismiss();
 							Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
 							editor.putString("uniqueKey", uniqueKey);
 							editor.putString("memName", name.getText().toString());
@@ -154,7 +154,7 @@ public class AddUserActivity extends Activity implements OnClickListener{
 							editor.commit();
 							
 						}else if(result.getJSONArray(0).equals("fail")){
-							pro.dismiss();
+//							pro.dismiss();
 							Toast.makeText(this, "오류 : "+result.getJSONArray(1), Toast.LENGTH_SHORT).show();
 							
 						}
@@ -164,14 +164,14 @@ public class AddUserActivity extends Activity implements OnClickListener{
 					
 				}else
 				{
-					pro.dismiss();
+//					pro.dismiss();
 					Toast.makeText(this, "다시 시도 하세요.", Toast.LENGTH_SHORT).show();
 					
 				}
 				
 				
 				}catch (JSONException e) {
-					pro.dismiss();
+//					pro.dismiss();
 					Log.v(TAG,"jsonException :"+e);
 					e.printStackTrace();
 				}

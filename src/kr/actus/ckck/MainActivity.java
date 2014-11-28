@@ -36,7 +36,7 @@ import kr.actus.ckck.fragment.MainTab;
 import kr.actus.ckck.fragment.MenuTab;
 import kr.actus.ckck.fragment.StoreTab;
 import kr.actus.ckck.setaddr.SetAddrActivity;
-import kr.actus.ckck.util.AsyncBinary;
+import kr.actus.ckck.util.AsyncData;
 import kr.actus.ckck.util.SetURL;
 import kr.actus.ckck.util.SetUtil;
 
@@ -83,7 +83,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	public final static int MENUTAB = 2;
 
 	Dialog dg;
-	AsyncBinary sResponese;
+	AsyncData sResponese;
 	SetUtil util;
 	SetURL url;
 	int mCurrentFragmentIndex;
@@ -344,7 +344,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		// savebundle.putString("title", "bundle value");
 
 		newFragment.setArguments(savebundle);
-//		Log.v(TAG, "savebundle :" + savebundle);
+		Log.v(TAG, "savebundle :" + savebundle.getString("shopId"));
 		transaction.replace(R.id.content_frame, newFragment);
 //		Log.v(TAG, "newFragment :" + newFragment);
 		transaction.commit();
@@ -359,7 +359,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 			break;
 		case STORETAB:
-			newFragment = new StoreTab(this);
+			newFragment = new StoreTab(this,savebundle);
 			break;
 		case MENUTAB:
 			newFragment = new MenuTab(this, menuIndex, mTitle);
@@ -525,6 +525,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			savebundle = null;
 		}
 		savebundle = bundle;
+		Log.v(TAG, "savebundle : "+savebundle.getString("shopId"));
 		fragmentReplace(index);
 	}
 

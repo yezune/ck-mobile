@@ -11,7 +11,7 @@ public class SetURL {
 	public static final String  MEMINFO =URL+"/api/memInfo";
 	public static final String  LOCALLIST =URL+"/api/localList";
 	public static final String  SHOPCATE =URL+"/api/shopCate";
-	public static final String  SHOPLIST =URL+"/api/shopList";
+	public static final String  SHOPLIST = URL+"/api/shopList";
 	public static final String  MENULIST =URL+"/api/menuList";
 	public static final String  ORDER =URL+"/api/order";
 	public static final String  MYORDER =URL+"/api/myOrder";

@@ -6,8 +6,11 @@ import java.io.IOException;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -15,15 +18,31 @@ import com.loopj.android.http.BinaryHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-public class AsyncBinary {
+public class AsyncData {
 	private static final String TAG = "MainActivity";
-	AsyncHttpClient client = new AsyncHttpClient();
+	AsyncHttpClient client;
 	JSONObject object = null;
 //	JSONArray resultArray=null;
 	JSONArray array=null;
+	Dialog dg;
+	SetUtil util;
+	Context context;
+	String getUrl;
+	RequestParams param;
+	public AsyncData(Context context, final String getUrl, RequestParams param){
+		this.context = context;
+		this.getUrl = getUrl;
+		this.param = param;
+	}
+	public AsyncData(Context context){
+		this.context = context;
+		
+	}
 	
 
-	public JSONArray postJSONArray(String getUrl, RequestParams param) {
+	public JSONArray postJSONArray() {
+		Log.v(TAG,"postJSONArray");
+		client = new AsyncHttpClient();
 		
 		client.post(getUrl, param, new JsonHttpResponseHandler() {
 			
@@ -31,10 +50,11 @@ public class AsyncBinary {
 		
 
 			@Override
-			public void onSuccess(int statusCode, JSONArray response) {
+			public void onSuccess(JSONArray response) {
 				Log.v(TAG,"JSONArray response : "+response);
+//				dg.dismiss();
 				array = response;
-				super.onSuccess(statusCode, response);
+				super.onSuccess(response);
 			}
 
 			@Override
@@ -43,12 +63,24 @@ public class AsyncBinary {
 				array = errorResponse;
 				super.onFailure(e, errorResponse);
 			}
+
+		
+
+			@Override
+			protected Object parseResponse(String responseBody)
+					throws JSONException {
+				Log.v(TAG,"JSONArray response : "+responseBody);
+				return super.parseResponse(responseBody);
+			}
+
+		
 			
 
 		});
 		
 		return array;
-
+		
+		
 	}
 public JSONObject postJSONObject(String getUrl, RequestParams param) {
 		
@@ -68,6 +100,18 @@ public JSONObject postJSONObject(String getUrl, RequestParams param) {
 				super.onFailure(e, errorResponse);
 			}
 
+			@Override
+			public void onFinish() {
+				dg.dismiss();
+				super.onFinish();
+			}
+
+			@Override
+			public void onStart() {
+				dg = util.setProgress(context);
+				super.onStart();
+			}
+
 		
 
 			
@@ -79,7 +123,7 @@ public JSONObject postJSONObject(String getUrl, RequestParams param) {
 	}
 
 	public void binaryClient(final String imgUrl, final String saveFile) {
-		
+		client = new AsyncHttpClient();
 		String[] allow = new String[] { "image/png","image/jpeg" };
 		client.get(SetURL.URL+imgUrl,new BinaryHttpResponseHandler() {
 					// 바이너리값다운성공시에 바이너리값을 기본 제공함.
@@ -111,6 +155,18 @@ public JSONObject postJSONObject(String getUrl, RequestParams param) {
 							byte[] binaryData, Throwable error) {
 						Log.v(TAG, "BinaryDate error :" + error);
 						super.onFailure(statusCode, headers, binaryData, error);
+					}
+
+					@Override
+					public void onFinish() {
+						dg.dismiss();
+						super.onFinish();
+					}
+
+					@Override
+					public void onStart() {
+						dg = util.setProgress(context);
+						super.onStart();
 					}
 
 				

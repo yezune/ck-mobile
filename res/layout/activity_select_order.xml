@@ -7,13 +7,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
+ <TextView
+            android:id="@+id/order_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+  
 
-        <ImageView
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+             <TextView android:id="@+id/order_tv_descript" 
+                 android:layout_width="match_parent" 
+                 android:layout_height="200dp" 
+                 android:text="" 
+                 android:layout_toRightOf="@+id/order_img_main"
+                 android:textAppearance="?android:attr/textAppearanceSmall"/>
+    
+              <ImageView
             android:id="@+id/order_img_main"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:src="@drawable/menu_sample" />
+              
+        </RelativeLayout>
+
     </LinearLayout>
 
     <LinearLayout

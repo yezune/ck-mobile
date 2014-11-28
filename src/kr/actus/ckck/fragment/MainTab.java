@@ -16,7 +16,7 @@ import kr.actus.ckck.MainActivity;
 import kr.actus.ckck.R;
 import kr.actus.ckck.gridlist.GridAdapter;
 import kr.actus.ckck.gridlist.GridItem;
-import kr.actus.ckck.util.AsyncBinary;
+import kr.actus.ckck.util.AsyncData;
 import kr.actus.ckck.util.SetURL;
 import kr.actus.ckck.util.SetUtil;
 import kr.actus.ckck.viewpager.ViewPagerAdapter;
@@ -49,9 +49,8 @@ public class MainTab extends Fragment {
 	SetURL ur;
 	SetUtil util;
 	String path = ur.path;
-	AsyncBinary binary;
-	AsyncHttpClient client = new AsyncHttpClient();
-	
+	AsyncData asyncData;
+	AsyncHttpClient client;
 	public int[] mRes = new int[] { R.drawable.menu_sample,
 			R.drawable.menu_sample, R.drawable.menu_sample,
 			R.drawable.menu_sample, R.drawable.menu_sample };
@@ -67,11 +66,11 @@ public class MainTab extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		cView = inflater.inflate(R.layout.fragment_main, container, false);
-
+		
 		int i = getArguments().getInt(MENU_NUM);
 		// imgAd = (ImageView) cView.findViewById(R.id.imgAd);
 		// addrOther = (Button) cView.findViewById(R.id.addrOther);
-
+		client = new AsyncHttpClient();
 		mPager = (ViewPager) cView.findViewById(R.id.content_pager);
 		mPageMark = (LinearLayout) cView.findViewById(R.id.page_mark);
 		gridList = (GridView) cView.findViewById(R.id.main_grid_list);
@@ -131,8 +130,7 @@ public class MainTab extends Fragment {
 			ImageView iv = new ImageView(getActivity().getApplicationContext());
 			iv.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
 					LayoutParams.WRAP_CONTENT));
-			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0,
-					0);
+
 
 			iv.setPadding(10, 10, 10, 10);
 
@@ -152,14 +150,16 @@ public class MainTab extends Fragment {
 			RequestParams param = new RequestParams();
 
 			param.put("localID", "1");
-			
-
+//			dg = util.setProgress(mainActivity);
+//			asyncData = new AsyncData(cView.getContext(), ur.SHOPLIST,param);
+//			JSONArray response  = (JSONArray) asyncData.postJSONArray();
+//			
 			client.post(ur.SHOPLIST, param, new JsonHttpResponseHandler() {
 
 				@Override
 				public void onFailure(Throwable e, JSONObject errorResponse) {
-					Log.v(ur.TAG, "menu response error :" + errorResponse);
-					dg.dismiss();
+//					Log.v(ur.TAG, "menu response error :" + errorResponse);
+//					dg.dismiss();
 					super.onFailure(e, errorResponse);
 				}
 
@@ -170,24 +170,32 @@ public class MainTab extends Fragment {
 					try {
 						for (int i = 0; i < response.length(); i++) {
 							JSONObject con = response.getJSONObject(i);
+							String shopId = con.getString("shopID");
 							String title = con.getString("shopName");
-							String type = con.getString("primeMenu");
+							String primeMenu = con.getString("primeMenu");
 							String minMoney = con.getString("minPrice");
 							String delivery = con.getString("delivery");
 							String img = con.getString("shopImage");
-
+							
+							String telNumber = con.getString("telNumber");
+							String sTime = con.getString("startTime");
+							String eTime = con.getString("endTime");
+							Log.v(ur.TAG,"telNumber : "+telNumber);
+							Log.v(ur.TAG,"sTime : "+sTime);
+							Log.v(ur.TAG,"eTime : "+eTime);
+							
 							File file = new File(path + img);
-							Log.v(ur.TAG, "file path+img" + img);
+							
 							if (!file.exists()) {
 								String savefile = util.filePath(path+img);
-								binary = new AsyncBinary();
-								binary.binaryClient(img,savefile);
+								
+								asyncData.binaryClient(img,savefile);
 
 								// asyncBinary(img);
 							}
 							
 
-							 gItem = new GridItem(path+img, title, type, minMoney, delivery);
+							 gItem = new GridItem(path+img, shopId, title, primeMenu, minMoney, delivery, telNumber,sTime,eTime);
 							 gListItem.add(gItem);
 							 
 						}

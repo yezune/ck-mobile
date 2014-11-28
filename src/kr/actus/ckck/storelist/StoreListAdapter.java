@@ -83,11 +83,11 @@ public class StoreListAdapter extends BaseAdapter  {
 	
 		
 		tvTitle = (TextView)cView.findViewById(R.id.store_list_title);
-		tvTitle.setText(data.get(position).getTitle().toString());
+		tvTitle.setText(data.get(position).getMenuName().toString());
 	
 		
 		tvPrice = (TextView)cView.findViewById(R.id.store_list_price);
-		tvPrice.setText(data.get(position).getType().toString());
+		tvPrice.setText(data.get(position).getPrice()+"¿ø");
 		
 		linearLay = (LinearLayout)cView.findViewById(R.id.sotre_list_layout);
 		linearLay.setOnClickListener(new OnClickListener() {
@@ -97,8 +97,17 @@ public class StoreListAdapter extends BaseAdapter  {
 				Log.v(TAG,"linearlay_store click");
 				Intent intent = new Intent(v.getContext(),SelectOrderActivity.class);
 				
-				intent.putExtra("title", tvTitle.getText().toString());
-				intent.putExtra("price", tvPrice.getText().toString());
+				
+				
+				intent.putExtra("menuId", data.get(position).getMenuId());
+				intent.putExtra("shopId", data.get(position).getShopId());
+				intent.putExtra("menuName", data.get(position).getMenuName());
+				intent.putExtra("menuImg", data.get(position).getMenuImg());
+				intent.putExtra("price", data.get(position).getPrice());
+				intent.putExtra("eventFunc", data.get(position).getEventFunc());
+				intent.putExtra("descript", data.get(position).getDescript());
+				intent.putExtra("shopName", data.get(position).getShopName());
+				
 				context.startActivity(intent);
 				
 			}
