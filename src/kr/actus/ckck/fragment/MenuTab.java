@@ -99,7 +99,7 @@ public class MenuTab extends Fragment {
 						String title = con.getString("shopName");
 						String shopId = con.getString("shopID");
 						String type = con.getString("primeMenu");
-						String minMoney = con.getString("minPrice");
+						int minMoney = con.getInt("minPrice");
 						String delivery = con.getString("delivery");
 						String img = con.getString("shopImage");
 						

@@ -8,14 +8,14 @@ public class GridItem implements Parcelable {
 	private String shopId;
 	private String title;
 	private String type;
-	private String minMoney;
+	private int minMoney;
 	private String delivery;
 	private String telNumber;
 	private String sTime;
 	private String eTime;
 
 	public GridItem(String imgPath, String shopId, String title, String type,
-			String minMoney, String delivery, String telNumber, String sTime,
+			int minMoney, String delivery, String telNumber, String sTime,
 			String eTime) {
 		// TODO Auto-generated constructor stub
 		this.imgPath = imgPath;
@@ -42,7 +42,7 @@ public class GridItem implements Parcelable {
 		dest.writeString(shopId);
 		dest.writeString(title);
 		dest.writeString(type);
-		dest.writeString(minMoney);
+		dest.writeInt(minMoney);
 		dest.writeString(delivery);
 		dest.writeString(telNumber);
 		dest.writeString(sTime);
@@ -59,7 +59,7 @@ public class GridItem implements Parcelable {
 			String shopId = src.readString();
 			String title = src.readString();
 			String type = src.readString();
-			String minMoney = src.readString();
+			int minMoney = src.readInt();
 			String delivery = src.readString();
 			String telNumber = src.readString();
 			String sTime = src.readString();
@@ -111,11 +111,11 @@ public class GridItem implements Parcelable {
 		this.type = type;
 	}
 
-	public String getMinMoney() {
+	public int getMinMoney() {
 		return minMoney;
 	}
 
-	public void setMinMoney(String minMoney) {
+	public void setMinMoney(int minMoney) {
 		this.minMoney = minMoney;
 	}
 

@@ -173,7 +173,7 @@ public class MainTab extends Fragment {
 							String shopId = con.getString("shopID");
 							String title = con.getString("shopName");
 							String primeMenu = con.getString("primeMenu");
-							String minMoney = con.getString("minPrice");
+							int minMoney = con.getInt("minPrice");
 							String delivery = con.getString("delivery");
 							String img = con.getString("shopImage");
 							

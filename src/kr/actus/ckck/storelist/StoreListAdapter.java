@@ -107,6 +107,7 @@ public class StoreListAdapter extends BaseAdapter  {
 				intent.putExtra("eventFunc", data.get(position).getEventFunc());
 				intent.putExtra("descript", data.get(position).getDescript());
 				intent.putExtra("shopName", data.get(position).getShopName());
+				intent.putExtra("minPrice", data.get(position).getMinPrice());
 				
 				context.startActivity(intent);
 				

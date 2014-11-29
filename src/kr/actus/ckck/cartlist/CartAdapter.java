@@ -2,11 +2,13 @@ package kr.actus.ckck.cartlist;
 
 import java.util.ArrayList;
 
+import kr.actus.ckck.CartActivity;
 import kr.actus.ckck.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -19,7 +21,7 @@ private static final String TAG = "MainActivity";
 	
 	Context context;
 	LayoutInflater inflater;
-	
+	CartActivity cartActivity;
 	TextView tvTitle,tvPrice,tvCount;
 	
 	Button btnDel;
@@ -27,11 +29,13 @@ private static final String TAG = "MainActivity";
 	ArrayList<CartItem> data = new ArrayList<CartItem>();
 	int layout;
 	
-public CartAdapter(Context context,int layout,ArrayList<CartItem> data){
-		this.context = context;
+public CartAdapter(CartActivity cartActivity,int layout,ArrayList<CartItem> data){
+		this.context = cartActivity;
 		this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE); 
 		this.data = data;
 		this.layout = layout;
+		this.cartActivity = cartActivity;
+		
 		
 	}
 
@@ -54,7 +58,7 @@ public CartAdapter(Context context,int layout,ArrayList<CartItem> data){
 	}
 
 	@Override
-	public View getView(int position, View v, ViewGroup parent) {
+	public View getView(final int position, View v, ViewGroup parent) {
 		if (v == null) {
 			v = inflater.inflate(layout, parent, false);
 		}
@@ -68,11 +72,19 @@ public CartAdapter(Context context,int layout,ArrayList<CartItem> data){
 		
 		tvTitle.setText(data.get(position).getTitle());
 		int price = data.get(position).getPrice();
-		
-		tvPrice.setText(price+"");
-		 
-		tvCount.setText(data.get(position).getCount()+"");
-		
+		int count = data.get(position).getCount();
+		tvPrice.setText(price+"¿ø");
+		tvCount.setText(count+"°³");
+		cartActivity.itemStat(price,count);
+		btnDel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				data.clear();
+				cartActivity.itemStat(0,0);
+				notifyDataSetChanged();
+			}
+		});
 		
 		return v;
 	}

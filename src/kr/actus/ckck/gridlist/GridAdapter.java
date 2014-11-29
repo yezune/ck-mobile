@@ -91,7 +91,7 @@ public class GridAdapter extends BaseAdapter  {
 		tvType.setText(data.get(position).getType().toString());
 		
 		tvMin = (TextView)cView.findViewById(R.id.grid_tv_min);
-		tvMin.setText(data.get(position).getMinMoney().toString());
+		tvMin.setText(data.get(position).getMinMoney()+"¿ø ÀÌ»ó");
 		tvDelivery = (TextView)cView.findViewById(R.id.grid_tv_deli);
 		tvDelivery.setText(data.get(position).getDelivery().toString());
 		
@@ -107,7 +107,7 @@ public class GridAdapter extends BaseAdapter  {
 				Bundle savebundle = new Bundle();
 				savebundle.putString("shopName", data.get(position).getTitle().toString());
 				savebundle.putString("type", data.get(position).getType().toString());
-				savebundle.putString("min", data.get(position).getMinMoney().toString());
+				savebundle.putInt("minPrice", data.get(position).getMinMoney());
 				savebundle.putString("delivery", data.get(position).getDelivery().toString());
 				savebundle.putString("menuImg", data.get(position).getImgPath());
 				savebundle.putString("shopId", data.get(position).getShopId());

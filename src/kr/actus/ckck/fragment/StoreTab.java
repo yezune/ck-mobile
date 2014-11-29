@@ -56,8 +56,9 @@ public class StoreTab extends Fragment implements OnClickListener{
 	AsyncData asyncData;
 	Dialog dg;
 	
-	String shopId,shopName, menuImg, delivery,telNumber, sTime,eTime;
-	TextView tvTelNumber, tvDelivery,tvTime,tvMoney;
+	String shopId,shopName, menuImg, delivery, telNumber, sTime,eTime;
+	int minPrice;
+	TextView tvTelNumber, tvDelivery,tvTime, tvMinPrice;
 	public StoreTab(MainActivity mainActivity, Bundle bundle) {
 		this.mainactivity = mainActivity;
 		this.savebundle = bundle;
@@ -74,10 +75,11 @@ public class StoreTab extends Fragment implements OnClickListener{
 		shopId = savebundle.getString("shopId");
 		shopName = savebundle.getString("shopName");
 		menuImg = savebundle.getString("menuImg");
+		minPrice = savebundle.getInt("minPrice");
 		
 		delivery=savebundle.getString("delivery");
 		if(delivery.equals("0")){
-			delivery="배달의뢰";
+			delivery="배달의뢰"; 
 		}else{
 			delivery="직접배달";
 		}
@@ -88,12 +90,12 @@ public class StoreTab extends Fragment implements OnClickListener{
 		tvTelNumber=(TextView) v.findViewById(R.id.store_tv_phone);
 		tvDelivery=(TextView) v.findViewById(R.id.store_tv_delivery);
 		tvTime=(TextView) v.findViewById(R.id.store_tv_time);
-		tvMoney=(TextView) v.findViewById(R.id.store_tv_money);
+		tvMinPrice=(TextView) v.findViewById(R.id.store_tv_money);
 		
 		tvTelNumber.setText(telNumber);
 		tvDelivery.setText(delivery);
 		tvTime.setText(sTime+" ~ "+eTime);
-		
+		tvMinPrice.setText(minPrice+"원 이상 배달가능");
 		
 //		actionbar.setDisplayHomeAsUpEnabled(false);
 		linearMenu = (LinearLayout) v.findViewById(R.id.store_lay_list);
@@ -166,7 +168,7 @@ public class StoreTab extends Fragment implements OnClickListener{
 							// asyncBinary(img);
 						}
 						
-						sItem = new StoreListItem(menuId,shopId,shopName,menuName,path+img,price,eventFunc,descript);
+						sItem = new StoreListItem(menuId,shopId,shopName,menuName,path+img,price,eventFunc,descript,minPrice);
 						storeListItem.add(sItem);
 						
 //						 sItem = new StoreListItem(shopName,type);

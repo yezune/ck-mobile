@@ -9,7 +9,7 @@
                 android:id="@+id/cart_list_tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="메뉴이름"
+                android:text=""
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <View
@@ -17,19 +17,14 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="수량 : "
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+            
         
           
             <TextView
                 android:id="@+id/cart_list_tv_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1"
+                android:text=""
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
            
@@ -43,7 +38,7 @@
                 android:id="@+id/cart_list_tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10,000원"
+                android:text=""
                 android:textAppearance="?android:attr/textAppearanceSmall" />
              <Button
                 android:id="@+id/cart_list_btn_del"

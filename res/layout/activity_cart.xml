@@ -50,13 +50,6 @@
           android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/cart_tv_order_min"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="최소주문 금액 : 15,000원 이상" />
-
-        <TextView
             android:id="@+id/cart_tv_order_sum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

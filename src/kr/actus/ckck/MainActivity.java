@@ -44,6 +44,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -85,7 +87,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	Dialog dg;
 	AsyncData sResponese;
 	SetUtil util;
-	SetURL url;
+	SetURL ur;
 	int mCurrentFragmentIndex;
 	CharSequence menuIndex;
 	SharedPreferences pref;
@@ -104,8 +106,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		setContentView(R.layout.activity_main);
 
 		getActionBar().setTitle(getTitle());
-
-		pref = getSharedPreferences(url.pref, 0);
+		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1b67bc")) );
+		pref = getSharedPreferences(ur.pref, 0);
 		editor = pref.edit();
 
 		try {
@@ -166,7 +168,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				GravityCompat.START);
 
 		
-		client.post(url.SHOPCATE, new JsonHttpResponseHandler() {
+		client.post(ur.SHOPCATE, new JsonHttpResponseHandler() {
 
 			@Override
 			public void onFailure(Throwable e, JSONArray errorResponse) {
@@ -202,12 +204,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				super.onSuccess(statusCode, response);
 			}
 
-			@Override
-			protected Object parseResponse(String responseBody)
-					throws JSONException {
-				Log.v(TAG, "shopcate parseResponse :" +responseBody);
-				return super.parseResponse(responseBody);
-			}
+			
 
 			@Override
 			public void onFinish() {

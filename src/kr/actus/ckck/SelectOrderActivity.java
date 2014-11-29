@@ -3,6 +3,7 @@ package kr.actus.ckck;
 
 import kr.actus.ckck.util.SetURL;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,12 +21,12 @@ public class SelectOrderActivity extends Activity implements OnClickListener {
 
 	private static final String TAG = "MainActivity";
 	Button btnCart, btnMinus, btnPlus;
-	TextView menuName,edPrice, eventFunc,descript, edPriceSum;
+	TextView menuName,edPrice, eventFunc,descript, edPriceSum, tvPriceMin;
 	SetURL ur;
 	EditText count;
 	ImageView img;
 	int flagCount=1;
-	int price;
+	int price,priceMin;
 	Intent intent;
 	/** Called when the activity is first created. */
 	@Override
@@ -41,7 +42,7 @@ public class SelectOrderActivity extends Activity implements OnClickListener {
 	eventFunc=(TextView) findViewById(R.id.order_tv_service);
 	edPriceSum = (TextView) findViewById(R.id.order_tv_price_sum);
 	descript = (TextView) findViewById(R.id.order_tv_descript);
-	
+	tvPriceMin = (TextView) findViewById(R.id.order_tv_price_min);
 	menuName.setText(getIntent().getStringExtra("menuName"));
 	descript.setText(getIntent().getStringExtra("descript"));
 	price = getIntent().getIntExtra("price", 0);
@@ -50,6 +51,8 @@ public class SelectOrderActivity extends Activity implements OnClickListener {
 	img.setImageBitmap(bm);
 	eventFunc.setText(getIntent().getStringExtra("eventFunc"));
 	
+	priceMin = getIntent().getIntExtra("minPrice", 0);
+	tvPriceMin.setText("최소 주문 금액 : "+priceMin+"원 이상");
 	
 	
 	count=(EditText) findViewById(R.id.order_edit_count);
@@ -75,9 +78,9 @@ public class SelectOrderActivity extends Activity implements OnClickListener {
 	}
 	
 	
-	
+	int sum;
 private void total(int cnt) {
-		int sum =  price*cnt;
+		 sum =  price*cnt;
 		
 		edPriceSum.setText(sum+"원");
 		count.setText(flagCount+"");
@@ -89,6 +92,14 @@ private void total(int cnt) {
 	public void onClick(View v) {
 		switch(v.getId()){
 			case R.id.order_btn_cart:
+				
+				if(priceMin>sum){
+					AlertDialog.Builder ab = new AlertDialog.Builder(this);
+					ab.setMessage("최소주문금액 이상 주문 가능합니다.");
+					ab.setPositiveButton("확인", null);
+					ab.show();
+					
+				}else{
 				Intent intent = new Intent(this,CartActivity.class);
 				getIntent().putExtra("count", flagCount);
 				
@@ -98,6 +109,7 @@ private void total(int cnt) {
 //				intent.putExtra("service", service.getText().toString());
 //				intent.putExtra("count", count.getText().toString());
 				startActivity(intent);
+				}
 				break;
 			case R.id.order_btn_cancel:
 				finish();
@@ -105,7 +117,7 @@ private void total(int cnt) {
 			case R.id.order_btn_minus:
 				
 				
-				if(flagCount>0){
+				if(flagCount>1){
 					flagCount -= 1;
 				}
 				total(flagCount);

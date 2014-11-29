@@ -13,9 +13,10 @@ public class StoreListItem implements Parcelable {
 	private int price;
 	private String eventFunc;
 	private String descript;
+	private int minPrice;
 
 	public StoreListItem(String menuId, String shopId, String shopName,String menuName,
-			String menuImg, int price, String eventFunc, String descript) {
+			String menuImg, int price, String eventFunc, String descript, int minPrice) {
 
 		this.menuId = menuId;
 		this.shopId = shopId;
@@ -25,6 +26,7 @@ public class StoreListItem implements Parcelable {
 		this.price = price;
 		this.eventFunc = eventFunc;
 		this.descript = descript;
+		this.minPrice = minPrice;
 
 	}
 
@@ -46,6 +48,7 @@ public class StoreListItem implements Parcelable {
 		dest.writeInt(price);
 		dest.writeString(eventFunc);
 		dest.writeString(descript);
+		dest.writeInt(minPrice);
 
 	}
 
@@ -62,9 +65,9 @@ public class StoreListItem implements Parcelable {
 			int price = src.readInt();
 			String eventFunc = src.readString();
 			String descript = src.readString();
-
+			int minPrice = src.readInt();
 			return new StoreListItem(menuId, shopId,shopName, menuName, menuImg, price,
-					eventFunc, descript);
+					eventFunc, descript, minPrice);
 
 		}
 
@@ -141,6 +144,16 @@ public class StoreListItem implements Parcelable {
 
 	public void setShopName(String shopName) {
 		this.shopName = shopName;
+	}
+
+
+	public int getMinPrice() {
+		return minPrice;
+	}
+
+
+	public void setMinPrice(int minPrice) {
+		this.minPrice = minPrice;
 	}
 
 }
