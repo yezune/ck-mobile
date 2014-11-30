@@ -26,6 +26,7 @@ import kr.actus.ckck.gridlist.GridItem;
 import kr.actus.ckck.util.AsyncData;
 import kr.actus.ckck.util.SetURL;
 import kr.actus.ckck.util.SetUtil;
+import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Environment;
@@ -38,8 +39,8 @@ import android.widget.GridView;
 
 public class MenuTab extends Fragment {
 	MainActivity mainactivity;
-	String title;
-	CharSequence menuIndex;
+	String cateName;
+	String shopCate;
 	int localID = 1;
 	AsyncHttpClient client = new AsyncHttpClient();
 	SetURL ur;
@@ -54,21 +55,30 @@ public class MenuTab extends Fragment {
 	AQuery aq;
 	AsyncData binary;
 	View v;
+	Bundle bundle;
 
-	public MenuTab(MainActivity mainActivity, CharSequence menuIndex,
-			CharSequence mTitle) {
+	public MenuTab(MainActivity mainActivity,Bundle bundle) {
 		this.mainactivity = mainActivity;
-		this.menuIndex = menuIndex;
-		title = (String) mTitle;
+		this.bundle = bundle;
+		
+		
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
+       
 		 v = inflater.inflate(R.layout.fragment_menu, container, false);
+       
 		gridList = (GridView) v.findViewById(R.id.menu_grid_list);
-		Log.v(ur.TAG, "path :" + path);
+		itemList.clear();
+		if (bundle!=null){
+			cateName = bundle.getString("cateName");
+			shopCate = bundle.getString("shopCate");	
+			
+		}
+		mainactivity.setTitle(cateName);
+		Log.v(ur.TAG,"menu bundle : "+ bundle.getString("cateName"));
 		init();
 
 		return v;
@@ -78,7 +88,7 @@ public class MenuTab extends Fragment {
 		RequestParams param = new RequestParams();
 
 		param.put("localID", "1");
-		param.put("shopCate", menuIndex);
+		param.put("shopCate", shopCate);
 
 		client.post(ur.SHOPLIST, param, new JsonHttpResponseHandler() {
 
@@ -96,7 +106,7 @@ public class MenuTab extends Fragment {
 				try {
 					for (int i = 0; i < response.length(); i++) {
 						con = response.getJSONObject(i);
-						String title = con.getString("shopName");
+						String shopName = con.getString("shopName");
 						String shopId = con.getString("shopID");
 						String type = con.getString("primeMenu");
 						int minMoney = con.getInt("minPrice");
@@ -118,7 +128,7 @@ public class MenuTab extends Fragment {
 						}
 						
 
-						 item = new GridItem(savefile, shopId, title, type, minMoney, delivery,telNumber,sTime,eTime);
+						 item = new GridItem(savefile, shopId, shopName, type, minMoney, delivery,telNumber,sTime,eTime);
 						 itemList.add(item);
 						
 						
@@ -152,8 +162,6 @@ public class MenuTab extends Fragment {
 
 	}
 
-	
-	
 	// public void asyncBinary(final String imgUrl){
 	// aq = new AQuery(mainactivity);
 	//

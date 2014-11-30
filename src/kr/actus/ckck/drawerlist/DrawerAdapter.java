@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import kr.actus.ckck.MainActivity;
 import kr.actus.ckck.R;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,9 +66,12 @@ public DrawerAdapter(MainActivity activity,Context context,int layout,ArrayList<
 			
 			@Override
 			public void onClick(View v) {
+				Bundle savebundle = new Bundle();
+				savebundle.putString("cateName", data.get(position).getTitle());
+				savebundle.putString("shopCate", data.get(position).getIndex());
 				
-				activity.receive(data.get(position));
-				Log.v(TAG,"data.title : "+data.get(position).getTitle().toString());
+				activity.receive(savebundle,activity.MENUTAB);
+				
 				
 				
 				

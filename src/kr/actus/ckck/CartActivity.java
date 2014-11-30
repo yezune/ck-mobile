@@ -57,13 +57,16 @@ public class CartActivity extends Activity implements OnClickListener{
 			   String menuName = intent.getStringExtra("menuName");
 			   price = intent.getIntExtra("price",0);
 			   count = intent.getIntExtra("count",0);
-			  
+			   if(count!=0){
 			   Log.v(ur.TAG,"cart count :"+count);
 			   cItem = new CartItem(menuName,count,price);
 			   cItemList.add(cItem);
 			   cartAdapter = new CartAdapter(this,R.layout.cart_list_item,cItemList);
 			   cartList.setAdapter(cartAdapter);
-			   
+			   }else{
+				 
+				   Log.v(ur.TAG,"장바구니가비어있음");
+			   }
 	}
 
 	@Override
@@ -86,6 +89,7 @@ public class CartActivity extends Activity implements OnClickListener{
 			
 			intent1.putExtras(intent);
 			intent1.putExtra("priceSum",sum);
+			intent1.putExtra("cartList",cItemList);
 			startActivity(intent1);
 		
 			break;

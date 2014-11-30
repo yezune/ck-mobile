@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+     android:layout_margin="5dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,9 +12,10 @@
 
         <TextView
             android:id="@+id/TextView07"
-            android:layout_width="wrap_content"
+            android:layout_width="100sp"
             android:layout_height="wrap_content"
             android:text="쿠폰번호"
+            android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
@@ -35,9 +37,10 @@
 
         <TextView
             android:id="@+id/TextView06"
-            android:layout_width="wrap_content"
+            android:layout_width="100sp"
             android:layout_height="wrap_content"
             android:text="추천인 이름"
+            android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
@@ -56,9 +59,10 @@
 
         <TextView
             android:id="@+id/TextView05"
-            android:layout_width="wrap_content"
+            android:layout_width="100sp"
             android:layout_height="wrap_content"
             android:text="이름"
+            android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
@@ -77,9 +81,10 @@
 
         <TextView
             android:id="@+id/TextView04"
-            android:layout_width="wrap_content"
+            android:layout_width="100sp"
             android:layout_height="wrap_content"
             android:text="주소"
+            android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
@@ -98,9 +103,10 @@
 
         <TextView
             android:id="@+id/TextView03"
-            android:layout_width="wrap_content"
+            android:layout_width="100sp"
             android:layout_height="wrap_content"
             android:text="상세주소"
+            android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
@@ -119,9 +125,10 @@
 
         <TextView
             android:id="@+id/TextView02"
-            android:layout_width="wrap_content"
+            android:layout_width="100sp"
             android:layout_height="wrap_content"
             android:text="휴대폰 번호"
+            android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 	<Spinner 
 	    android:id="@+id/user_mobile_spinner"
@@ -184,7 +191,9 @@
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="bottom" >
 
         <Button
             android:id="@+id/user_btn_reg"

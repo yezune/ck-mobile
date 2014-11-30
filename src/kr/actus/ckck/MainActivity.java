@@ -89,14 +89,15 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	SetUtil util;
 	SetURL ur;
 	int mCurrentFragmentIndex;
-	CharSequence menuIndex;
+	String menuIndex;
 	SharedPreferences pref;
 	SharedPreferences.Editor editor;
 	String uniqueKey;
 	TextView addrBasic, drawerAdd, drawerCenter, drawerEvent, drawerSetting;
-
+	Bundle savebundle;
 	JSONObject con;
 	int len;
+	Fragment newFragment;
 	// ServerResponse sr = new ServerResponse();
 	AsyncHttpClient client = new AsyncHttpClient();
 
@@ -104,10 +105,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		savebundle = new Bundle();
 		getActionBar().setTitle(getTitle());
 		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1b67bc")) );
-		pref = getSharedPreferences(ur.pref, 0);
+		pref = getSharedPreferences(ur.PREF, 0);
 		editor = pref.edit();
 
 		try {
@@ -187,15 +188,13 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 						//
 						drawerItem = new DrawerItem(con.getString("shopCate"), con
 								.getString("cateName"));
-						Log.v(TAG,
-								"" + con.getInt("shopCate")
-										+ con.getString("cateName"));
+						
 						drawerItemList.add(drawerItem);
 
 					}
 					setAdapter();
 
-					Log.v(TAG, drawerItemList.get(0).getTitle());
+					
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -328,28 +327,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	}
 	
 	
-	Bundle savebundle = new Bundle();
+	
 
-	public void fragmentReplace(int fragmentIndex) {
-
-		Fragment newFragment = null;
-		newFragment = getFragment(fragmentIndex);
-		// 플래그먼트 교체
-		final FragmentTransaction transaction = getSupportFragmentManager()
-				.beginTransaction();
-		// Bundle savebundle = new Bundle();
-		// savebundle.putString("title", "bundle value");
-
-		newFragment.setArguments(savebundle);
-		Log.v(TAG, "savebundle :" + savebundle.getString("shopId"));
-		transaction.replace(R.id.content_frame, newFragment);
-//		Log.v(TAG, "newFragment :" + newFragment);
-		transaction.commit();
-
-	}
-
+	
 	private Fragment getFragment(int idx) {
-		Fragment newFragment = null;
+		 newFragment = null;
 		switch (idx) {
 		case MAINTAB:
 			newFragment = new MainTab(this);
@@ -359,7 +341,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			newFragment = new StoreTab(this,savebundle);
 			break;
 		case MENUTAB:
-			newFragment = new MenuTab(this, menuIndex, mTitle);
+			newFragment = new MenuTab(this,savebundle);
 			break;
 		default:
 
@@ -436,23 +418,44 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	// }
 	// }
 
-	private void selectItem(DrawerItem drawerItem) {
-		String title = drawerItem.getTitle();
-		menuIndex = drawerItem.getIndex();
+//	private void selectItem(String menuIndex,String title) {	
 		// drawer메뉴에서 아이템을 클릭했을때 fragment 화면 변경
-		Fragment fragment = getFragment(MENUTAB);
-		Bundle args = new Bundle();
-		args.putString(MainTab.MENU_NUM, title);
-		fragment.setArguments(args);
-
-		FragmentManager fragmentManager = getSupportFragmentManager();
-		fragmentManager.beginTransaction()
-				.replace(R.id.content_frame, fragment).commit();
-
+//		newFragment = null;
+//		newFragment = getFragment(MENUTAB);
+//		if (savebundle != null) {
+//			savebundle = null;
+//		}			
+//		fragmentReplace(MENUTAB);
+//		newFragment.setArguments(savebundle);
+//		
+//		FragmentManager fragmentManager = getSupportFragmentManager();
+//		fragmentManager.beginTransaction()
+//				.replace(R.id.content_frame, newFragment).commit();
+//
 		// update selected item and title, then close the drawer
 		// mDrawerList.setItemChecked(title, true);
-		setTitle(title);
-		mDrawerLayout.closeDrawer(mDrawerList);
+//		setTitle(title);
+//		mDrawerLayout.closeDrawer(mDrawerList);
+//	}
+	public void fragmentReplace(int fragmentIndex) {
+		
+		newFragment = null;
+		newFragment = getFragment(fragmentIndex);
+		newFragment.setArguments(savebundle);
+	
+		// 플래그먼트 교체
+		final FragmentTransaction transaction = getSupportFragmentManager()
+				.beginTransaction();
+		// Bundle savebundle = new Bundle();
+		// savebundle.putString("title", "bundle value");
+
+		
+		
+		transaction.replace(R.id.content_frame, newFragment);
+		transaction.addToBackStack(null);
+//		Log.v(TAG, "newFragment :" + newFragment);
+		transaction.commit();
+
 	}
 
 	@Override
@@ -516,25 +519,28 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		}
 
 	}
-
 	public void receive(Bundle bundle, int index) {
 		if (savebundle != null) {
 			savebundle = null;
 		}
 		savebundle = bundle;
-		Log.v(TAG, "savebundle : "+savebundle.getString("shopId"));
+		mDrawerLayout.closeDrawer(mDrawerList);
 		fragmentReplace(index);
+		
 	}
 
-	public void receive(DrawerItem drawerItem) {
-
-		selectItem(drawerItem);
-	}
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+	}
+
+	@Override
+	public void onBackPressed() {
+		
+		Log.v(TAG,"back newfragment :"+ newFragment.getId());
+		super.onBackPressed();
 	}
 
 }

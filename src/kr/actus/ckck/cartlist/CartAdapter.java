@@ -80,8 +80,8 @@ public CartAdapter(CartActivity cartActivity,int layout,ArrayList<CartItem> data
 			
 			@Override
 			public void onClick(View v) {
-				data.clear();
-				cartActivity.itemStat(0,0);
+				data.remove(position);
+//				cartActivity.itemStat(0,0);
 				notifyDataSetChanged();
 			}
 		});

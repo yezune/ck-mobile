@@ -51,9 +51,9 @@ public class MainTab extends Fragment {
 	String path = ur.path;
 	AsyncData asyncData;
 	AsyncHttpClient client;
-	public int[] mRes = new int[] { R.drawable.menu_sample,
-			R.drawable.menu_sample, R.drawable.menu_sample,
-			R.drawable.menu_sample, R.drawable.menu_sample };
+	public int[] mRes = new int[] { R.drawable.mainad1,
+			R.drawable.mainad1, R.drawable.mainad1,
+			R.drawable.mainad1, R.drawable.mainad1 };
 	private int prePosition;
 	View cView;
 	MainActivity mainActivity;
@@ -67,13 +67,15 @@ public class MainTab extends Fragment {
 			Bundle savedInstanceState) {
 		cView = inflater.inflate(R.layout.fragment_main, container, false);
 		
-		int i = getArguments().getInt(MENU_NUM);
+//		int i = getArguments().getInt(MENU_NUM);
+		
 		// imgAd = (ImageView) cView.findViewById(R.id.imgAd);
 		// addrOther = (Button) cView.findViewById(R.id.addrOther);
 		client = new AsyncHttpClient();
 		mPager = (ViewPager) cView.findViewById(R.id.content_pager);
 		mPageMark = (LinearLayout) cView.findViewById(R.id.page_mark);
 		gridList = (GridView) cView.findViewById(R.id.main_grid_list);
+		gListItem.clear();
 		setViewPager();
 		setGrid();
 
@@ -188,7 +190,7 @@ public class MainTab extends Fragment {
 							
 							if (!file.exists()) {
 								String savefile = util.filePath(path+img);
-								
+								asyncData = new AsyncData(cView.getContext());
 								asyncData.binaryClient(img,savefile);
 
 								// asyncBinary(img);
@@ -199,9 +201,9 @@ public class MainTab extends Fragment {
 							 gListItem.add(gItem);
 							 
 						}
+					
 						gAdapter = new GridAdapter(mainActivity, getActivity(), R.layout.gridview_item, gListItem);
 						 gridList.setAdapter(gAdapter);
-						 
 
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
@@ -214,6 +216,7 @@ public class MainTab extends Fragment {
 				@Override
 				public void onFinish() {
 					dg.dismiss();
+					
 					super.onFinish();
 				}
 
@@ -225,17 +228,6 @@ public class MainTab extends Fragment {
 				}
 
 			});
-
-		
-//		for (int k = 0; k < 10; k++) {
-//			gItem = new GridItem(R.drawable.menu_sample, "상호명", "타입", "최소주문금액",
-//					"배달여부");
-//			gListItem.add(gItem);
-//		}
-		
-		gAdapter = new GridAdapter(mainActivity, getActivity(),
-				R.layout.gridview_item, gListItem);
-		gridList.setAdapter(gAdapter);
 
 	}
 

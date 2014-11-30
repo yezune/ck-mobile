@@ -53,7 +53,7 @@
             android:id="@+id/cart_tv_order_sum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="합계  : 114,000원"
+            android:text=""
               android:layout_gravity="right"
             android:textColor="@color/red"
             android:textAppearance="?android:attr/textAppearanceMedium" />

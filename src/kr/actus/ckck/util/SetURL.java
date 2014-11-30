@@ -20,9 +20,9 @@ public class SetURL {
 	// 성명 강선규 이메일 darksamo@gmail.com 으로 신청한 인증키값
 	public static final String ZIPCODE = "a314996f3c4a87fed1416726619504";
 	//Sharedpreferences
-	public static final String pref = "CKCK";
+	public static final String PREF = "CKCK";
 	
-	public static final String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+	public static final String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/ckck";
 	
 	
 	}

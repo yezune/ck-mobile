@@ -79,21 +79,28 @@ public class GridAdapter extends BaseAdapter  {
 		if (cView == null) {
 			cView = Inflater.inflate(layout, parent, false);
 		}
+		
+		Log.v(TAG,"data.getposiotion :"+data.get(position).getTitle());
+		
 		menuImg = (ImageView)cView.findViewById(R.id.grid_img);
 		bitmap = BitmapFactory.decodeFile(data.get(position).getImgPath());
 		menuImg.setImageBitmap(bitmap);
 		
 		tvTitle = (TextView)cView.findViewById(R.id.grid_tv_title);
-		tvTitle.setText(data.get(position).getTitle().toString());
+		tvTitle.setText(data.get(position).getTitle());
 	
 		
 		tvType = (TextView)cView.findViewById(R.id.grid_tv_type);
-		tvType.setText(data.get(position).getType().toString());
+		tvType.setText(data.get(position).getType());
 		
 		tvMin = (TextView)cView.findViewById(R.id.grid_tv_min);
-		tvMin.setText(data.get(position).getMinMoney()+"원 이상");
+		tvMin.setText("최소주문:"+data.get(position).getMinMoney()+"원 이상");
 		tvDelivery = (TextView)cView.findViewById(R.id.grid_tv_deli);
-		tvDelivery.setText(data.get(position).getDelivery().toString());
+		String deli;
+		if(data.get(position).getDelivery().equals("0")) deli = "배달의뢰";
+		else deli = "직접배달";
+		tvDelivery.setText(deli);
+		
 		
 		menuImg.setOnClickListener(new OnClickListener() {				
 			@Override

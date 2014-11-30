@@ -7,22 +7,27 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import kr.actus.ckck.cartlist.CartAdapter;
 import kr.actus.ckck.util.SetURL;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ListAdapter;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class SendOrderActivity extends Activity implements OnClickListener,
 		OnCheckedChangeListener {
@@ -34,28 +39,33 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 	CheckBox cbAddr, cbSms, cbAgree1, cbAgree2, cbCard, cbCash,cbLocCash;
 	EditText edAddr1, edAddr2, edRequest, edMobile;
 	TextView tvPriceSum;
+	ListView listView;
 	Intent intent;
 	SharedPreferences pref;
 	SharedPreferences.Editor editor;
 	SetURL ur;
 	AsyncHttpClient client;
-	
+	AlertDialog.Builder ab;
 	String shopId,memberKey,address,descript,orderMenu;
 	int payType,orderPrice;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		 ab = new AlertDialog.Builder(this);
 		setContentView(R.layout.activity_send_order);
+		 getActionBar().setDisplayHomeAsUpEnabled(true);
+		   getActionBar().setTitle(R.string.title_send_order);
 		intent = getIntent();
-		pref = getSharedPreferences(ur.pref, 0);
+		pref = getSharedPreferences(ur.PREF, 0);
 		editor = pref.edit();
 
 		edAddr1 = (EditText) findViewById(R.id.send_edit_post_add);
 		edAddr2 = (EditText) findViewById(R.id.send_edit_detail_add);
 		edRequest = (EditText) findViewById(R.id.send_edit_request);
 		edMobile = (EditText) findViewById(R.id.send_edit_mobile);
-
+		listView = (ListView) findViewById(R.id.send_listView);
+		
 		tvPriceSum = (TextView) findViewById(R.id.send_tv_sum);
 		tvPriceSum.setText(intent.getIntExtra("priceSum",0)+"원");
 		cbAddr = (CheckBox) findViewById(R.id.send_cb_addrg);
@@ -75,28 +85,28 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 
 		btnFinish = (Button) findViewById(R.id.send_btn_finish);
 		btnFinish.setOnClickListener(this);
+		
+		
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.send_btn_finish:
-			sendOrder();
 			
-			
-			Toast.makeText(this, "주문완료버튼클릭", Toast.LENGTH_SHORT).show();
-			
-			
+				
 			
 			if(cbCard.isChecked()&&cbCash.isChecked()&&cbLocCash.isChecked()==false){
-				AlertDialog.Builder ab = new AlertDialog.Builder(this);
+				
 				ab.setMessage("결제방식을 선택하세요.");
 				ab.setPositiveButton("확인", null);
 				ab.show();
 			}else{
-				
+				sendOrder();
 				
 			}
+			
+			
 			break;
 
 		}
@@ -128,27 +138,50 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 
 			@Override
 			public void onFailure(Throwable e, JSONObject errorResponse) {
-				// TODO Auto-generated method stub
+				Log.v(ur.TAG,"order errorResponse :"+errorResponse);
 				super.onFailure(e, errorResponse);
 			}
 
 			@Override
 			public void onSuccess(JSONObject response) {
-				// TODO Auto-generated method stub
+				try {
+					String result = response.getString("ResultCode");
+					if(result.equals("ok")){
+						ab.setMessage("주문이 완료 되었습니다.");
+						ab.setPositiveButton("확인", null);
+						ab.show();
+					}else{
+						ab.setMessage("다시 시도해 주세요.");
+						ab.setPositiveButton("확인", null);
+						ab.show();
+					}
+					Log.v(ur.TAG,"order response :"+response);
+					
+				
+				
+				
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				super.onSuccess(response);
 			}
 
-			@Override
-			protected Object parseResponse(String responseBody)
-					throws JSONException {
-				Log.v(ur.TAG,"order resposeBody :"+responseBody);
-				return super.parseResponse(responseBody);
-			}
 			
 			
 		});
 		
 		
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()){
+		case android.R.id.home:
+			finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
@@ -217,6 +250,12 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 
 		}
 
+	}
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
 	}
 
 }

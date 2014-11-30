@@ -49,7 +49,7 @@ public class AddUserActivity extends Activity implements OnClickListener{
 	    setContentView(R.layout.activity_adduser);
 	    getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setTitle(R.string.title_add_user);
-	    pref = getSharedPreferences(url.pref, 0);
+	    pref = getSharedPreferences(url.PREF, 0);
 		editor = pref.edit();
 		
 	    init();
