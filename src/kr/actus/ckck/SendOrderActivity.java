@@ -119,6 +119,7 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 		shopId = intent.getStringExtra("shopId");
 		memberKey=pref.getString("uniqueKey", null);
 		address=edAddr1.getText()+" "+edAddr2.getText();
+		
 		orderPrice = intent.getIntExtra("priceSum",0);
 		descript = edRequest.getText().toString();
 		orderMenu = intent.getStringExtra("menuName")
@@ -130,10 +131,11 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 		param.put("payType",payType);
 		param.put("address",address);
 		param.put("orderPrice",orderPrice);
+		Log.v(ur.TAG,"orderPrice :"+orderPrice);
 		param.put("descript",descript);
 		param.put("memberKey",memberKey);
 		param.put("orderMenu",orderMenu);
-				
+		
 		client.post(ur.ORDER, param, new JsonHttpResponseHandler(){
 
 			@Override

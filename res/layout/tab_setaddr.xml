@@ -9,6 +9,65 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="주소로설정" />
+        android:text="현재위치" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/addrtab_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/location" />
+
+        <TextView
+            android:id="@+id/addrtab_tv_loc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="현재위치"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </LinearLayout>
+      
+         <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="주소검색" />
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content" >
+
+             <EditText
+                 android:id="@+id/addrtab_ed_add1"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+                 android:ems="10"
+                 android:inputType="textPostalAddress" />
+
+             <Button
+                 android:id="@+id/addrtab_btn_add1"
+                 style="?android:attr/buttonStyleSmall"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+                 android:text="검색" />
+
+         </LinearLayout>
+        <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        android:text="읍, 면, 동, 리 명을 입력하고 검색하세요" />
+
+        <ListView
+            android:id="@+id/addrtab_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
 
 </LinearLayout>

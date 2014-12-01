@@ -2,19 +2,18 @@ package kr.actus.ckck.util;
 
 import java.io.File;
 
+import kr.actus.ckck.R;
+
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.Window;
 import android.widget.ProgressBar;
 
 public class SetUtil {
-
-	
-	
-		
-		
 	//로딩중 표시 프로그래스바
 	public static Dialog setProgress(Context context){
 		Dialog dg = new Dialog(context, android.R.style.Theme_Dialog);
@@ -26,6 +25,25 @@ public class SetUtil {
 		dg.show();
 		
 		return dg;
+		
+	}
+	public static void dialog(Context context,int msg){
+		AlertDialog.Builder adb = new AlertDialog.Builder(context);
+		adb.setMessage(msg);
+		switch(msg){
+		case R.string.net_error:
+		
+		adb.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				android.os.Process.killProcess(android.os.Process.myPid());
+				
+			}
+		});
+		
+		}
+		adb.show();
 		
 	}
 	

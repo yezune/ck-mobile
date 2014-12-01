@@ -41,11 +41,13 @@ import kr.actus.ckck.util.SetURL;
 import kr.actus.ckck.util.SetUtil;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -97,6 +99,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	Bundle savebundle;
 	JSONObject con;
 	int len;
+	boolean isWiFi, isMobile;
 	Fragment newFragment;
 	// ServerResponse sr = new ServerResponse();
 	AsyncHttpClient client = new AsyncHttpClient();
@@ -150,10 +153,18 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 		mCurrentFragmentIndex = MAINTAB;
 		fragmentReplace(mCurrentFragmentIndex);
-
+//		setNet();
 		setStatus();
 		// setActionBar();
 
+	}
+
+	private void setNet() {
+		ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+		isMobile = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnectedOrConnecting();
+		isWiFi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
+		 
+		
 	}
 
 	private void setDrawer() throws JSONException {

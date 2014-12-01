@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+   
     android:id="@+id/grid_item_layout"
     
     >
@@ -12,6 +13,7 @@
          android:id="@+id/grid_img"
          android:layout_width="match_parent"
         android:layout_height="match_parent"
+         android:layout_margin="4dp"
         android:scaleType="centerCrop"
         
      />
@@ -25,6 +27,7 @@
          android:paddingBottom="15dp"
          android:paddingLeft="10dp"
          android:paddingRight="10dp"
+          android:layout_margin="4dp"
          android:paddingTop="15dp" >
   <TextView
              android:id="@+id/grid_tv_title"

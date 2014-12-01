@@ -1,10 +1,15 @@
 package kr.actus.ckck.drawer;
 
+import java.util.ArrayList;
+
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import kr.actus.ckck.R;
 import kr.actus.ckck.R.layout;
+import kr.actus.ckck.myhistorylist.MyHistoryAdapter;
+import kr.actus.ckck.myhistorylist.MyHistoryListItem;
 import kr.actus.ckck.util.SetURL;
 import kr.actus.ckck.util.SetUtil;
 
@@ -19,6 +24,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 public class MyHistoryActivity extends Activity {
 
@@ -28,12 +34,18 @@ public class MyHistoryActivity extends Activity {
 	SetUtil util;
 	Dialog dg;
 	Context context;
+	ListView listView;
+	MyHistoryAdapter adapter;
+	MyHistoryListItem item;
+	ArrayList<MyHistoryListItem> itemList = new ArrayList<MyHistoryListItem>();
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_myhistory);
 	    getActionBar().setDisplayHomeAsUpEnabled(true);
 	    pref = getSharedPreferences(ur.PREF, 0);
+	    listView = (ListView) findViewById(R.id.myhistory_listView);
+	    
 	   context = this;
 	    client = new AsyncHttpClient();
 	    init();
@@ -58,7 +70,36 @@ public class MyHistoryActivity extends Activity {
 
 				@Override
 				public void onSuccess(JSONArray response) {
-					Log.v(ur.TAG," myhistory response :"+response);
+					
+					
+					try {
+						for (int i = 0; i < response.length(); i++) {
+							JSONObject con = response.getJSONObject(i);
+							
+							String orderId= con.getString("orderID");
+							String shopId= con.getString("shopID");
+							String shopName= con.getString("shopName");
+							String orderMenu= con.getString("orderMenu");
+							String orderTime= con.getString("orderTime");
+							int price= con.getInt("orderPrice");
+							int payType = con.getInt("payType");
+							String address= con.getString("address");
+							String descript= con.getString("Descript");
+							int status= con.getInt("Status");
+							String deliverName= con.getString("deliverName");
+							item = new MyHistoryListItem(orderId, shopId, shopName, orderMenu, orderTime, 
+									price, payType, address, descript, status, deliverName);
+							itemList.add(item);
+					
+						}
+						adapter = new MyHistoryAdapter(context, R.layout.myhistory_list_item, itemList);
+						listView.setAdapter(adapter);
+						
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					
 					super.onSuccess(response);
 				}
 
