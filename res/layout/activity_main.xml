@@ -30,41 +30,41 @@
         android:layout_height="match_parent" 
          android:orientation="vertical"
     >
+  
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:padding="5dp" >
+        android:weightSum="10"
+        android:padding="5dp"
+        
+       >
 
-        <TextView
-            android:id="@+id/textView222"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/loc" />
+      
 
         <TextView
             android:id="@+id/main_tv_addr_basic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/addr" />
-
-        <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+           android:layout_weight="7"
+           android:gravity="center"
+            android:text="@string/addr"
+             />
 
+       
         <Button
             android:id="@+id/main_btn_addr_reg"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/corner"
+            android:background="@drawable/select_main_other_addr_corner"
             android:drawableLeft="@drawable/button_location"
-            android:padding="5dp"
+           
             android:text="@string/otheraddr"
-            android:textColor="@color/white" />
-    </LinearLayout>
+            android:layout_weight="3"
+             android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:textColor="@color/white"
+            />
+</LinearLayout>
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"

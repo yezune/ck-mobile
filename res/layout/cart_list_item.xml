@@ -2,8 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
-    >
+    android:orientation="horizontal"
+    android:layout_margin="10dp" >
+    
+   
 
             <TextView
                 android:id="@+id/cart_list_tv_title"
@@ -40,11 +42,13 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textAppearance="?android:attr/textAppearanceSmall" />
-             <Button
+             <ImageView
                 android:id="@+id/cart_list_btn_del"
-                style="?android:attr/buttonStyleSmall"
+                
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="삭제" />
+                
+                android:src="@drawable/select_cart_del"
+                />
             
         </LinearLayout>

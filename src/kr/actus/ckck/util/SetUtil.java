@@ -8,8 +8,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.view.Window;
 import android.widget.ProgressBar;
 
@@ -37,11 +37,34 @@ public class SetUtil {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				android.os.Process.killProcess(android.os.Process.myPid());
+				android.os.Process.killProcess(android.os.Process.myPid());//앱 종료
 				
 			}
 		});
-		
+		case R.string.gps_check:
+			adb.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// GPS설정창 띄우기
+					Intent intent = new Intent(
+							android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+					intent.addCategory(Intent.CATEGORY_DEFAULT);
+					
+					
+					
+				}
+
+			});
+			adb.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					
+				}
+			});
+			
+			break;
 		}
 		adb.show();
 		

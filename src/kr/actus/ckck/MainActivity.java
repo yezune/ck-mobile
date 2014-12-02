@@ -39,7 +39,6 @@ import kr.actus.ckck.setaddr.SetAddrActivity;
 import kr.actus.ckck.util.AsyncData;
 import kr.actus.ckck.util.SetURL;
 import kr.actus.ckck.util.SetUtil;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -159,13 +158,21 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	}
 
-	private void checkNet() {
+	
+	private void checkNet() { //wifi & mobile 상태 체크 후 다이얼로그 출력
 		ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
 		isMobile = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnectedOrConnecting();
 		isWiFi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
 		if (!isMobile && !isWiFi) {
 			util.dialog(this,R.string.net_error);
 		}
+String gps = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+	   	
+		if (!(gps.matches(".*gps.*") && gps.matches(".*network.*"))) {
+			util.dialog(this,R.string.gps_check);
+		} 
+		
+		
 		
 	}
 
@@ -331,7 +338,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 //			 dg.dismiss();
 			 String deliAddr =pref.getString("deliAddr", "0"); 
 			
-			 addrBasic.setText(con.getString("address1"));
+			 addrBasic.setText("배송지 | "+con.getString("address1"));
+			
 			
 			 Log.v(TAG,"check pref uniqueKey : "+pref.getString("uniqueKey", ""));
 			 
@@ -504,9 +512,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			Intent intent = new Intent(this, SetAddrActivity.class);
 			startActivity(intent);
 			break;
-		case R.id.drawer_myorder:
-			Log.v(TAG, "myorder");
-			break;
+	
 		case R.id.drawer_list_item_header_tv1:
 			Intent intent1 = new Intent(this, MyHistoryActivity.class);
 			startActivity(intent1);
