@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.Header;
@@ -17,7 +18,12 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import kr.actus.ckck.R;
+import kr.actus.ckck.setaddrlist.SetAddrAdapter;
+import kr.actus.ckck.setaddrlist.SetAddrListItem;
 import kr.actus.ckck.util.SetURL;
+import kr.actus.ckck.util.SetUtil;
+import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -42,6 +48,12 @@ public class SetAddrTab extends Fragment implements OnClickListener {
 	Document doc;
 	View v;
 	ListView listView;
+	SetAddrListItem item;
+	SetAddrAdapter adapter;
+	SetUtil util;
+	Dialog dg;
+	
+	ArrayList<SetAddrListItem> itemList = new ArrayList<SetAddrListItem>();
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -50,6 +62,7 @@ public class SetAddrTab extends Fragment implements OnClickListener {
 		loc = (TextView) v.findViewById(R.id.addrtab_tv_loc);
 		btnAddr1 = (Button) v.findViewById(R.id.addrtab_btn_add1);
 		listView = (ListView) v.findViewById(R.id.addrtab_listview);
+		
 		btnAddr1.setOnClickListener(this);
 
 		client = new AsyncHttpClient();
@@ -88,17 +101,12 @@ public class SetAddrTab extends Fragment implements OnClickListener {
 			client.addHeader("accept-language", "ko");
 			client.get(url, new AsyncHttpResponseHandler() {
 
-				@Override
-				@Deprecated
-				public void onSuccess(String content) {
-					Log.v(ur.TAG, "post success :" + content);
-
-					super.onSuccess(content);
-				}
+				
 
 				@Override
 				public void onSuccess(int stat, Header[] header, byte[] binary) {
 					try {
+						
 //						if(binary.length>204){
 						InputStream is = null;
 //						Log.v(ur.TAG,"binary size :"+binary.length);
@@ -116,16 +124,21 @@ public class SetAddrTab extends Fragment implements OnClickListener {
 						itemlist = doc.getRootElement().getChild("itemlist");
 						List list = itemlist.getChildren();
 						
+						itemList.clear();
 						//검색결과가 여러개인 경우 반복하며 우편번호와 주소값을 뽑아낸다
 						for(int i=0; i<list.size();i++){
-							Element item = (Element)list.get(i);
-							String address = item.getChildText("address");
-							String postcd = item.getChildText("postcd");
+							Element eitem = (Element)list.get(i);
+							String address = eitem.getChildText("address");
+							String postcd = eitem.getChildText("postcd");
 							//address와 postcd 변수를 이용하여 자신에게 알맞는 형태로 사용하기
 //							this.cbAddr.addItem(postcd+" | "+address);
 							
+							item = new SetAddrListItem(address, postcd);
+							itemList.add(item);
 							
 						}
+							
+							
 						}else if(doc.getRootElement().getName().equals("error")){
 							itemlist = doc.getRootElement();
 							
@@ -135,14 +148,14 @@ public class SetAddrTab extends Fragment implements OnClickListener {
 							
 						}
 						
-						
-						
+					
 //						}else{
 //							Toast.makeText(v.getContext(), "검색하실 주소를 다시 입력하세요.", Toast.LENGTH_SHORT).show();
 //						}
 						
 						
-						
+						adapter = new SetAddrAdapter(SetAddrTab.this,v.getContext(), R.layout.setaddr_list_item, itemList);
+						listView.setAdapter(adapter);
 						
 
 					} catch (JDOMException e) {
@@ -152,7 +165,22 @@ public class SetAddrTab extends Fragment implements OnClickListener {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					
+					
+					
 					super.onSuccess(stat, header, binary);
+				}
+
+				@Override
+				public void onFinish() {
+					dg.dismiss();
+					super.onFinish();
+				}
+
+				@Override
+				public void onStart() {
+					dg = util.setProgress(v.getContext());
+					super.onStart();
 				}
 
 			});
@@ -161,6 +189,14 @@ public class SetAddrTab extends Fragment implements OnClickListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 	}
-
+	public void requestAdapter(String addr){
+		loc.setText(addr);
+		edAddr1.setText("");
+		itemList.clear();
+		adapter.notifyDataSetChanged();
+		
+	}
 }

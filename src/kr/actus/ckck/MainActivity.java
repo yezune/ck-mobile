@@ -108,6 +108,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		checkNet();
 		savebundle = new Bundle();
 		getActionBar().setTitle(getTitle());
 		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1b67bc")) );
@@ -153,17 +154,18 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 		mCurrentFragmentIndex = MAINTAB;
 		fragmentReplace(mCurrentFragmentIndex);
-//		setNet();
 		setStatus();
 		// setActionBar();
 
 	}
 
-	private void setNet() {
+	private void checkNet() {
 		ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
 		isMobile = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnectedOrConnecting();
 		isWiFi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
-		 
+		if (!isMobile && !isWiFi) {
+			util.dialog(this,R.string.net_error);
+		}
 		
 	}
 
@@ -327,7 +329,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 			 editor.commit();
 //			 dg.dismiss();
+			 String deliAddr =pref.getString("deliAddr", "0"); 
+			
 			 addrBasic.setText(con.getString("address1"));
+			
 			 Log.v(TAG,"check pref uniqueKey : "+pref.getString("uniqueKey", ""));
 			 
 			 } catch (JSONException e) {

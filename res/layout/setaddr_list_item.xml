@@ -3,21 +3,33 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:orientation="vertical" >
-      <LinearLayout
-        android:id="@+id/sotre_list_layout"
+ 
+ <LinearLayout
+        android:id="@+id/setaddr_list_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp"
         android:orientation="horizontal" 
-        android:clickable="true">
-
-        <TextView
-            android:id="@+id/store_list_title"
+       >
+   <TextView
+            android:id="@+id/setaddr_list_post"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
-            android:text="유황오리 진흙구이"
+            android:text="[post]"
+           
+             />
+        <TextView
+            android:id="@+id/setaddr_list_addr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:text="주소"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:maxLength="30"
              />
 
         <View
@@ -25,15 +37,12 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <TextView
-            android:id="@+id/store_list_price"
+        <Button
+            android:id="@+id/setaddr_list_btn"
+            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:text="50,000원"
-            android:textColor="@color/red"
-             />
+            android:text="선택" />
+     
 </LinearLayout>
-
 </LinearLayout>

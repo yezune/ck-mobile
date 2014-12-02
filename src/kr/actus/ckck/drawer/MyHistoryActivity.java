@@ -115,12 +115,7 @@ public class MyHistoryActivity extends Activity {
 					super.onStart();
 				}
 
-				@Override
-				protected Object parseResponse(String responseBody)
-						throws JSONException {
-					Log.v(ur.TAG," myhistory responseBody :"+responseBody);
-					return super.parseResponse(responseBody);
-				}
+				
 	   			
 	   			
 	   		});
