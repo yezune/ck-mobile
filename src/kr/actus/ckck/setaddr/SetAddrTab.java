@@ -52,6 +52,8 @@ public class SetAddrTab extends Fragment implements OnClickListener {
 	SetAddrAdapter adapter;
 	SetUtil util;
 	Dialog dg;
+	SharedPreferences pref;
+	SharedPreferences.Editor editor;
 	
 	ArrayList<SetAddrListItem> itemList = new ArrayList<SetAddrListItem>();
 	@Override
@@ -192,8 +194,16 @@ public class SetAddrTab extends Fragment implements OnClickListener {
 		
 		
 	}
-	public void requestAdapter(String addr){
-		loc.setText(addr);
+	public void requestAdapter(String addr1,String addr2){
+		String address = addr1+ " " + addr2;
+		pref = getActivity().getSharedPreferences(ur.PREF, 0);
+		editor = pref.edit();
+		editor.putString("deliAddr1", addr1);
+		editor.putString("deliAddr2", addr2);
+		editor.commit();
+		
+		Log.v(ur.TAG,"pref.gsetString deliAddr : "+pref.getString("deliAddr", "0"));
+		loc.setText(address);
 		edAddr1.setText("");
 		itemList.clear();
 		adapter.notifyDataSetChanged();

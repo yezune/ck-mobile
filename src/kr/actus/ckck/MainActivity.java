@@ -338,7 +338,7 @@ String gps = android.provider.Settings.Secure.getString(getContentResolver(), an
 //			 dg.dismiss();
 			 String deliAddr =pref.getString("deliAddr", "0"); 
 			
-			 addrBasic.setText("배송지 | "+con.getString("address1"));
+			 addrBasic.setText("배송지 | "+con.getString("deli"));
 			
 			
 			 Log.v(TAG,"check pref uniqueKey : "+pref.getString("uniqueKey", ""));

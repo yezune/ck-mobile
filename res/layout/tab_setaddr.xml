@@ -9,7 +9,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="현재위치" />
+        android:text="현재 설정된 배송지" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:id="@+id/addrtab_tv_loc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="현재위치"
+            android:text="설정된 배송지가 없습니다."
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </LinearLayout>

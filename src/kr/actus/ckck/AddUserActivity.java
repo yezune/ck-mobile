@@ -1,11 +1,28 @@
 package kr.actus.ckck;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.Header;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import kr.actus.ckck.setaddrlist.SetAddrAdapter;
+import kr.actus.ckck.setaddrlist.SetAddrListItem;
 import kr.actus.ckck.util.AsyncData;
 import kr.actus.ckck.util.SetURL;
 import kr.actus.ckck.util.SetUtil;
@@ -24,24 +41,35 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 public class AddUserActivity extends Activity implements OnClickListener{
 	private final String TAG = "MainActivity";
 	String uniqueKey;
-	EditText regKey,cName, name, address1, address2, mobile;
+	EditText regKey,cName, name, edAddr1, address2, mobile;
 	CheckBox sms,email,agree1,agree2;
-	Button inReg;
-	SetURL url;
+	Button inReg, btnPost;
+	ListView listView;
+	SetURL ur;
 	SetUtil util;
 	Spinner mobileSpin;
 	String fMobileNum;
 	ArrayAdapter<CharSequence> spinAdapter;
 	SharedPreferences pref;
 	SharedPreferences.Editor editor;
-	
+	AsyncHttpClient client;
 	AsyncData sr; 
+	SAXBuilder builder;
+	Document doc;
+	Dialog dg;
+	SetAddrListItem item;
+	SetAddrAdapter adapter;
+	LinearLayout layBasic,layPost;
+	
+	ArrayList<SetAddrListItem> itemList = new ArrayList<SetAddrListItem>();
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,13 +77,13 @@ public class AddUserActivity extends Activity implements OnClickListener{
 	    setContentView(R.layout.activity_adduser);
 	    getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setTitle(R.string.title_add_user);
-	    pref = getSharedPreferences(url.PREF, 0);
+	    pref = getSharedPreferences(ur.PREF, 0);
 		editor = pref.edit();
 		
 	    init();
 	    setSpinner();
 	    
-//	    uniqueKey = Secure.getString(this.getContentResolver(),Secure.ANDROID_ID);
+	    uniqueKey = Secure.getString(this.getContentResolver(),Secure.ANDROID_ID);
 	}
 	   
 	private void setSpinner() {
@@ -92,7 +120,7 @@ public class AddUserActivity extends Activity implements OnClickListener{
 		regKey = (EditText) findViewById(R.id.user_regKey);
 		cName= (EditText) findViewById(R.id.user_cName);
 		name= (EditText) findViewById(R.id.user_name);
-		address1= (EditText) findViewById(R.id.user_add);
+		edAddr1= (EditText) findViewById(R.id.user_add);
 		address2= (EditText) findViewById(R.id.user_dadd);
 		mobile= (EditText) findViewById(R.id.user_mobile);
 		
@@ -102,9 +130,14 @@ public class AddUserActivity extends Activity implements OnClickListener{
 		agree2 = (CheckBox) findViewById(R.id.user_check_agree2);
 		mobileSpin = (Spinner) findViewById(R.id.user_mobile_spinner);
 		inReg = (Button)findViewById(R.id.user_btn_reg);
-		
 		inReg.setOnClickListener(this);
+		btnPost = (Button)findViewById(R.id.user_btn_post);
+		btnPost.setOnClickListener(this);
 		
+		layBasic = (LinearLayout)findViewById(R.id.user_lay1);
+		layPost = (LinearLayout)findViewById(R.id.user_lay2);
+		
+		listView = (ListView)findViewById(R.id.user_listView);
 	}
 
 	@Override
@@ -133,7 +166,7 @@ public class AddUserActivity extends Activity implements OnClickListener{
 				param.put("memName", name.getText().toString());
 				param.put("regKey", regKey.getText().toString());
 				param.put("mobile", fMobileNum+mobile.getText().toString());
-				param.put("address1",address1.getText().toString());
+				param.put("address1",edAddr1.getText().toString());
 				param.put("address2", address2.getText().toString());
 				
 				sr = new AsyncData(this,SetURL.JOIN, param);
@@ -149,7 +182,7 @@ public class AddUserActivity extends Activity implements OnClickListener{
 							editor.putString("memName", name.getText().toString());
 							editor.putString("regKey", regKey.getText().toString());
 							editor.putString("mobile", mobile.getText().toString());
-							editor.putString("address1", address1.getText().toString());
+//							editor.putString("address1", edAddr1.getText().toString());
 							editor.putString("address2", address2.getText().toString());
 							editor.commit();
 							
@@ -179,8 +212,141 @@ public class AddUserActivity extends Activity implements OnClickListener{
 			
 			
 			break;
+		case R.id.user_btn_post:
+			
+			if(edAddr1.getText().toString().equalsIgnoreCase("")){
+				Toast.makeText(v.getContext(), "검색할 주소를 입력하세요", Toast.LENGTH_SHORT).show();
+			}else{
+				
+				requestPost();
+				
+			}
+			break;
 		}
 		
 	}
 
+	private void requestPost() {
+		try {
+			layPost.setVisibility(View.VISIBLE);
+			layBasic.setVisibility(View.INVISIBLE);
+			client = new AsyncHttpClient();
+			String url = ur.POSTIP + "?regkey=" + ur.REGKEY + "&target="
+					+ ur.TARGET + "&query="
+					+ URLEncoder.encode(edAddr1.getText().toString(), "EUC-KR");
+
+			client.addHeader("accept-language", "ko");
+			client.get(url, new AsyncHttpResponseHandler() {
+
+				
+
+				@Override
+				public void onSuccess(int stat, Header[] header, byte[] binary) {
+					try {
+						
+//						if(binary.length>204){
+						InputStream is = null;
+//						Log.v(ur.TAG,"binary size :"+binary.length);
+						is = new ByteArrayInputStream(binary);
+
+						// XML 파싱
+						builder = new SAXBuilder();
+						doc = builder.build(is);
+//						Log.v(ur.TAG,"doc :"+doc);
+						//itemlist하위에 우편번호와 주소값을 가짐
+						
+						Element itemlist;
+							
+						if(doc.getRootElement().getName().equals("post")){
+						itemlist = doc.getRootElement().getChild("itemlist");
+						List list = itemlist.getChildren();
+						
+						itemList.clear();
+						//검색결과가 여러개인 경우 반복하며 우편번호와 주소값을 뽑아낸다
+						for(int i=0; i<list.size();i++){
+							Element eitem = (Element)list.get(i);
+							String address = eitem.getChildText("address");
+							String postcd = eitem.getChildText("postcd");
+							//address와 postcd 변수를 이용하여 자신에게 알맞는 형태로 사용하기
+//							this.cbAddr.addItem(postcd+" | "+address);
+							
+							item = new SetAddrListItem(address, postcd);
+							itemList.add(item);
+							
+						}
+							
+							
+						}else if(doc.getRootElement().getName().equals("error")){
+							itemlist = doc.getRootElement();
+							
+							String msg = itemlist.getChildText("message");
+							Toast.makeText(AddUserActivity.this, msg+"다시 검색 하세요", Toast.LENGTH_SHORT).show();
+							edAddr1.setText("");
+							
+							
+						}
+						
+					
+//						}else{
+//							Toast.makeText(v.getContext(), "검색하실 주소를 다시 입력하세요.", Toast.LENGTH_SHORT).show();
+//						}
+						
+						
+						adapter = new SetAddrAdapter(AddUserActivity.this,getBaseContext(), R.layout.setaddr_list_item, itemList);
+						listView.setAdapter(adapter);
+						
+
+					} catch (JDOMException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					
+					
+					super.onSuccess(stat, header, binary);
+				}
+
+				@Override
+				public void onFinish() {
+					dg.dismiss();
+					super.onFinish();
+				}
+
+				@Override
+				public void onStart() {
+					dg = util.setProgress(AddUserActivity.this);
+					super.onStart();
+				}
+
+				
+
+			});
+
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	public void requestAdapter(String addr1,String addr2){
+		String address = addr1+ " " + addr2;
+		
+		
+		editor.putString("addrPost", addr1);
+		editor.putString("address1", addr2);
+		editor.commit();
+		
+		Log.v(ur.TAG,"pref.gsetString deliAddr : "+pref.getString("address1", "0"));
+		edAddr1.setText(address);
+		
+		itemList.clear();
+//		adapter.notifyDataSetChanged();
+		layBasic.setVisibility(View.VISIBLE);
+		layPost.setVisibility(View.INVISIBLE);
+		
+	}
 }
