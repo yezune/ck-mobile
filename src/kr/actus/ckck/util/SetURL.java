@@ -18,7 +18,10 @@ public class SetURL {
 	public static final String TAG = "MainActivity";
 	//http://biz.epost.go.kr/openapi/openapi_request.jsp?subGubun=sub_3&subGubun_1=cum_38&gubun=m07 
 	// 성명 강선규 이메일 darksamo@gmail.com 으로 신청한 인증키값
-	public static final String ZIPCODE = "a314996f3c4a87fed1416726619504";
+	 public static final String POSTIP = "http://biz.epost.go.kr/KpostPortal/openapi"; 
+	public static final String REGKEY = "a314996f3c4a87fed1416726619504";
+	public static final String TARGET = "post";
+	
 	//Sharedpreferences
 	public static final String PREF = "CKCK";
 	

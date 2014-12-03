@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -24,7 +24,7 @@ private static final String TAG = "MainActivity";
 	CartActivity cartActivity;
 	TextView tvTitle,tvPrice,tvCount;
 	
-	Button btnDel;
+	ImageView btnDel;
 	CartItem item;
 	ArrayList<CartItem> data = new ArrayList<CartItem>();
 	int layout;
@@ -67,7 +67,7 @@ public CartAdapter(CartActivity cartActivity,int layout,ArrayList<CartItem> data
 		tvPrice = (TextView)v.findViewById(R.id.cart_list_tv_price);
 		tvCount = (TextView)v.findViewById(R.id.cart_list_tv_count);
 		tvTitle = (TextView)v.findViewById(R.id.cart_list_tv_title);
-		btnDel = (Button)v.findViewById(R.id.cart_list_btn_del);
+		btnDel = (ImageView)v.findViewById(R.id.cart_list_btn_del);
 		
 		
 		tvTitle.setText(data.get(position).getTitle());

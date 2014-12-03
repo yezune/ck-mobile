@@ -39,13 +39,14 @@ import kr.actus.ckck.setaddr.SetAddrActivity;
 import kr.actus.ckck.util.AsyncData;
 import kr.actus.ckck.util.SetURL;
 import kr.actus.ckck.util.SetUtil;
-
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -97,6 +98,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	Bundle savebundle;
 	JSONObject con;
 	int len;
+	boolean isWiFi, isMobile;
 	Fragment newFragment;
 	// ServerResponse sr = new ServerResponse();
 	AsyncHttpClient client = new AsyncHttpClient();
@@ -105,6 +107,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		checkNet();
 		savebundle = new Bundle();
 		getActionBar().setTitle(getTitle());
 		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1b67bc")) );
@@ -150,10 +153,27 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 		mCurrentFragmentIndex = MAINTAB;
 		fragmentReplace(mCurrentFragmentIndex);
-
 		setStatus();
 		// setActionBar();
 
+	}
+
+	
+	private void checkNet() { //wifi & mobile 상태 체크 후 다이얼로그 출력
+		ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+		isMobile = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnectedOrConnecting();
+		isWiFi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
+		if (!isMobile && !isWiFi) {
+			util.dialog(this,R.string.net_error);
+		}
+String gps = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+	   	
+		if (!(gps.matches(".*gps.*") && gps.matches(".*network.*"))) {
+			util.dialog(this,R.string.gps_check);
+		} 
+		
+		
+		
 	}
 
 	private void setDrawer() throws JSONException {
@@ -316,7 +336,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 			 editor.commit();
 //			 dg.dismiss();
-			 addrBasic.setText(con.getString("address1"));
+			 String deliAddr =pref.getString("deliAddr", "0"); 
+			
+			 addrBasic.setText("배송지 | "+con.getString("deli"));
+			
+			
 			 Log.v(TAG,"check pref uniqueKey : "+pref.getString("uniqueKey", ""));
 			 
 			 } catch (JSONException e) {
@@ -488,9 +512,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			Intent intent = new Intent(this, SetAddrActivity.class);
 			startActivity(intent);
 			break;
-		case R.id.drawer_myorder:
-			Log.v(TAG, "myorder");
-			break;
+	
 		case R.id.drawer_list_item_header_tv1:
 			Intent intent1 = new Intent(this, MyHistoryActivity.class);
 			startActivity(intent1);

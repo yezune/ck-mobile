@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:layout_margin="5dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -169,12 +170,15 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <Button
+           
+
+            <ImageView
                 android:id="@+id/order_btn_minus"
-                style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-" />
+                android:src="@drawable/select_order_count_minus"
+                android:layout_gravity="center"
+                android:clickable="true" />
 
             <EditText
                 android:id="@+id/order_edit_count"
@@ -182,17 +186,21 @@
                 android:layout_height="wrap_content"
                 android:ems="2"
                 android:inputType="number"
-                android:text="1" >
+                android:text="1" 
+                android:cursorVisible="false">
 
-                <requestFocus />
+                
             </EditText>
 
-            <Button
+            <ImageView
                 android:id="@+id/order_btn_plus"
-                style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+" />
+                android:src="@drawable/select_order_count_plus"
+                android:layout_gravity="center"
+                android:clickable="true" />
+
+          
         </LinearLayout>
     </LinearLayout>
 <TextView

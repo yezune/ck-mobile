@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:orientation="vertical" >
-    <LinearLayout
+      <LinearLayout
         android:id="@+id/sotre_list_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

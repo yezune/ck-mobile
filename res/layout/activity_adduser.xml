@@ -85,6 +85,7 @@
             android:layout_height="wrap_content"
             android:text="주소"
             android:gravity="center"
+           
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
@@ -93,9 +94,31 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:hint="읍,면,동,리 명 입력"
             android:inputType="textPostalAddress" />
-    </LinearLayout>
 
+        <Button
+            android:id="@+id/user_btn_post"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="검색" />
+
+    </LinearLayout>
+    <FrameLayout 
+         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        
+        
+        >
+       
+        <LinearLayout 
+            android:id="@+id/user_lay1"
+            android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+            android:visibility="visible"
+            >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -202,5 +225,30 @@
             android:text="@string/title_add_user" />
 
     </LinearLayout>
+</LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/user_lay2"
+            android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="invisible" >
+      
+        
+        <ListView
+            android:id="@+id/user_listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
+            
+            
+            
+            
+            
+            
+            
+            
+        </LinearLayout>
+      
+      </FrameLayout>
 </LinearLayout>

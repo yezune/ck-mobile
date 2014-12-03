@@ -30,7 +30,7 @@
 <LinearLayout
                 android:id="@+id/page_mark"
                 android:layout_width="match_parent"
-                android:layout_height="15dp"
+                android:layout_height="10dp"
                 android:layout_marginRight="5dp"
                 android:gravity="right"
                 android:orientation="horizontal" >
@@ -48,17 +48,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="40"
+        android:layout_weight="50"
         android:orientation="vertical" >
 
         <GridView
             android:id="@+id/main_grid_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:numColumns="2"
-            android:stretchMode="columnWidth" 
            
-            android:gravity="center">
+            android:gravity="center"
+            android:numColumns="2"
+            android:stretchMode="columnWidth" >
+
         </GridView>
     </LinearLayout>
 

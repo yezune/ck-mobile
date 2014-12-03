@@ -20,11 +20,12 @@ import android.widget.TextView;
 public class SelectOrderActivity extends Activity implements OnClickListener {
 
 	private static final String TAG = "MainActivity";
-	Button btnCart, btnMinus, btnPlus;
+	Button btnCart;
+	
 	TextView menuName,edPrice, eventFunc,descript, edPriceSum, tvPriceMin;
 	SetURL ur;
 	EditText count;
-	ImageView img;
+	ImageView img,btnMinus, btnPlus;
 	int flagCount=1;
 	int price,priceMin;
 	Intent intent;
@@ -56,9 +57,10 @@ public class SelectOrderActivity extends Activity implements OnClickListener {
 	
 	
 	count=(EditText) findViewById(R.id.order_edit_count);
-	btnMinus = (Button) findViewById(R.id.order_btn_minus);
-	btnPlus = (Button)	findViewById(R.id.order_btn_plus);
-	
+	btnMinus = (ImageView) findViewById(R.id.order_btn_minus);
+	btnMinus.setOnClickListener(this);
+	btnPlus = (ImageView)	findViewById(R.id.order_btn_plus);
+	btnPlus.setOnClickListener(this);
 	
 	
 	
@@ -90,6 +92,7 @@ private void total(int cnt) {
 
 	@Override
 	public void onClick(View v) {
+		flagCount = Integer.parseInt(count.getText().toString());
 		switch(v.getId()){
 			case R.id.order_btn_cart:
 				
