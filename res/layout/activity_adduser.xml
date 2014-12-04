@@ -181,12 +181,6 @@
             android:text="@string/check_sms" />
 
         <CheckBox
-            android:id="@+id/user_check_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/check_email" />
-
-        <CheckBox
             android:id="@+id/user_check_agree1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

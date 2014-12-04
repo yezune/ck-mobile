@@ -3,9 +3,11 @@ package kr.actus.ckck.cartlist;
 import java.util.ArrayList;
 
 import kr.actus.ckck.CartActivity;
+import kr.actus.ckck.util.SetURL;
 import kr.actus.ckck.R;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,6 +30,7 @@ private static final String TAG = "MainActivity";
 	CartItem item;
 	ArrayList<CartItem> data = new ArrayList<CartItem>();
 	int layout;
+	SetURL ur;
 	
 public CartAdapter(CartActivity cartActivity,int layout,ArrayList<CartItem> data){
 		this.context = cartActivity;
@@ -75,12 +78,14 @@ public CartAdapter(CartActivity cartActivity,int layout,ArrayList<CartItem> data
 		int count = data.get(position).getCount();
 		tvPrice.setText(price+"¿ø");
 		tvCount.setText(count+"°³");
-		cartActivity.itemStat(price,count);
+//		cartActivity.itemStat(price,count);
 		btnDel.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				data.remove(position);
+				Log.v(ur.TAG,"cartAdapter pos :"+position);
+				cartActivity.removePref(position);
 //				cartActivity.itemStat(0,0);
 				notifyDataSetChanged();
 			}

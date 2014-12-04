@@ -35,7 +35,7 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 	final int CBLOCASH=2;
 	
 	Button btnFinish;
-	CheckBox cbAddr, cbSms, cbAgree1, cbAgree2, cbCard, cbCash,cbLocCash;
+	CheckBox cbAddr, cbSms, cbAgree1, cbAgree2;
 	EditText edAddr1, edAddr2, edRequest, edMobile;
 	TextView tvPriceSum;
 	ListView listView;
@@ -107,7 +107,7 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 		memberKey=pref.getString("uniqueKey", null);
 		address=edAddr1.getText()+" "+edAddr2.getText();
 		
-		orderPrice = intent.getIntExtra("priceSum",0);
+		orderPrice = intent.getIntExtra("orderPrice",0);
 		descript = edRequest.getText().toString();
 		orderMenu = intent.getStringExtra("menuName")
 			+":"+intent.getIntExtra("count",0)
@@ -118,9 +118,7 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 		param.put("payType",payType);
 		param.put("address",address);
 		param.put("orderPrice",orderPrice+"");
-		Log.v(ur.TAG,"orderPrice :"+orderPrice);
 		param.put("descript",descript);
-		param.put("memberKey",memberKey);
 		param.put("orderMenu",orderMenu);
 		
 		client.post(ur.ORDER, param, new JsonHttpResponseHandler(){
@@ -180,9 +178,19 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 			if (isChecked) {
 				edAddr1.setText(pref.getString("address1", null));
 				edAddr2.setText(pref.getString("address2", null));
+				edMobile.setText(pref.getString("mobile", null));
+				
+				cbSms.setChecked(pref.getBoolean("sms", false));
+				cbAgree1.setChecked(pref.getBoolean("agree1", false));
+				cbAgree2.setChecked(pref.getBoolean("agree2", false));
 			} else {
 				edAddr1.setText("");
-				edAddr1.setText("");
+				edAddr2.setText("");
+				edMobile.setText("");
+				boolean temp = false;
+				cbSms.setChecked(temp);
+				cbAgree1.setChecked(temp);
+				cbAgree2.setChecked(temp);
 			}
 			break;
 		case R.id.send_cb_agree1:

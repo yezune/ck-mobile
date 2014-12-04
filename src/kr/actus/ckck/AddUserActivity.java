@@ -49,8 +49,9 @@ import android.widget.Toast;
 public class AddUserActivity extends Activity implements OnClickListener{
 	private final String TAG = "MainActivity";
 	String uniqueKey;
-	EditText regKey,cName, name, edAddr1, address2, mobile;
-	CheckBox sms,email,agree1,agree2;
+	EditText regKey,cName, name, edAddr1, edAddr2, mobile;
+	CheckBox cbSms,cbEmail,cbAgree1,cbAgree2;
+	boolean sms,email,agree1,agree2;
 	Button inReg, btnPost;
 	ListView listView;
 	SetURL ur;
@@ -121,13 +122,13 @@ public class AddUserActivity extends Activity implements OnClickListener{
 		cName= (EditText) findViewById(R.id.user_cName);
 		name= (EditText) findViewById(R.id.user_name);
 		edAddr1= (EditText) findViewById(R.id.user_add);
-		address2= (EditText) findViewById(R.id.user_dadd);
+		edAddr2= (EditText) findViewById(R.id.user_dadd);
 		mobile= (EditText) findViewById(R.id.user_mobile);
 		
-		sms = (CheckBox) findViewById(R.id.user_check_sms);
-		email = (CheckBox) findViewById(R.id.user_check_email);
-		agree1 = (CheckBox) findViewById(R.id.user_check_agree1);
-		agree2 = (CheckBox) findViewById(R.id.user_check_agree2);
+		cbSms = (CheckBox) findViewById(R.id.user_check_sms);
+//		cbEmail = (CheckBox) findViewById(R.id.user_check_email);
+		cbAgree1 = (CheckBox) findViewById(R.id.user_check_agree1);
+		cbAgree2 = (CheckBox) findViewById(R.id.user_check_agree2);
 		mobileSpin = (Spinner) findViewById(R.id.user_mobile_spinner);
 		inReg = (Button)findViewById(R.id.user_btn_reg);
 		inReg.setOnClickListener(this);
@@ -138,6 +139,7 @@ public class AddUserActivity extends Activity implements OnClickListener{
 		layPost = (LinearLayout)findViewById(R.id.user_lay2);
 		
 		listView = (ListView)findViewById(R.id.user_listView);
+		
 	}
 
 	@Override
@@ -155,7 +157,7 @@ public class AddUserActivity extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.user_btn_reg:
-			if(!sms.isChecked() && !email.isChecked() && !agree1.isChecked() && !agree2.isChecked()){
+			if(!cbSms.isChecked() && !cbEmail.isChecked() && !cbAgree1.isChecked() && !cbAgree2.isChecked()){
 				
 			Toast.makeText(this, "서비스 제공을 위하여 동의 해주세요.", Toast.LENGTH_SHORT).show();	
 			}else{
@@ -167,7 +169,7 @@ public class AddUserActivity extends Activity implements OnClickListener{
 				param.put("regKey", regKey.getText().toString());
 				param.put("mobile", fMobileNum+mobile.getText().toString());
 				param.put("address1",edAddr1.getText().toString());
-				param.put("address2", address2.getText().toString());
+				param.put("address2", edAddr2.getText().toString());
 				
 				sr = new AsyncData(this,SetURL.JOIN, param);
 				JSONArray result = sr.postJSONArray();
@@ -183,7 +185,12 @@ public class AddUserActivity extends Activity implements OnClickListener{
 							editor.putString("regKey", regKey.getText().toString());
 							editor.putString("mobile", mobile.getText().toString());
 //							editor.putString("address1", edAddr1.getText().toString());
-							editor.putString("address2", address2.getText().toString());
+							editor.putString("address2", edAddr2.getText().toString());
+							
+							editor.putBoolean("sms", cbSms.isChecked());
+							editor.putBoolean("agree1", cbAgree1.isChecked());
+							editor.putBoolean("agree2", cbAgree2.isChecked());
+							
 							editor.commit();
 							
 						}else if(result.getJSONArray(0).equals("fail")){
@@ -336,15 +343,15 @@ public class AddUserActivity extends Activity implements OnClickListener{
 		String address = addr1+ " " + addr2;
 		
 		
-		editor.putString("addrPost", addr1);
+		editor.putString("addressPost", addr1);
 		editor.putString("address1", addr2);
 		editor.commit();
 		
-		Log.v(ur.TAG,"pref.gsetString deliAddr : "+pref.getString("address1", "0"));
-		edAddr1.setText(address);
+		Log.v(ur.TAG,"pref.gsetString deliAddr : "+pref.getString("address2", null));
+		edAddr1.setText(addr2);
 		
 		itemList.clear();
-//		adapter.notifyDataSetChanged();
+		adapter.notifyDataSetChanged();
 		layBasic.setVisibility(View.VISIBLE);
 		layPost.setVisibility(View.INVISIBLE);
 		

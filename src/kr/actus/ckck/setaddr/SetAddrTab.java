@@ -198,11 +198,11 @@ public class SetAddrTab extends Fragment implements OnClickListener {
 		String address = addr1+ " " + addr2;
 		pref = getActivity().getSharedPreferences(ur.PREF, 0);
 		editor = pref.edit();
-		editor.putString("deliAddr1", addr1);
-		editor.putString("deliAddr2", addr2);
+		editor.putString("addressPost", addr1);
+		editor.putString("address1", addr2);
 		editor.commit();
 		
-		Log.v(ur.TAG,"pref.gsetString deliAddr : "+pref.getString("deliAddr", "0"));
+		Log.v(ur.TAG,"pref.gsetString deliAddr : "+pref.getString("address1", "0"));
 		loc.setText(address);
 		edAddr1.setText("");
 		itemList.clear();

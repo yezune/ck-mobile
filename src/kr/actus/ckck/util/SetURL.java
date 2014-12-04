@@ -27,5 +27,7 @@ public class SetURL {
 	
 	public static final String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/ckck";
 	
+	public static final String[] CARTSET= {"cartItem0","cartItem1","cartItem2","cartItem3","cartItem4"};
+	
 	
 	}

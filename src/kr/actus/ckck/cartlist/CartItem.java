@@ -8,9 +8,12 @@ public class CartItem implements Parcelable {
 	private String title;
 	private int count;
 	private int price;
-
-	public CartItem(String title, int count, int price) {
+	private String shopId;
+	private String shopName;
+	public CartItem(String shopId,String shopName,String title, int count, int price) {
 		// TODO Auto-generated constructor stub
+		this.shopId=shopId;
+		this.shopName=shopName;
 		this.title = title;
 		this.count = count;
 		this.price = price;
@@ -25,9 +28,12 @@ public class CartItem implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(shopId);
+		dest.writeString(shopName);
 		dest.writeString(title);
 		dest.writeInt(count);
 		dest.writeInt(price);
+		
 
 	}
 
@@ -36,12 +42,13 @@ public class CartItem implements Parcelable {
 		@Override
 		public CartItem createFromParcel(Parcel src) {
 			// TODO Auto-generated method stub
-
+			String shopId = src.readString();
+			String shopName = src.readString();
 			String title = src.readString();
 			int count = src.readInt();
 			int price = src.readInt();
 
-			return new CartItem(title, count, price);
+			return new CartItem(shopId,shopName,title, count, price);
 
 		}
 
@@ -76,6 +83,22 @@ public class CartItem implements Parcelable {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public String getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(String shopId) {
+		this.shopId = shopId;
+	}
+
+	public String getShopName() {
+		return shopName;
+	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
 	}
 
 }

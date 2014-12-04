@@ -297,13 +297,7 @@ String gps = android.provider.Settings.Secure.getString(getContentResolver(), an
 					 Log.v(TAG,"array success : "+response.getJSONObject(0));
 					con = response.getJSONObject(0);
 					saveInfo();
-					
-//					Log.v(TAG, "array success : " + con.getString("address1"));
-					// addrBasic.setText(con.getString("address1"));
-					// pref.getString("uniqueKey", null);
-					
-					// Log.v(TAG,"array success : "+addrBasic.getText().toString());
-//					Log.v(TAG, "pref : " + pref.getString("uniqueKey", null));
+			
 
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -324,7 +318,7 @@ String gps = android.provider.Settings.Secure.getString(getContentResolver(), an
 	}
 	
 	public void saveInfo() {
-		 editor.clear();
+//		 editor.clear();
 			 try {
 			editor.putString("memPoint", con.getString("memPoint"));
 //			 editor.putString("RegDate", con.getString("regDate"));
@@ -336,9 +330,8 @@ String gps = android.provider.Settings.Secure.getString(getContentResolver(), an
 
 			 editor.commit();
 //			 dg.dismiss();
-			 String deliAddr =pref.getString("deliAddr", "0"); 
 			
-			 addrBasic.setText("배송지 | "+con.getString("deli"));
+			 addrBasic.setText("배송지 | "+con.getString("address1"));
 			
 			
 			 Log.v(TAG,"check pref uniqueKey : "+pref.getString("uniqueKey", ""));
@@ -416,6 +409,7 @@ String gps = android.provider.Settings.Secure.getString(getContentResolver(), an
 		case R.id.action_cart: // 장바구니 선택시 화면 전환
 
 			Intent intent = new Intent(this, CartActivity.class);
+			intent.putExtra("onAir",1);
 			startActivity(intent);
 			return true;
 		case R.id.action_add_user: // 회원가입선택시 화면전환
@@ -432,35 +426,7 @@ String gps = android.provider.Settings.Secure.getString(getContentResolver(), an
 		}
 	}
 
-	// drawer메뉴에서 리스트뷰의 아이템 클릭했을때
-	// private class DrawerItemClickListener implements
-	// ListView.OnItemClickListener {
-	// @Override
-	// public void onItemClick(AdapterView<?> parent, View view, int position,
-	// long id) {
-	// selectItem(position);
-	// }
-	// }
 
-//	private void selectItem(String menuIndex,String title) {	
-		// drawer메뉴에서 아이템을 클릭했을때 fragment 화면 변경
-//		newFragment = null;
-//		newFragment = getFragment(MENUTAB);
-//		if (savebundle != null) {
-//			savebundle = null;
-//		}			
-//		fragmentReplace(MENUTAB);
-//		newFragment.setArguments(savebundle);
-//		
-//		FragmentManager fragmentManager = getSupportFragmentManager();
-//		fragmentManager.beginTransaction()
-//				.replace(R.id.content_frame, newFragment).commit();
-//
-		// update selected item and title, then close the drawer
-		// mDrawerList.setItemChecked(title, true);
-//		setTitle(title);
-//		mDrawerLayout.closeDrawer(mDrawerList);
-//	}
 	public void fragmentReplace(int fragmentIndex) {
 		
 		newFragment = null;
