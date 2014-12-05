@@ -46,7 +46,9 @@
         <activity android:name="CartActivity"></activity>
         <activity android:name=".setaddr.SetAddrActivity"></activity>
         <activity android:name="SelectOrderActivity"></activity>
-        <activity android:name="SendOrderActivity"></activity>
+        <activity android:name="SendOrderActivity" 
+            	android:windowSoftInputMode="stateHidden"> 
+        </activity>
         <activity android:name=".drawer.CenterActivity"></activity>
         <activity android:name=".drawer.EventActivity"></activity>
         <activity android:name=".drawer.SettingActivity"></activity>

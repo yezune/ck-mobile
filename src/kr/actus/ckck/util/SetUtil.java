@@ -4,6 +4,7 @@ import java.io.File;
 
 import kr.actus.ckck.R;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -97,4 +98,9 @@ public class SetUtil {
 		return fullPath;
 
 	}
+	public static class ActivityReference{
+		
+	}
+	
+	
 }

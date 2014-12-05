@@ -1,5 +1,6 @@
 package kr.actus.ckck.util;
 
+import android.app.Activity;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.Settings.Secure;
@@ -28,6 +29,6 @@ public class SetURL {
 	public static final String path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/ckck";
 	
 	public static final String[] CARTSET= {"cartItem0","cartItem1","cartItem2","cartItem3","cartItem4"};
-	
+	public static Activity activityReference;
 	
 	}

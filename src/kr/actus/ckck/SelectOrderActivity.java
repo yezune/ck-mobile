@@ -9,15 +9,21 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 public class SelectOrderActivity extends Activity implements OnClickListener {
+	public static class ActivityReference{
+		public static Activity activityReference;
+	}
 
 	private static final String TAG = "MainActivity";
 	Button btnCart;
@@ -26,7 +32,7 @@ public class SelectOrderActivity extends Activity implements OnClickListener {
 	SetURL ur;
 	EditText count;
 	ImageView img,btnMinus, btnPlus;
-	int flagCount=1;
+	int flagCount;
 	int price,priceMin;
 	Intent intent;
 	/** Called when the activity is first created. */
@@ -76,6 +82,18 @@ public class SelectOrderActivity extends Activity implements OnClickListener {
 	  getActionBar().setDisplayHomeAsUpEnabled(true);
 	getActionBar().setTitle(R.string.title_selectorder);
 	total(flagCount);
+	count.setOnEditorActionListener(new OnEditorActionListener() {
+		
+		@Override
+		public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+			if(actionId==EditorInfo.IME_ACTION_DONE){
+				flagCount = Integer.parseInt(count.getText().toString());
+				total(flagCount);
+			}
+			return false;
+		}
+			
+	});
 	    // TODO Auto-generated method stub
 	}
 	
@@ -111,6 +129,7 @@ private void total(int cnt) {
 //				intent.putExtra("edPrice", edPrice.getText().toString());
 //				intent.putExtra("service", service.getText().toString());
 //				intent.putExtra("count", count.getText().toString());
+				ActivityReference.activityReference = SelectOrderActivity.this;
 				startActivity(intent);
 				}
 				break;
@@ -144,6 +163,13 @@ private void total(int cnt) {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+
+
+
+
+
+
 
 }
 

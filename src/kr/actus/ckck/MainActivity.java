@@ -65,11 +65,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity implements OnClickListener {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
-
+	
 	DrawerAdapter drawerAdapter;
 	DrawerItem drawerItem;
 	ArrayList<DrawerItem> drawerItemList = new ArrayList<DrawerItem>();
@@ -84,7 +85,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	public final static int MAINTAB = 0;
 	public final static int STORETAB = 1;
 	public final static int MENUTAB = 2;
-
+	
 	Dialog dg;
 	AsyncData sResponese;
 	SetUtil util;
@@ -114,12 +115,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		pref = getSharedPreferences(ur.PREF, 0);
 		editor = pref.edit();
 
-		try {
+		
 			setDrawer();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 
 		addrOther = (Button) findViewById(R.id.main_btn_addr_reg);
 		addrOther.setOnClickListener(this);
@@ -155,7 +153,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		fragmentReplace(mCurrentFragmentIndex);
 		setStatus();
 		// setActionBar();
-
+		
 	}
 
 	
@@ -176,7 +174,7 @@ String gps = android.provider.Settings.Secure.getString(getContentResolver(), an
 		
 	}
 
-	private void setDrawer() throws JSONException {
+	private void setDrawer()  {
 		mDrawerTitle = getText(R.string.menu);
 //		mCategory = getResources().getStringArray(R.array.category_arr);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -322,17 +320,20 @@ String gps = android.provider.Settings.Secure.getString(getContentResolver(), an
 			 try {
 			editor.putString("memPoint", con.getString("memPoint"));
 //			 editor.putString("RegDate", con.getString("regDate"));
-			 editor.putString("address1", con.getString("address1"));
-			 editor.putString("address2", con.getString("address2"));
+			 editor.putString("useraddress1", con.getString("address1"));
+			 editor.putString("useraddress2", con.getString("address2"));
 			 editor.putString("memName", con.getString("memName"));
 			 editor.putString("uniqueKey",con.getString("uniqueKey"));
 			 editor.putString("mobile", con.getString("mobile"));
 
 			 editor.commit();
 //			 dg.dismiss();
-			
-			 addrBasic.setText("배송지 | "+con.getString("address1"));
-			
+			 String address1 = pref.getString("address1", con.getString("address1"));
+//			if(address1!=null){
+				addrBasic.setText("배송지 | "+address1);
+//			}else{
+//			 addrBasic.setText("배송지 | "+con.getString("useraddress1"));
+//			}
 			
 			 Log.v(TAG,"check pref uniqueKey : "+pref.getString("uniqueKey", ""));
 			 
@@ -407,10 +408,16 @@ String gps = android.provider.Settings.Secure.getString(getContentResolver(), an
 
 		switch (item.getItemId()) {
 		case R.id.action_cart: // 장바구니 선택시 화면 전환
-
+			String temp = pref.getString(ur.CARTSET[0], null);
+			if(temp!=null){
 			Intent intent = new Intent(this, CartActivity.class);
 			intent.putExtra("onAir",1);
 			startActivity(intent);
+			}else{
+				Toast.makeText(this, "장바구니가 비어있습니다.", Toast.LENGTH_SHORT).show();
+			}
+			
+			
 			return true;
 		case R.id.action_add_user: // 회원가입선택시 화면전환
 
@@ -516,6 +523,7 @@ String gps = android.provider.Settings.Secure.getString(getContentResolver(), an
 		fragmentReplace(index);
 		
 	}
+	
 
 
 	@Override

@@ -3,6 +3,7 @@ package kr.actus.ckck.cartlist;
 import java.util.ArrayList;
 
 import kr.actus.ckck.CartActivity;
+import kr.actus.ckck.SendOrderActivity;
 import kr.actus.ckck.util.SetURL;
 import kr.actus.ckck.R;
 
@@ -16,6 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CartAdapter extends BaseAdapter {
 	
@@ -24,6 +26,7 @@ private static final String TAG = "MainActivity";
 	Context context;
 	LayoutInflater inflater;
 	CartActivity cartActivity;
+	SendOrderActivity sendOrderActivity;
 	TextView tvTitle,tvPrice,tvCount;
 	
 	ImageView btnDel;
@@ -41,6 +44,15 @@ public CartAdapter(CartActivity cartActivity,int layout,ArrayList<CartItem> data
 		
 		
 	}
+
+	public CartAdapter(SendOrderActivity sendOrderActivity, int layout,ArrayList<CartItem> data) {
+		this.context = sendOrderActivity;
+		this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE); 
+		this.data = data;
+		this.layout = layout;
+		this.sendOrderActivity=sendOrderActivity;
+		
+}
 
 	@Override
 	public int getCount() {
@@ -79,13 +91,21 @@ public CartAdapter(CartActivity cartActivity,int layout,ArrayList<CartItem> data
 		tvPrice.setText(price+"¿ø");
 		tvCount.setText(count+"°³");
 //		cartActivity.itemStat(price,count);
+		if(sendOrderActivity!=null){
+			btnDel.setVisibility(View.INVISIBLE);
+		}
 		btnDel.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
+				int removePrice = data.get(position).getCount()*data.get(position).getPrice();
 				data.remove(position);
 				Log.v(ur.TAG,"cartAdapter pos :"+position);
-				cartActivity.removePref(position);
+				if(cartActivity!=null){
+				cartActivity.removePref(position,removePrice);
+				}
+				
+//				if(sendOrderActivity!=null){sendOrderActivity.removePref(position);}
 //				cartActivity.itemStat(0,0);
 				notifyDataSetChanged();
 			}

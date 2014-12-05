@@ -2,16 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:weightSum="100" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+   
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="0dp" 
+            android:layout_weight="10">
 
             <TextView
                 android:id="@+id/textView1"
@@ -32,15 +31,23 @@
                 android:layout_height="wrap_content"
                 android:text="등록된 배송지" />
 
-        </LinearLayout>
+            
 
+        </LinearLayout>
+<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:layout_weight="45" >
+           
         <EditText
             android:id="@+id/send_edit_post_add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            
             android:ems="10" >
 
-            <requestFocus />
+           
         </EditText>
 
         <EditText
@@ -65,12 +72,7 @@
             android:ems="10"
             android:inputType="phone" 
              android:hint="연락처를 입력하세요. 예)01000000000"/>
-
-        
-        
-        
-        
-        <CheckBox
+	  <CheckBox
             android:id="@+id/send_cb_sms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -87,10 +89,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/check_agree2" />
+         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="0dp"
+            android:layout_weight="5" >
 
             <TextView
                 android:id="@+id/textView2"
@@ -133,30 +137,14 @@
 
 
         </RadioGroup>
-   <!-- 
-   <CheckBox
-                android:id="@+id/send_cb_card"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="카드" />
 
-            <CheckBox
-                android:id="@+id/send_cb_cash"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="현금" />
-             <CheckBox
-                android:id="@+id/send_cb_local_cash"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="지역화폐" />
- -->
         </LinearLayout>
-
+ 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="0dp"
+            android:orientation="vertical" 
+            android:layout_weight="25">
 
             <TextView
                 android:id="@+id/textView3"
@@ -167,15 +155,23 @@
             <ListView
                 android:id="@+id/send_listView"
                 android:layout_width="match_parent"
-                android:layout_height="100dp" >
+                android:layout_height="match_parent" >
             </ListView>
 
         </LinearLayout>
 
+      
+
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical" 
+            android:layout_weight="25">
+              <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+             >
 
             <TextView
                 android:id="@+id/textView4"
@@ -197,13 +193,13 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
         </LinearLayout>
-
         <TextView
             android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
            android:layout_gravity="center_horizontal"
-            android:text="주문 완료 후 음식 조리가 시작되면 주문을 취소하실 수 없습니다."
+            android:text="주문완료 후 주문을 취소하실 수 없습니다."
+            android:gravity="center_horizontal"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <Button
@@ -212,6 +208,5 @@
             android:layout_height="wrap_content"
             android:text="주문 완료" />
 
-    </LinearLayout>
-
+   </LinearLayout>
 </LinearLayout>

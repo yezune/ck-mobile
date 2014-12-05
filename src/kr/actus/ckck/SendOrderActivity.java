@@ -1,6 +1,9 @@
 package kr.actus.ckck;
 
 
+
+import java.util.ArrayList;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -8,9 +11,12 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import kr.actus.ckck.cartlist.CartAdapter;
+import kr.actus.ckck.cartlist.CartItem;
 import kr.actus.ckck.util.SetURL;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -30,6 +36,7 @@ import android.widget.TextView;
 
 public class SendOrderActivity extends Activity implements OnClickListener,
 		RadioGroup.OnCheckedChangeListener, OnCheckedChangeListener {
+	
 	final int CBCASH=0;
 	final int CBCARD=1;
 	final int CBLOCASH=2;
@@ -49,6 +56,10 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 	AlertDialog.Builder ab;
 	String shopId,memberKey,address,descript,orderMenu;
 	int payType,orderPrice;
+	CartAdapter cartAdapter;
+	CartItem cItem;
+	Activity activity;
+	ArrayList<CartItem> cItemList = new ArrayList<CartItem>();
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -67,8 +78,10 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 		edMobile = (EditText) findViewById(R.id.send_edit_mobile);
 		listView = (ListView) findViewById(R.id.send_listView);
 		
+		
+		
 		tvPriceSum = (TextView) findViewById(R.id.send_tv_sum);
-		tvPriceSum.setText(intent.getIntExtra("priceSum",0)+"원");
+		tvPriceSum.setText(intent.getIntExtra("orderPrice",0)+"원");
 		cbAddr = (CheckBox) findViewById(R.id.send_cb_addrg);
 		cbAddr.setOnCheckedChangeListener(this);
 		cbSms = (CheckBox) findViewById(R.id.send_cb_sms);
@@ -84,7 +97,30 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 		
 		btnFinish = (Button) findViewById(R.id.send_btn_finish);
 		btnFinish.setOnClickListener(this);
-		Log.v(ur.TAG,"payType :"+payType);
+	
+		setItem();
+		
+	}
+
+	private void setItem() {
+		int j;
+for (j = 0; j < ur.CARTSET.length; j++) {
+			
+			String saveName = ur.CARTSET[j];
+			String tempItem = pref.getString(saveName, null);
+		if(tempItem!=null){
+
+				String tem[] = tempItem.split(":");
+
+				cItem = new CartItem(tem[0], tem[1], tem[2],
+						Integer.parseInt(tem[3]), Integer.parseInt(tem[4]));
+				cItemList.add(cItem);
+			}
+		
+		}
+cartAdapter = new CartAdapter(this, R.layout.cart_list_item,
+		cItemList);
+listView.setAdapter(cartAdapter);
 		
 	}
 
@@ -94,6 +130,7 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 		case R.id.send_btn_finish:
 			
 			sendOrder();
+			
 			break;
 
 		}
@@ -135,8 +172,21 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 					String result = response.getString("ResultCode");
 					if(result.equals("ok")){
 						ab.setMessage("주문이 완료 되었습니다.");
-						ab.setPositiveButton("확인", null);
+						ab.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+							
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								for(int i=0;i<ur.CARTSET.length;i++){
+									editor.putString(ur.CARTSET[i], null);
+									}
+									editor.commit();
+									setResult(0);
+									finish();
+								
+							}
+						});
 						ab.show();
+						
 					}else{
 						ab.setMessage("다시 시도해 주세요.");
 						ab.setPositiveButton("확인", null);
@@ -176,8 +226,10 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 		switch (btnView.getId()) {
 		case R.id.send_cb_addrg:
 			if (isChecked) {
-				edAddr1.setText(pref.getString("address1", null));
-				edAddr2.setText(pref.getString("address2", null));
+				
+				
+				edAddr1.setText(pref.getString("address1", pref.getString("useraddress1",null)));
+				edAddr2.setText(pref.getString("address2", pref.getString("useraddress2",null)));
 				edMobile.setText(pref.getString("mobile", null));
 				
 				cbSms.setChecked(pref.getBoolean("sms", false));
@@ -244,6 +296,12 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 		
 		}
 		
+	}
+	public void removePref(int pos) {
+		editor.putString(ur.CARTSET[pos], null);
+		editor.commit();
+		Log.v(ur.TAG, "removePref :" + pref.getString(ur.CARTSET[pos], null));
+
 	}
 
 }
