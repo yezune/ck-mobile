@@ -28,48 +28,51 @@ public class SetUtil {
 		return dg;
 		
 	}
-	public static void dialog(Context context,int msg){
-		AlertDialog.Builder adb = new AlertDialog.Builder(context);
-		adb.setMessage(msg);
-		switch(msg){
-		case R.string.net_error:
-		
-		adb.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				android.os.Process.killProcess(android.os.Process.myPid());//앱 종료
-				
-			}
-		});
-		case R.string.gps_check:
-			adb.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// GPS설정창 띄우기
-					Intent intent = new Intent(
-							android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-					intent.addCategory(Intent.CATEGORY_DEFAULT);
-					
-					
-					
-				}
-
-			});
-			adb.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					
-				}
-			});
-			
-			break;
-		}
-		adb.show();
-		
-	}
+//	public static void dialog(Context context,int msg){
+//		AlertDialog.Builder adb = new AlertDialog.Builder(context);
+//		adb.setMessage(msg);
+//		switch(msg){
+//		case R.string.net_error:
+//		
+//		adb.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+//			
+//			@Override
+//			public void onClick(DialogInterface dialog, int which) {
+//				android.os.Process.killProcess(android.os.Process.myPid());//앱 종료
+//				
+//			}
+//		});
+//		break;
+//		case R.string.gps_check:
+//			adb.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+//
+//				@Override
+//				public void onClick(DialogInterface dialog, int which) {
+//					// GPS설정창 띄우기
+//					Intent intent = new Intent(
+//							android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//					intent.addCategory(Intent.CATEGORY_DEFAULT);
+//					startActivityForResult(intent, 0);
+//					
+//					
+//					
+//				}
+//
+//			});
+//			
+//			adb.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+//
+//				@Override
+//				public void onClick(DialogInterface dialog, int which) {
+//					
+//				}
+//			});
+//			
+//			break;
+//		}
+//		adb.show();
+//		
+//	}
 	
 	public static String filePath(String temp) {
 

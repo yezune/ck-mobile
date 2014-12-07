@@ -41,7 +41,7 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 	final int CBCARD=1;
 	final int CBLOCASH=2;
 	
-	Button btnFinish;
+	Button btnFinish,btnPost;
 	CheckBox cbAddr, cbSms, cbAgree1, cbAgree2;
 	EditText edAddr1, edAddr2, edRequest, edMobile;
 	TextView tvPriceSum;
@@ -77,13 +77,16 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 		edRequest = (EditText) findViewById(R.id.send_edit_request);
 		edMobile = (EditText) findViewById(R.id.send_edit_mobile);
 		listView = (ListView) findViewById(R.id.send_listView);
-		
-		
+		btnPost =(Button)findViewById(R.id.send_btn_add1);
+		btnPost.setOnClickListener(this);
 		
 		tvPriceSum = (TextView) findViewById(R.id.send_tv_sum);
 		tvPriceSum.setText(intent.getIntExtra("orderPrice",0)+"¿ø");
 		cbAddr = (CheckBox) findViewById(R.id.send_cb_addrg);
+		
 		cbAddr.setOnCheckedChangeListener(this);
+		cbAddr.setChecked(true);
+		setOnText(cbAddr.isChecked());
 		cbSms = (CheckBox) findViewById(R.id.send_cb_sms);
 		cbSms.setOnCheckedChangeListener(this);
 		cbAgree1 = (CheckBox) findViewById(R.id.send_cb_agree1);
@@ -132,6 +135,10 @@ listView.setAdapter(cartAdapter);
 			sendOrder();
 			
 			break;
+		case R.id.send_btn_add1:
+			
+			
+			break;
 
 		}
 
@@ -152,7 +159,7 @@ listView.setAdapter(cartAdapter);
 		RequestParams param = new RequestParams();
 		param.put("shopID", shopId);
 		param.put("memberKey",memberKey);
-		param.put("payType",payType);
+		param.put("payType",payType+"");
 		param.put("address",address);
 		param.put("orderPrice",orderPrice+"");
 		param.put("descript",descript);
@@ -221,29 +228,35 @@ listView.setAdapter(cartAdapter);
 		return super.onOptionsItemSelected(item);
 	}
 
+public void setOnText(boolean addr){
+	if(addr){
+		edAddr1.setText(pref.getString("address1", pref.getString("useraddress1",null)));
+		edAddr2.setText(pref.getString("address2", pref.getString("useraddress2",null)));
+		edMobile.setText(pref.getString("mobile", null));
+		
+//		cbSms.setChecked(pref.getBoolean("sms", false));
+//		cbAgree1.setChecked(pref.getBoolean("agree1", false));
+//		cbAgree2.setChecked(pref.getBoolean("agree2", false));
+	}else{
+		edAddr1.setText("");
+		edAddr2.setText("");
+		edMobile.setText("");
+		
+		cbSms.setChecked(false);
+		cbAgree1.setChecked(false);
+		cbAgree2.setChecked(false);
+		
+	}
+	
+	
+	
+}
+	
 	@Override
 	public void onCheckedChanged(CompoundButton btnView, boolean isChecked) {
 		switch (btnView.getId()) {
 		case R.id.send_cb_addrg:
-			if (isChecked) {
-				
-				
-				edAddr1.setText(pref.getString("address1", pref.getString("useraddress1",null)));
-				edAddr2.setText(pref.getString("address2", pref.getString("useraddress2",null)));
-				edMobile.setText(pref.getString("mobile", null));
-				
-				cbSms.setChecked(pref.getBoolean("sms", false));
-				cbAgree1.setChecked(pref.getBoolean("agree1", false));
-				cbAgree2.setChecked(pref.getBoolean("agree2", false));
-			} else {
-				edAddr1.setText("");
-				edAddr2.setText("");
-				edMobile.setText("");
-				boolean temp = false;
-				cbSms.setChecked(temp);
-				cbAgree1.setChecked(temp);
-				cbAgree2.setChecked(temp);
-			}
+			setOnText(isChecked); 
 			break;
 		case R.id.send_cb_agree1:
 			if (isChecked) {

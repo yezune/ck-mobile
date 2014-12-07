@@ -2,7 +2,6 @@ package kr.actus.ckck.fragment;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;

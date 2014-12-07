@@ -3,11 +3,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/tab_focus_on" >
-        <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="맵으로설정" />
+    android:background="@color/tab_focus_on" 
+    android:weightSum="10">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="9" >
+
+        <fragment
+            android:id="@+id/setaddr_mapview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            class="com.google.android.gms.maps.SupportMapFragment" >
+            <TextView
+      	    android:id="@+id/setaddr_tv_map"
+      	    android:layout_width="match_parent"
+      	    android:layout_height="wrap_content"
+      	    android:background="#55000000"
+      	    android:textColor="@color/white"
+      	    android:text="원하는 위치를 선택 후 위치 설정 버튼을 눌러주세요." 
+      	    android:gravity="center_horizontal"/>
+      	  
+            </fragment>
+    </LinearLayout>
+ <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical" 
+        android:layout_weight="1">
+      	<Button
+      	    android:id="@+id/setaddr_btn_map"
+      	    android:layout_width="match_parent"
+      	    android:layout_height="wrap_content"
+      	    android:text="위치설정"
+      	    android:layout_margin="5dp"
+      	    android:background="@drawable/select_main_other_addr_corner"
+      	     />
+</LinearLayout>
 </LinearLayout>

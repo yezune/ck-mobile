@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/white">
+    
+
+    
+    
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="*"
+                    android:weightSum="9"
+                    android:layout_margin="10dp" >
+
+                    <TableRow
+                        android:id="@+id/TableRow05"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" >
+
+                        <TextView
+                            android:id="@+id/TextView10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="상호명"
+                            android:layout_gravity="center"
+                             />
+
+                        <TextView
+                            android:id="@+id/myhistory_dialog_tv_shopname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0504-525-5221" 
+                            android:layout_gravity="center"/>
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/TableRow04"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" 
+                         android:layout_weight="1" >
+
+                        <TextView
+                            android:id="@+id/TextView08"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="주문 메뉴" 
+                            android:layout_gravity="center"/>
+
+                        <TextView
+                            android:id="@+id/myhistory_dialog_tv_ordermenu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="치약" 
+                            
+                            android:layout_gravity="center"/>
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/TableRow03"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                         android:layout_weight="1"  >
+
+                        <TextView
+                            android:id="@+id/TextView06"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="주문 시간"
+                            android:layout_gravity="center"
+                             />
+
+                        <TextView
+                            android:id="@+id/myhistory_dialog_tv_ordertime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10시" 
+                            
+                            android:layout_gravity="center"/>
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/TableRow02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" 
+                         android:layout_weight="1" >
+
+                        <TextView
+                            android:id="@+id/TextView04"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="가격"
+                            android:layout_gravity="center" />
+
+                        <TextView
+                            android:id="@+id/myhistory_dialog_tv_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="15000원" 
+                            
+                            android:layout_gravity="center"/>
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/TableRow01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                         android:layout_weight="1"  >
+
+                        <TextView
+                            android:id="@+id/TextView02"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="결제 방식"
+                            android:layout_gravity="center" />
+
+                        <TextView
+                            android:id="@+id/myhistory_dialog_tv_paytype"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="현금"
+                           
+                            android:layout_gravity="center" />
+                    </TableRow>
+
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                         android:layout_weight="1"  >
+
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="받을 주소"
+                            android:layout_gravity="center" />
+
+                        <TextView
+                            android:id="@+id/myhistory_dialog_tv_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="서울"
+                            
+                            android:layout_gravity="center"/>
+
+                    </TableRow>
+	<TableRow
+                        android:id="@+id/tableRow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                         android:layout_weight="1"  >
+
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="요청 사항" 
+                            android:layout_gravity="center"/>
+
+                        <TextView
+                            android:id="@+id/myhistory_dialog_tv_descript"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="없음"
+                           
+                            android:layout_gravity="center"/>
+
+                    </TableRow>
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                         android:layout_weight="1"  >
+
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="상태" 
+                            android:layout_gravity="center"/>
+
+                        <TextView
+                            android:id="@+id/myhistory_dialog_tv_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="서울"
+                            android:layout_gravity="center" />
+
+                    </TableRow>
+                    <TableRow
+                        android:id="@+id/tableRow1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                         android:layout_weight="1"  >
+
+                        <TextView
+                            android:id="@+id/textView1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="배달자"
+                            android:layout_gravity="center" />
+
+                        <TextView
+                            android:id="@+id/myhistory_dialog_tv_delivername"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="홍길동"
+                            android:layout_gravity="center" />
+
+                    </TableRow>
+
+                   
+                </TableLayout>
+    
+</LinearLayout>

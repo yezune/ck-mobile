@@ -9,19 +9,369 @@ package kr.actus.ckck;
 
 public final class R {
     public static final class array {
-        public static final int category_arr=0x7f060000;
-        public static final int user_mobile=0x7f060001;
+        public static final int category_arr=0x7f090000;
+        public static final int user_mobile=0x7f090001;
     }
     public static final class attr {
+        /** 
+    The size of the ad. It must be one of BANNER, FULL_BANNER, LEADERBOARD,
+    MEDIUM_RECTANGLE, SMART_BANNER, WIDE_SKYSCRAPER, or
+    &lt;width&gt;x&lt;height&gt;.
+    
+         <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int adSize=0x7f010000;
+        /** 
+    A comma-separated list of the supported ad sizes. The sizes must be one of
+    BANNER, FULL_BANNER, LEADERBOARD, MEDIUM_RECTANGLE, SMART_BANNER,
+    WIDE_SKYSCRAPER, or &lt;width&gt;x&lt;height&gt;.
+    
+         <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int adSizes=0x7f010001;
+        /**  The ad unit ID. 
+         <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int adUnitId=0x7f010002;
+        /**  Appearance of the buy button. Must be one of "classic", "grayscale" and "monochrome" 
+         <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>classic</code></td><td>1</td><td></td></tr>
+<tr><td><code>grayscale</code></td><td>2</td><td></td></tr>
+<tr><td><code>monochrome</code></td><td>3</td><td></td></tr>
+</table>
+         */
+        public static final int buyButtonAppearance=0x7f010018;
+        /**  Height of the buy button. This includes an 8dp padding (4dp on each side) used for
+             pressed and focused states of the button. The value can be a specific height, e.g.
+             "48dp", or special values "match_parent" and "wrap_content". 
+         <p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+<p>May be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>match_parent</code></td><td>-1</td><td></td></tr>
+<tr><td><code>wrap_content</code></td><td>-2</td><td></td></tr>
+</table>
+         */
+        public static final int buyButtonHeight=0x7f010015;
+        /**  Text on the buy button. Must be one of "buy_with_google", "buy_now" and "book_now" 
+         <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>buy_with_google</code></td><td>1</td><td></td></tr>
+<tr><td><code>buy_now</code></td><td>2</td><td></td></tr>
+<tr><td><code>book_now</code></td><td>3</td><td></td></tr>
+</table>
+         */
+        public static final int buyButtonText=0x7f010017;
+        /**  Width of the buy button. This includes an 8dp padding (4dp on each side) used for
+             pressed and focused states of the button. The value can be a specific width, e.g.
+             "300dp", or special values "match_parent" and "wrap_content". 
+         <p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+<p>May be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>match_parent</code></td><td>-1</td><td></td></tr>
+<tr><td><code>wrap_content</code></td><td>-2</td><td></td></tr>
+</table>
+         */
+        public static final int buyButtonWidth=0x7f010016;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cameraBearing=0x7f010004;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cameraTargetLat=0x7f010005;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cameraTargetLng=0x7f010006;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cameraTilt=0x7f010007;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int cameraZoom=0x7f010008;
+        /**  Google Wallet environment to use 
+         <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>production</code></td><td>1</td><td></td></tr>
+<tr><td><code>sandbox</code></td><td>0</td><td></td></tr>
+<tr><td><code>strict_sandbox</code></td><td>2</td><td></td></tr>
+</table>
+         */
+        public static final int environment=0x7f010012;
+        /**  Fragment mode 
+         <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>buyButton</code></td><td>1</td><td></td></tr>
+<tr><td><code>selectionDetails</code></td><td>2</td><td></td></tr>
+</table>
+         */
+        public static final int fragmentMode=0x7f010014;
+        /**  A style resource specifing attributes to customize the look and feel of WalletFragment 
+         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int fragmentStyle=0x7f010013;
+        /** <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>none</code></td><td>0</td><td></td></tr>
+<tr><td><code>normal</code></td><td>1</td><td></td></tr>
+<tr><td><code>satellite</code></td><td>2</td><td></td></tr>
+<tr><td><code>terrain</code></td><td>3</td><td></td></tr>
+<tr><td><code>hybrid</code></td><td>4</td><td></td></tr>
+</table>
+         */
+        public static final int mapType=0x7f010003;
+        /**  Masked wallet details background 
+         <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+         */
+        public static final int maskedWalletDetailsBackground=0x7f01001b;
+        /**  "Change" button background in masked wallet details view 
+         <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+         */
+        public static final int maskedWalletDetailsButtonBackground=0x7f01001d;
+        /**  TextAppearance for the "Change" button in masked wallet details view 
+         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int maskedWalletDetailsButtonTextAppearance=0x7f01001c;
+        /**  TextAppearance for headers describing masked wallet details 
+         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int maskedWalletDetailsHeaderTextAppearance=0x7f01001a;
+        /**  Type of the wallet logo image in masked wallet details view 
+         <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>classic</code></td><td>1</td><td></td></tr>
+<tr><td><code>monochrome</code></td><td>2</td><td></td></tr>
+</table>
+         */
+        public static final int maskedWalletDetailsLogoImageType=0x7f01001f;
+        /**  Color of the Google Wallet logo text in masked wallet details view 
+         <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int maskedWalletDetailsLogoTextColor=0x7f01001e;
+        /**  TextAppearance for masked wallet details 
+         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+         */
+        public static final int maskedWalletDetailsTextAppearance=0x7f010019;
+        /**  Theme to be used for the Wallet selector 
+         <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>holo_dark</code></td><td>0</td><td></td></tr>
+<tr><td><code>holo_light</code></td><td>1</td><td></td></tr>
+</table>
+         */
+        public static final int theme=0x7f010011;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiCompass=0x7f010009;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiRotateGestures=0x7f01000a;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiScrollGestures=0x7f01000b;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiTiltGestures=0x7f01000c;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiZoomControls=0x7f01000d;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int uiZoomGestures=0x7f01000e;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int useViewLifecycle=0x7f01000f;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int zOrderOnTop=0x7f010010;
     }
     public static final class color {
-        public static final int black=0x7f040006;
-        public static final int blue=0x7f040001;
-        public static final int menu_title=0x7f040003;
-        public static final int red=0x7f040000;
-        public static final int tab_focus_off=0x7f040004;
-        public static final int tab_focus_on=0x7f040005;
-        public static final int white=0x7f040002;
+        public static final int black=0x7f05001d;
+        public static final int blue=0x7f050018;
+        public static final int common_action_bar_splitter=0x7f050009;
+        /**  Sign-in Button Colors 
+         */
+        public static final int common_signin_btn_dark_text_default=0x7f050000;
+        public static final int common_signin_btn_dark_text_disabled=0x7f050002;
+        public static final int common_signin_btn_dark_text_focused=0x7f050003;
+        public static final int common_signin_btn_dark_text_pressed=0x7f050001;
+        public static final int common_signin_btn_default_background=0x7f050008;
+        public static final int common_signin_btn_light_text_default=0x7f050004;
+        public static final int common_signin_btn_light_text_disabled=0x7f050006;
+        public static final int common_signin_btn_light_text_focused=0x7f050007;
+        public static final int common_signin_btn_light_text_pressed=0x7f050005;
+        public static final int common_signin_btn_text_dark=0x7f05001e;
+        public static final int common_signin_btn_text_light=0x7f05001f;
+        public static final int menu_title=0x7f05001a;
+        public static final int red=0x7f050017;
+        public static final int tab_focus_off=0x7f05001b;
+        public static final int tab_focus_on=0x7f05001c;
+        public static final int wallet_bright_foreground_disabled_holo_light=0x7f05000f;
+        /** 
+         Wallet colors to support consistent Wallet fragment holo dark UI in client application
+         regardless of the theme and device type
+    
+         */
+        public static final int wallet_bright_foreground_holo_dark=0x7f05000a;
+        public static final int wallet_bright_foreground_holo_light=0x7f050010;
+        public static final int wallet_dim_foreground_disabled_holo_dark=0x7f05000c;
+        public static final int wallet_dim_foreground_holo_dark=0x7f05000b;
+        public static final int wallet_dim_foreground_inverse_disabled_holo_dark=0x7f05000e;
+        public static final int wallet_dim_foreground_inverse_holo_dark=0x7f05000d;
+        public static final int wallet_highlighted_text_holo_dark=0x7f050014;
+        public static final int wallet_highlighted_text_holo_light=0x7f050013;
+        public static final int wallet_hint_foreground_holo_dark=0x7f050012;
+        public static final int wallet_hint_foreground_holo_light=0x7f050011;
+        public static final int wallet_holo_blue_light=0x7f050015;
+        public static final int wallet_link_text_light=0x7f050016;
+        public static final int wallet_primary_text_holo_light=0x7f050020;
+        public static final int wallet_secondary_text_holo_dark=0x7f050021;
+        public static final int white=0x7f050019;
     }
     public static final class drawable {
         public static final int action_cart=0x7f020000;
@@ -34,158 +384,224 @@ public final class R {
         public static final int btn_on_off=0x7f020007;
         public static final int btn_plus=0x7f020008;
         public static final int button_location=0x7f020009;
-        public static final int corner=0x7f02000a;
-        public static final int drawer_shadow=0x7f02000b;
-        public static final int ic_drawer=0x7f02000c;
-        public static final int ic_launcher=0x7f02000d;
-        public static final int location=0x7f02000e;
-        public static final int mainad1=0x7f02000f;
-        public static final int menu_sample=0x7f020010;
-        public static final int page_not=0x7f020011;
-        public static final int select_cart_del=0x7f020012;
-        public static final int select_main_other_addr_corner=0x7f020013;
-        public static final int select_order_count_minus=0x7f020014;
-        public static final int select_order_count_plus=0x7f020015;
+        public static final int common_signin_btn_icon_dark=0x7f02000a;
+        public static final int common_signin_btn_icon_disabled_dark=0x7f02000b;
+        public static final int common_signin_btn_icon_disabled_focus_dark=0x7f02000c;
+        public static final int common_signin_btn_icon_disabled_focus_light=0x7f02000d;
+        public static final int common_signin_btn_icon_disabled_light=0x7f02000e;
+        public static final int common_signin_btn_icon_focus_dark=0x7f02000f;
+        public static final int common_signin_btn_icon_focus_light=0x7f020010;
+        public static final int common_signin_btn_icon_light=0x7f020011;
+        public static final int common_signin_btn_icon_normal_dark=0x7f020012;
+        public static final int common_signin_btn_icon_normal_light=0x7f020013;
+        public static final int common_signin_btn_icon_pressed_dark=0x7f020014;
+        public static final int common_signin_btn_icon_pressed_light=0x7f020015;
+        public static final int common_signin_btn_text_dark=0x7f020016;
+        public static final int common_signin_btn_text_disabled_dark=0x7f020017;
+        public static final int common_signin_btn_text_disabled_focus_dark=0x7f020018;
+        public static final int common_signin_btn_text_disabled_focus_light=0x7f020019;
+        public static final int common_signin_btn_text_disabled_light=0x7f02001a;
+        public static final int common_signin_btn_text_focus_dark=0x7f02001b;
+        public static final int common_signin_btn_text_focus_light=0x7f02001c;
+        public static final int common_signin_btn_text_light=0x7f02001d;
+        public static final int common_signin_btn_text_normal_dark=0x7f02001e;
+        public static final int common_signin_btn_text_normal_light=0x7f02001f;
+        public static final int common_signin_btn_text_pressed_dark=0x7f020020;
+        public static final int common_signin_btn_text_pressed_light=0x7f020021;
+        public static final int corner=0x7f020022;
+        public static final int drawer_shadow=0x7f020023;
+        public static final int ic_drawer=0x7f020024;
+        public static final int ic_launcher=0x7f020025;
+        public static final int ic_plusone_medium_off_client=0x7f020026;
+        public static final int ic_plusone_small_off_client=0x7f020027;
+        public static final int ic_plusone_standard_off_client=0x7f020028;
+        public static final int ic_plusone_tall_off_client=0x7f020029;
+        public static final int location=0x7f02002a;
+        public static final int mainad1=0x7f02002b;
+        public static final int menu_sample=0x7f02002c;
+        public static final int page_not=0x7f02002d;
+        public static final int powered_by_google_dark=0x7f02002e;
+        public static final int powered_by_google_light=0x7f02002f;
+        public static final int select_cart_del=0x7f020030;
+        public static final int select_main_other_addr_corner=0x7f020031;
+        public static final int select_order_count_minus=0x7f020032;
+        public static final int select_order_count_plus=0x7f020033;
     }
     public static final class id {
-        public static final int TableRow01=0x7f080069;
-        public static final int TableRow02=0x7f080067;
-        public static final int TableRow03=0x7f080065;
-        public static final int TableRow04=0x7f080062;
-        public static final int TableRow05=0x7f08005f;
-        public static final int TextView01=0x7f080028;
-        public static final int TextView02=0x7f08000c;
-        public static final int TextView03=0x7f08000a;
-        public static final int TextView04=0x7f080006;
-        public static final int TextView05=0x7f080004;
-        public static final int TextView06=0x7f080002;
-        public static final int TextView07=0x7f080000;
-        public static final int TextView08=0x7f080063;
-        public static final int TextView10=0x7f080060;
-        public static final int action_add_user=0x7f080089;
-        public static final int action_cart=0x7f080088;
-        public static final int action_search=0x7f080087;
-        public static final int addrtab_btn_add1=0x7f080081;
-        public static final int addrtab_btn_add2=0x7f080084;
-        public static final int addrtab_ed_add1=0x7f080080;
-        public static final int addrtab_ed_add2=0x7f080083;
-        public static final int addrtab_img=0x7f08007e;
-        public static final int addrtab_lay_detailaddr=0x7f080082;
-        public static final int addrtab_lay_postsearch=0x7f080085;
-        public static final int addrtab_listview=0x7f080086;
-        public static final int addrtab_tv_loc=0x7f08007f;
-        public static final int btn_setaddr_addr=0x7f080045;
-        public static final int btn_setaddr_dis=0x7f080047;
-        public static final int btn_setaddr_map=0x7f080046;
-        public static final int cart_btn_insert=0x7f080018;
-        public static final int cart_btn_order=0x7f08001b;
-        public static final int cart_list_btn_del=0x7f08004c;
-        public static final int cart_list_tv_count=0x7f08004a;
-        public static final int cart_list_tv_price=0x7f08004b;
-        public static final int cart_list_tv_title=0x7f080049;
-        public static final int cart_listview=0x7f080019;
-        public static final int cart_tv_order_sum=0x7f08001a;
-        public static final int cart_tv_store_name=0x7f080017;
-        public static final int content_frame=0x7f080020;
-        public static final int content_pager=0x7f080055;
-        public static final int drawer_layout=0x7f08001d;
-        public static final int drawer_list_item_body=0x7f08004d;
-        public static final int drawer_list_item_footer_tv1=0x7f08004e;
-        public static final int drawer_list_item_footer_tv2=0x7f08004f;
-        public static final int drawer_list_item_footer_tv3=0x7f080050;
-        public static final int drawer_list_item_header_tv1=0x7f080051;
-        public static final int drawer_list_item_header_tv2=0x7f080052;
-        public static final int drawer_list_item_header_tv3=0x7f080053;
-        public static final int grid_img=0x7f08006e;
-        public static final int grid_item_layout=0x7f08006d;
-        public static final int grid_tv_deli=0x7f080072;
-        public static final int grid_tv_min=0x7f080071;
-        public static final int grid_tv_title=0x7f08006f;
-        public static final int grid_tv_type=0x7f080070;
-        public static final int left_drawer=0x7f080021;
-        public static final int ll_fragment=0x7f080048;
-        public static final int main_btn_addr_reg=0x7f08001f;
-        public static final int main_grid_list=0x7f080056;
-        public static final int main_tv_addr_basic=0x7f08001e;
-        public static final int menu_grid_list=0x7f080057;
-        public static final int myhistory_item_layout=0x7f080073;
-        public static final int myhistory_item_tv_orderMenu=0x7f080075;
-        public static final int myhistory_item_tv_price=0x7f080076;
-        public static final int myhistory_item_tv_shopName=0x7f080074;
-        public static final int myhistory_listView=0x7f080022;
-        public static final int order_btn_cancel=0x7f080032;
-        public static final int order_btn_cart=0x7f080033;
-        public static final int order_btn_minus=0x7f08002d;
-        public static final int order_btn_plus=0x7f08002f;
-        public static final int order_btn_price=0x7f080026;
-        public static final int order_btn_service=0x7f08002a;
-        public static final int order_edit_count=0x7f08002e;
-        public static final int order_img_main=0x7f080025;
-        public static final int order_tv_descript=0x7f080024;
-        public static final int order_tv_price=0x7f080027;
-        public static final int order_tv_price_min=0x7f080030;
-        public static final int order_tv_price_sum=0x7f080031;
-        public static final int order_tv_price_title=0x7f080029;
-        public static final int order_tv_service=0x7f08002b;
-        public static final int order_tv_service_title=0x7f08002c;
-        public static final int order_tv_title=0x7f080023;
-        public static final int page_mark=0x7f080054;
-        public static final int send_btn_finish=0x7f080044;
-        public static final int send_cb_addrg=0x7f080034;
-        public static final int send_cb_agree1=0x7f08003a;
-        public static final int send_cb_agree2=0x7f08003b;
-        public static final int send_cb_sms=0x7f080039;
-        public static final int send_edit_detail_add=0x7f080036;
-        public static final int send_edit_mobile=0x7f080038;
-        public static final int send_edit_post_add=0x7f080035;
-        public static final int send_edit_request=0x7f080037;
-        public static final int send_listView=0x7f080040;
-        public static final int send_rb_card=0x7f08003e;
-        public static final int send_rb_cash=0x7f08003d;
-        public static final int send_rb_local_cash=0x7f08003f;
-        public static final int send_rg=0x7f08003c;
-        public static final int send_tv_sum=0x7f080042;
-        public static final int setaddr_list_addr=0x7f080079;
-        public static final int setaddr_list_btn=0x7f08007a;
-        public static final int setaddr_list_layout=0x7f080077;
-        public static final int setaddr_list_post=0x7f080078;
-        public static final int sotre_list_layout=0x7f08007b;
-        public static final int store_btn_inform=0x7f08005a;
-        public static final int store_btn_menu=0x7f080059;
-        public static final int store_fragment=0x7f08005b;
-        public static final int store_img=0x7f080058;
-        public static final int store_lay_inform=0x7f08005e;
-        public static final int store_lay_list=0x7f08005c;
-        public static final int store_list_price=0x7f08007d;
-        public static final int store_list_title=0x7f08007c;
-        public static final int store_listview=0x7f08005d;
-        public static final int store_tv_card=0x7f080066;
-        public static final int store_tv_delivery=0x7f080064;
-        public static final int store_tv_loc=0x7f08006c;
-        public static final int store_tv_money=0x7f08006a;
-        public static final int store_tv_phone=0x7f080061;
-        public static final int store_tv_time=0x7f080068;
-        public static final int tableRow1=0x7f08006b;
-        public static final int textView1=0x7f080012;
-        public static final int textView2=0x7f080013;
-        public static final int textView3=0x7f08001c;
-        public static final int textView4=0x7f080041;
-        public static final int textView5=0x7f080043;
-        public static final int user_add=0x7f080007;
-        public static final int user_btn_post=0x7f080008;
-        public static final int user_btn_reg=0x7f080014;
-        public static final int user_cName=0x7f080003;
-        public static final int user_check_agree1=0x7f080010;
-        public static final int user_check_agree2=0x7f080011;
-        public static final int user_check_sms=0x7f08000f;
-        public static final int user_dadd=0x7f08000b;
-        public static final int user_lay1=0x7f080009;
-        public static final int user_lay2=0x7f080015;
-        public static final int user_listView=0x7f080016;
-        public static final int user_mobile=0x7f08000e;
-        public static final int user_mobile_spinner=0x7f08000d;
-        public static final int user_name=0x7f080005;
-        public static final int user_regKey=0x7f080001;
+        public static final int TableRow01=0x7f06007e;
+        public static final int TableRow02=0x7f06007c;
+        public static final int TableRow03=0x7f06007a;
+        public static final int TableRow04=0x7f060077;
+        public static final int TableRow05=0x7f060074;
+        public static final int TextView01=0x7f06003c;
+        public static final int TextView02=0x7f060020;
+        public static final int TextView03=0x7f06001e;
+        public static final int TextView04=0x7f06001a;
+        public static final int TextView05=0x7f060018;
+        public static final int TextView06=0x7f060016;
+        public static final int TextView07=0x7f060014;
+        public static final int TextView08=0x7f060078;
+        public static final int TextView10=0x7f060075;
+        public static final int action_add_user=0x7f0600aa;
+        public static final int action_cart=0x7f0600a9;
+        public static final int action_search=0x7f0600a8;
+        public static final int addrtab_btn_add1=0x7f06009f;
+        public static final int addrtab_btn_add2=0x7f0600a2;
+        public static final int addrtab_ed_add1=0x7f06009e;
+        public static final int addrtab_ed_add2=0x7f0600a1;
+        public static final int addrtab_img=0x7f06009c;
+        public static final int addrtab_lay_detailaddr=0x7f0600a0;
+        public static final int addrtab_lay_postsearch=0x7f0600a3;
+        public static final int addrtab_listview=0x7f0600a4;
+        public static final int addrtab_tv_loc=0x7f06009d;
+        public static final int book_now=0x7f060010;
+        public static final int btn_setaddr_addr=0x7f06005a;
+        public static final int btn_setaddr_dis=0x7f06005c;
+        public static final int btn_setaddr_map=0x7f06005b;
+        public static final int buyButton=0x7f06000a;
+        public static final int buy_now=0x7f06000f;
+        public static final int buy_with_google=0x7f06000e;
+        public static final int cart_btn_insert=0x7f06002c;
+        public static final int cart_btn_order=0x7f06002f;
+        public static final int cart_list_btn_del=0x7f060061;
+        public static final int cart_list_tv_count=0x7f06005f;
+        public static final int cart_list_tv_price=0x7f060060;
+        public static final int cart_list_tv_title=0x7f06005e;
+        public static final int cart_listview=0x7f06002d;
+        public static final int cart_tv_order_sum=0x7f06002e;
+        public static final int cart_tv_store_name=0x7f06002b;
+        public static final int classic=0x7f060011;
+        public static final int content_frame=0x7f060034;
+        public static final int content_pager=0x7f06006a;
+        public static final int drawer_layout=0x7f060031;
+        public static final int drawer_list_item_body=0x7f060062;
+        public static final int drawer_list_item_footer_tv1=0x7f060063;
+        public static final int drawer_list_item_footer_tv2=0x7f060064;
+        public static final int drawer_list_item_footer_tv3=0x7f060065;
+        public static final int drawer_list_item_header_tv1=0x7f060066;
+        public static final int drawer_list_item_header_tv2=0x7f060067;
+        public static final int drawer_list_item_header_tv3=0x7f060068;
+        public static final int grayscale=0x7f060012;
+        public static final int grid_img=0x7f060083;
+        public static final int grid_item_layout=0x7f060082;
+        public static final int grid_tv_deli=0x7f060087;
+        public static final int grid_tv_min=0x7f060086;
+        public static final int grid_tv_title=0x7f060084;
+        public static final int grid_tv_type=0x7f060085;
+        public static final int holo_dark=0x7f060005;
+        public static final int holo_light=0x7f060006;
+        public static final int hybrid=0x7f060004;
+        public static final int left_drawer=0x7f060035;
+        public static final int ll_fragment=0x7f06005d;
+        public static final int main_btn_addr_reg=0x7f060033;
+        public static final int main_grid_list=0x7f06006b;
+        public static final int main_tv_addr_basic=0x7f060032;
+        public static final int match_parent=0x7f06000c;
+        public static final int menu_grid_list=0x7f06006c;
+        public static final int monochrome=0x7f060013;
+        public static final int myhistory_dialog_tv_address=0x7f06008d;
+        public static final int myhistory_dialog_tv_delivername=0x7f060090;
+        public static final int myhistory_dialog_tv_descript=0x7f06008e;
+        public static final int myhistory_dialog_tv_ordermenu=0x7f060089;
+        public static final int myhistory_dialog_tv_ordertime=0x7f06008a;
+        public static final int myhistory_dialog_tv_paytype=0x7f06008c;
+        public static final int myhistory_dialog_tv_price=0x7f06008b;
+        public static final int myhistory_dialog_tv_shopname=0x7f060088;
+        public static final int myhistory_dialog_tv_status=0x7f06008f;
+        public static final int myhistory_item_layout=0x7f060091;
+        public static final int myhistory_item_tv_orderMenu=0x7f060093;
+        public static final int myhistory_item_tv_price=0x7f060094;
+        public static final int myhistory_item_tv_shopName=0x7f060092;
+        public static final int myhistory_listView=0x7f060036;
+        public static final int none=0x7f060000;
+        public static final int normal=0x7f060001;
+        public static final int order_btn_cancel=0x7f060046;
+        public static final int order_btn_cart=0x7f060047;
+        public static final int order_btn_minus=0x7f060041;
+        public static final int order_btn_plus=0x7f060043;
+        public static final int order_btn_price=0x7f06003a;
+        public static final int order_btn_service=0x7f06003e;
+        public static final int order_edit_count=0x7f060042;
+        public static final int order_img_main=0x7f060039;
+        public static final int order_tv_descript=0x7f060038;
+        public static final int order_tv_price=0x7f06003b;
+        public static final int order_tv_price_min=0x7f060044;
+        public static final int order_tv_price_sum=0x7f060045;
+        public static final int order_tv_price_title=0x7f06003d;
+        public static final int order_tv_service=0x7f06003f;
+        public static final int order_tv_service_title=0x7f060040;
+        public static final int order_tv_title=0x7f060037;
+        public static final int page_mark=0x7f060069;
+        public static final int production=0x7f060007;
+        public static final int sandbox=0x7f060008;
+        public static final int satellite=0x7f060002;
+        public static final int selectionDetails=0x7f06000b;
+        public static final int send_btn_add1=0x7f06004a;
+        public static final int send_btn_finish=0x7f060059;
+        public static final int send_cb_addrg=0x7f060048;
+        public static final int send_cb_agree1=0x7f06004f;
+        public static final int send_cb_agree2=0x7f060050;
+        public static final int send_cb_sms=0x7f06004e;
+        public static final int send_edit_detail_add=0x7f06004b;
+        public static final int send_edit_mobile=0x7f06004d;
+        public static final int send_edit_post_add=0x7f060049;
+        public static final int send_edit_request=0x7f06004c;
+        public static final int send_listView=0x7f060055;
+        public static final int send_rb_card=0x7f060053;
+        public static final int send_rb_cash=0x7f060052;
+        public static final int send_rb_local_cash=0x7f060054;
+        public static final int send_rg=0x7f060051;
+        public static final int send_tv_sum=0x7f060057;
+        public static final int setaddr_btn_map=0x7f0600a7;
+        public static final int setaddr_list_addr=0x7f060097;
+        public static final int setaddr_list_btn=0x7f060098;
+        public static final int setaddr_list_layout=0x7f060095;
+        public static final int setaddr_list_post=0x7f060096;
+        public static final int setaddr_mapview=0x7f0600a5;
+        public static final int setaddr_tv_map=0x7f0600a6;
+        public static final int sotre_list_layout=0x7f060099;
+        public static final int store_btn_inform=0x7f06006f;
+        public static final int store_btn_menu=0x7f06006e;
+        public static final int store_fragment=0x7f060070;
+        public static final int store_img=0x7f06006d;
+        public static final int store_lay_inform=0x7f060073;
+        public static final int store_lay_list=0x7f060071;
+        public static final int store_list_price=0x7f06009b;
+        public static final int store_list_title=0x7f06009a;
+        public static final int store_listview=0x7f060072;
+        public static final int store_tv_card=0x7f06007b;
+        public static final int store_tv_delivery=0x7f060079;
+        public static final int store_tv_loc=0x7f060081;
+        public static final int store_tv_money=0x7f06007f;
+        public static final int store_tv_phone=0x7f060076;
+        public static final int store_tv_time=0x7f06007d;
+        public static final int strict_sandbox=0x7f060009;
+        public static final int tableRow1=0x7f060080;
+        public static final int terrain=0x7f060003;
+        public static final int textView1=0x7f060026;
+        public static final int textView2=0x7f060027;
+        public static final int textView3=0x7f060030;
+        public static final int textView4=0x7f060056;
+        public static final int textView5=0x7f060058;
+        public static final int user_add=0x7f06001b;
+        public static final int user_btn_post=0x7f06001c;
+        public static final int user_btn_reg=0x7f060028;
+        public static final int user_cName=0x7f060017;
+        public static final int user_check_agree1=0x7f060024;
+        public static final int user_check_agree2=0x7f060025;
+        public static final int user_check_sms=0x7f060023;
+        public static final int user_dadd=0x7f06001f;
+        public static final int user_lay1=0x7f06001d;
+        public static final int user_lay2=0x7f060029;
+        public static final int user_listView=0x7f06002a;
+        public static final int user_mobile=0x7f060022;
+        public static final int user_mobile_spinner=0x7f060021;
+        public static final int user_name=0x7f060019;
+        public static final int user_regKey=0x7f060015;
+        public static final int wrap_content=0x7f06000d;
+    }
+    public static final class integer {
+        public static final int google_play_services_version=0x7f070000;
     }
     public static final class layout {
         public static final int activity_adduser=0x7f030000;
@@ -207,47 +623,802 @@ public final class R {
         public static final int fragment_menu=0x7f030010;
         public static final int fragment_store=0x7f030011;
         public static final int gridview_item=0x7f030012;
-        public static final int myhistory_list_item=0x7f030013;
-        public static final int setaddr_list_item=0x7f030014;
-        public static final int store_list_item=0x7f030015;
-        public static final int tab_setaddr=0x7f030016;
-        public static final int tab_setdistance=0x7f030017;
-        public static final int tab_setmap=0x7f030018;
-        public static final int test_drawer=0x7f030019;
+        public static final int myhistory_dialog=0x7f030013;
+        public static final int myhistory_list_item=0x7f030014;
+        public static final int setaddr_list_item=0x7f030015;
+        public static final int store_list_item=0x7f030016;
+        public static final int tab_setaddr=0x7f030017;
+        public static final int tab_setdistance=0x7f030018;
+        public static final int tab_setmap=0x7f030019;
+        public static final int test_drawer=0x7f03001a;
     }
     public static final class menu {
-        public static final int main=0x7f070000;
+        public static final int main=0x7f0a0000;
     }
     public static final class string {
-        public static final int action_search=0x7f050004;
-        public static final int addr=0x7f050011;
-        public static final int adduser_tv1=0x7f050016;
-        public static final int adduser_tv2=0x7f050017;
-        public static final int app_name=0x7f050000;
-        public static final int app_not_available=0x7f050003;
-        public static final int category=0x7f050019;
-        public static final int check_agree1=0x7f050014;
-        public static final int check_agree2=0x7f050015;
-        public static final int check_email=0x7f050013;
-        public static final int check_sms=0x7f050012;
-        public static final int data_service=0x7f05001b;
-        public static final int drawer_close=0x7f050002;
-        public static final int drawer_open=0x7f050001;
-        public static final int gps_check=0x7f05001d;
-        public static final int loc=0x7f05000f;
-        public static final int menu=0x7f05000e;
-        public static final int menu_insert=0x7f050018;
-        public static final int net_error=0x7f05001c;
-        public static final int otheraddr=0x7f050010;
-        public static final int title_add_user=0x7f050006;
-        public static final int title_cart=0x7f050005;
-        public static final int title_customer=0x7f05000a;
-        public static final int title_event=0x7f05000b;
-        public static final int title_join_login=0x7f050009;
-        public static final int title_myhistory=0x7f05000d;
-        public static final int title_order=0x7f050007;
-        public static final int title_selectorder=0x7f050008;
-        public static final int title_send_order=0x7f05001a;
-        public static final int title_setting=0x7f05000c;
+        public static final int action_search=0x7f040024;
+        public static final int addr=0x7f040031;
+        public static final int adduser_tv1=0x7f040036;
+        public static final int adduser_tv2=0x7f040037;
+        public static final int app_name=0x7f040020;
+        public static final int app_not_available=0x7f040023;
+        public static final int auth_client_needs_enabling_title=0x7f040001;
+        public static final int auth_client_needs_installation_title=0x7f040002;
+        public static final int auth_client_needs_update_title=0x7f040003;
+        public static final int auth_client_play_services_err_notification_msg=0x7f040004;
+        public static final int auth_client_requested_by_msg=0x7f040005;
+        public static final int auth_client_using_bad_version_title=0x7f040000;
+        public static final int category=0x7f040039;
+        public static final int check_agree1=0x7f040034;
+        public static final int check_agree2=0x7f040035;
+        public static final int check_email=0x7f040033;
+        public static final int check_sms=0x7f040032;
+        /**  Button in confirmation dialog to enable Google Play services.  Clicking it
+        will direct user to application settings of Google Play services where they
+        can enable it [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_enable_button=0x7f040011;
+        /**  Message in confirmation dialog informing user they need to enable
+        Google Play services in application settings [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_enable_text=0x7f040010;
+        /**  Title of confirmation dialog informing user they need to enable
+        Google Play services in application settings [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_enable_title=0x7f04000f;
+        /**   Requested by string saying which app requested the notification. [CHAR LIMIT=42] 
+         */
+        public static final int common_google_play_services_error_notification_requested_by_msg=0x7f04000a;
+        /**  Button in confirmation dialog for installing Google Play services [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_install_button=0x7f04000e;
+        /**  (For phones) Message in confirmation dialog informing user that
+        they need to install Google Play services (from Play Store) [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_install_text_phone=0x7f04000c;
+        /**  (For tablets) Message in confirmation dialog informing user that
+        they need to install Google Play services (from Play Store) [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_install_text_tablet=0x7f04000d;
+        /**  Title of confirmation dialog informing user that they need to install
+        Google Play services (from Play Store) [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_install_title=0x7f04000b;
+        /**  Message in confirmation dialog informing the user that they provided an invalid account. [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_invalid_account_text=0x7f040017;
+        /**  Title of confirmation dialog informing the user that they provided an invalid account. [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_invalid_account_title=0x7f040016;
+        /**   Title for notification shown when GooglePlayServices needs to be enabled for an
+        application to work. [CHAR LIMIT=70] 
+         */
+        public static final int common_google_play_services_needs_enabling_title=0x7f040009;
+        /**  Message in confirmation dialog informing the user that a network error occurred. [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_network_error_text=0x7f040015;
+        /**  Title of confirmation dialog informing the user that a network error occurred. [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_network_error_title=0x7f040014;
+        /**   Title for notification shown when GooglePlayServices needs to be installed
+        for an application to work. [CHAR LIMIT=70] 
+         */
+        public static final int common_google_play_services_notification_needs_installation_title=0x7f040007;
+        /**   Title for notification shown when GooglePlayServices needs to be updated for an
+        application to work. [CHAR LIMIT=70] 
+         */
+        public static final int common_google_play_services_notification_needs_update_title=0x7f040008;
+        /**   Title for notification shown when GooglePlayServices is unavailable [CHAR LIMIT=42] 
+         */
+        public static final int common_google_play_services_notification_ticker=0x7f040006;
+        /**  Message in confirmation dialog informing user there is an unknown issue in Google Play
+        services [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_unknown_issue=0x7f040018;
+        /**  Message in confirmation dialog informing user that date on the device is not correct,
+    causing certificate checks to fail. [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_unsupported_date_text=0x7f04001b;
+        /**  Message in confirmation dialog informing user that Google Play services is not supported on their device [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_unsupported_text=0x7f04001a;
+        /**  Title of confirmation dialog informing user that Google Play services is not supported on their device [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_unsupported_title=0x7f040019;
+        /**  Button in confirmation dialog for updating Google Play services [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_update_button=0x7f04001c;
+        /**  Message in confirmation dialog informing user that they need to update
+        Google Play services (from Play Store) [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_update_text=0x7f040013;
+        /**  Title of confirmation dialog informing user that they need to update
+        Google Play services (from Play Store) [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_update_title=0x7f040012;
+        /**  Sign-in button text [CHAR LIMIT=15] 
+         */
+        public static final int common_signin_button_text=0x7f04001d;
+        /**  Long form sign-in button text [CHAR LIMIT=30] 
+         */
+        public static final int common_signin_button_text_long=0x7f04001e;
+        public static final int data_service=0x7f04003b;
+        public static final int drawer_close=0x7f040022;
+        public static final int drawer_open=0x7f040021;
+        public static final int gps_check=0x7f04003d;
+        public static final int loc=0x7f04002f;
+        public static final int menu=0x7f04002e;
+        public static final int menu_insert=0x7f040038;
+        public static final int net_error=0x7f04003c;
+        public static final int otheraddr=0x7f040030;
+        public static final int title_add_user=0x7f040026;
+        public static final int title_cart=0x7f040025;
+        public static final int title_customer=0x7f04002a;
+        public static final int title_event=0x7f04002b;
+        public static final int title_join_login=0x7f040029;
+        public static final int title_myhistory=0x7f04002d;
+        public static final int title_order=0x7f040027;
+        public static final int title_selectorder=0x7f040028;
+        public static final int title_send_order=0x7f04003a;
+        public static final int title_setting=0x7f04002c;
+        /**  Text on a placeholder buy button when Google Play services is not
+         available or up-to-date 
+         */
+        public static final int wallet_buy_button_place_holder=0x7f04001f;
     }
+    public static final class style {
+        public static final int WalletFragmentDefaultButtonTextAppearance=0x7f080002;
+        public static final int WalletFragmentDefaultDetailsHeaderTextAppearance=0x7f080001;
+        public static final int WalletFragmentDefaultDetailsTextAppearance=0x7f080000;
+        /** 
+         Default style of the wallet fragment that will be used if not set explicitly
+         when fragment is created
+    
+         */
+        public static final int WalletFragmentDefaultStyle=0x7f080003;
+    }
+    public static final class styleable {
+        /** Attributes that can be used with a AdsAttrs.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #AdsAttrs_adSize kr.actus.ckck:adSize}</code></td><td>
+    The size of the ad.</td></tr>
+           <tr><td><code>{@link #AdsAttrs_adSizes kr.actus.ckck:adSizes}</code></td><td>
+    A comma-separated list of the supported ad sizes.</td></tr>
+           <tr><td><code>{@link #AdsAttrs_adUnitId kr.actus.ckck:adUnitId}</code></td><td> The ad unit ID.</td></tr>
+           </table>
+           @see #AdsAttrs_adSize
+           @see #AdsAttrs_adSizes
+           @see #AdsAttrs_adUnitId
+         */
+        public static final int[] AdsAttrs = {
+            0x7f010000, 0x7f010001, 0x7f010002
+        };
+        /**
+          <p>
+          @attr description
+          
+    The size of the ad. It must be one of BANNER, FULL_BANNER, LEADERBOARD,
+    MEDIUM_RECTANGLE, SMART_BANNER, WIDE_SKYSCRAPER, or
+    &lt;width&gt;x&lt;height&gt;.
+    
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name kr.actus.ckck:adSize
+        */
+        public static final int AdsAttrs_adSize = 0;
+        /**
+          <p>
+          @attr description
+          
+    A comma-separated list of the supported ad sizes. The sizes must be one of
+    BANNER, FULL_BANNER, LEADERBOARD, MEDIUM_RECTANGLE, SMART_BANNER,
+    WIDE_SKYSCRAPER, or &lt;width&gt;x&lt;height&gt;.
+    
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name kr.actus.ckck:adSizes
+        */
+        public static final int AdsAttrs_adSizes = 1;
+        /**
+          <p>
+          @attr description
+           The ad unit ID. 
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name kr.actus.ckck:adUnitId
+        */
+        public static final int AdsAttrs_adUnitId = 2;
+        /** Attributes that can be used with a MapAttrs.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #MapAttrs_cameraBearing kr.actus.ckck:cameraBearing}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraTargetLat kr.actus.ckck:cameraTargetLat}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraTargetLng kr.actus.ckck:cameraTargetLng}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraTilt kr.actus.ckck:cameraTilt}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_cameraZoom kr.actus.ckck:cameraZoom}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_mapType kr.actus.ckck:mapType}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiCompass kr.actus.ckck:uiCompass}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiRotateGestures kr.actus.ckck:uiRotateGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiScrollGestures kr.actus.ckck:uiScrollGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiTiltGestures kr.actus.ckck:uiTiltGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiZoomControls kr.actus.ckck:uiZoomControls}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_uiZoomGestures kr.actus.ckck:uiZoomGestures}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_useViewLifecycle kr.actus.ckck:useViewLifecycle}</code></td><td></td></tr>
+           <tr><td><code>{@link #MapAttrs_zOrderOnTop kr.actus.ckck:zOrderOnTop}</code></td><td></td></tr>
+           </table>
+           @see #MapAttrs_cameraBearing
+           @see #MapAttrs_cameraTargetLat
+           @see #MapAttrs_cameraTargetLng
+           @see #MapAttrs_cameraTilt
+           @see #MapAttrs_cameraZoom
+           @see #MapAttrs_mapType
+           @see #MapAttrs_uiCompass
+           @see #MapAttrs_uiRotateGestures
+           @see #MapAttrs_uiScrollGestures
+           @see #MapAttrs_uiTiltGestures
+           @see #MapAttrs_uiZoomControls
+           @see #MapAttrs_uiZoomGestures
+           @see #MapAttrs_useViewLifecycle
+           @see #MapAttrs_zOrderOnTop
+         */
+        public static final int[] MapAttrs = {
+            0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006,
+            0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a,
+            0x7f01000b, 0x7f01000c, 0x7f01000d, 0x7f01000e,
+            0x7f01000f, 0x7f010010
+        };
+        /**
+          <p>This symbol is the offset where the {@link kr.actus.ckck.R.attr#cameraBearing}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name kr.actus.ckck:cameraBearing
+        */
+        public static final int MapAttrs_cameraBearing = 1;
+        /**
+          <p>This symbol is the offset where the {@link kr.actus.ckck.R.attr#cameraTargetLat}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name kr.actus.ckck:cameraTargetLat
+        */
+        public static final int MapAttrs_cameraTargetLat = 2;
+        /**
+          <p>This symbol is the offset where the {@link kr.actus.ckck.R.attr#cameraTargetLng}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name kr.actus.ckck:cameraTargetLng
+        */
+        public static final int MapAttrs_cameraTargetLng = 3;
+        /**
+          <p>This symbol is the offset where the {@link kr.actus.ckck.R.attr#cameraTilt}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name kr.actus.ckck:cameraTilt
+        */
+        public static final int MapAttrs_cameraTilt = 4;
+        /**
+          <p>This symbol is the offset where the {@link kr.actus.ckck.R.attr#cameraZoom}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name kr.actus.ckck:cameraZoom
+        */
+        public static final int MapAttrs_cameraZoom = 5;
+        /**
+          <p>This symbol is the offset where the {@link kr.actus.ckck.R.attr#mapType}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>none</code></td><td>0</td><td></td></tr>
+<tr><td><code>normal</code></td><td>1</td><td></td></tr>
+<tr><td><code>satellite</code></td><td>2</td><td></td></tr>
+<tr><td><code>terrain</code></td><td>3</td><td></td></tr>
+<tr><td><code>hybrid</code></td><td>4</td><td></td></tr>
+</table>
+          @attr name kr.actus.ckck:mapType
+        */
+        public static final int MapAttrs_mapType = 0;
+        /**
+          <p>This symbol is the offset where the {@link kr.actus.ckck.R.attr#uiCompass}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name kr.actus.ckck:uiCompass
+        */
+        public static final int MapAttrs_uiCompass = 6;
+        /**
+          <p>This symbol is the offset where the {@link kr.actus.ckck.R.attr#uiRotateGestures}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name kr.actus.ckck:uiRotateGestures
+        */
+        public static final int MapAttrs_uiRotateGestures = 7;
+        /**
+          <p>This symbol is the offset where the {@link kr.actus.ckck.R.attr#uiScrollGestures}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name kr.actus.ckck:uiScrollGestures
+        */
+        public static final int MapAttrs_uiScrollGestures = 8;
+        /**
+          <p>This symbol is the offset where the {@link kr.actus.ckck.R.attr#uiTiltGestures}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name kr.actus.ckck:uiTiltGestures
+        */
+        public static final int MapAttrs_uiTiltGestures = 9;
+        /**
+          <p>This symbol is the offset where the {@link kr.actus.ckck.R.attr#uiZoomControls}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name kr.actus.ckck:uiZoomControls
+        */
+        public static final int MapAttrs_uiZoomControls = 10;
+        /**
+          <p>This symbol is the offset where the {@link kr.actus.ckck.R.attr#uiZoomGestures}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name kr.actus.ckck:uiZoomGestures
+        */
+        public static final int MapAttrs_uiZoomGestures = 11;
+        /**
+          <p>This symbol is the offset where the {@link kr.actus.ckck.R.attr#useViewLifecycle}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name kr.actus.ckck:useViewLifecycle
+        */
+        public static final int MapAttrs_useViewLifecycle = 12;
+        /**
+          <p>This symbol is the offset where the {@link kr.actus.ckck.R.attr#zOrderOnTop}
+          attribute's value can be found in the {@link #MapAttrs} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name kr.actus.ckck:zOrderOnTop
+        */
+        public static final int MapAttrs_zOrderOnTop = 13;
+        /**  Attributes for the WalletFragment &lt;fragment&gt; tag 
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #WalletFragmentOptions_environment kr.actus.ckck:environment}</code></td><td> Google Wallet environment to use </td></tr>
+           <tr><td><code>{@link #WalletFragmentOptions_fragmentMode kr.actus.ckck:fragmentMode}</code></td><td> Fragment mode </td></tr>
+           <tr><td><code>{@link #WalletFragmentOptions_fragmentStyle kr.actus.ckck:fragmentStyle}</code></td><td> A style resource specifing attributes to customize the look and feel of WalletFragment </td></tr>
+           <tr><td><code>{@link #WalletFragmentOptions_theme kr.actus.ckck:theme}</code></td><td> Theme to be used for the Wallet selector </td></tr>
+           </table>
+           @see #WalletFragmentOptions_environment
+           @see #WalletFragmentOptions_fragmentMode
+           @see #WalletFragmentOptions_fragmentStyle
+           @see #WalletFragmentOptions_theme
+         */
+        public static final int[] WalletFragmentOptions = {
+            0x7f010011, 0x7f010012, 0x7f010013, 0x7f010014
+        };
+        /**
+          <p>
+          @attr description
+           Google Wallet environment to use 
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>production</code></td><td>1</td><td></td></tr>
+<tr><td><code>sandbox</code></td><td>0</td><td></td></tr>
+<tr><td><code>strict_sandbox</code></td><td>2</td><td></td></tr>
+</table>
+          <p>This is a private symbol.
+          @attr name kr.actus.ckck:environment
+        */
+        public static final int WalletFragmentOptions_environment = 1;
+        /**
+          <p>
+          @attr description
+           Fragment mode 
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>buyButton</code></td><td>1</td><td></td></tr>
+<tr><td><code>selectionDetails</code></td><td>2</td><td></td></tr>
+</table>
+          <p>This is a private symbol.
+          @attr name kr.actus.ckck:fragmentMode
+        */
+        public static final int WalletFragmentOptions_fragmentMode = 3;
+        /**
+          <p>
+          @attr description
+           A style resource specifing attributes to customize the look and feel of WalletFragment 
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          <p>This is a private symbol.
+          @attr name kr.actus.ckck:fragmentStyle
+        */
+        public static final int WalletFragmentOptions_fragmentStyle = 2;
+        /**
+          <p>
+          @attr description
+           Theme to be used for the Wallet selector 
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>holo_dark</code></td><td>0</td><td></td></tr>
+<tr><td><code>holo_light</code></td><td>1</td><td></td></tr>
+</table>
+          <p>This is a private symbol.
+          @attr name kr.actus.ckck:theme
+        */
+        public static final int WalletFragmentOptions_theme = 0;
+        /**  Attributes that may be specified in a style resource to customize the look and feel of
+         WalletFragment 
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_buyButtonAppearance kr.actus.ckck:buyButtonAppearance}</code></td><td> Appearance of the buy button.</td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_buyButtonHeight kr.actus.ckck:buyButtonHeight}</code></td><td> Height of the buy button.</td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_buyButtonText kr.actus.ckck:buyButtonText}</code></td><td> Text on the buy button.</td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_buyButtonWidth kr.actus.ckck:buyButtonWidth}</code></td><td> Width of the buy button.</td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsBackground kr.actus.ckck:maskedWalletDetailsBackground}</code></td><td> Masked wallet details background </td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsButtonBackground kr.actus.ckck:maskedWalletDetailsButtonBackground}</code></td><td> "Change" button background in masked wallet details view </td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsButtonTextAppearance kr.actus.ckck:maskedWalletDetailsButtonTextAppearance}</code></td><td> TextAppearance for the "Change" button in masked wallet details view </td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsHeaderTextAppearance kr.actus.ckck:maskedWalletDetailsHeaderTextAppearance}</code></td><td> TextAppearance for headers describing masked wallet details </td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsLogoImageType kr.actus.ckck:maskedWalletDetailsLogoImageType}</code></td><td> Type of the wallet logo image in masked wallet details view </td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsLogoTextColor kr.actus.ckck:maskedWalletDetailsLogoTextColor}</code></td><td> Color of the Google Wallet logo text in masked wallet details view </td></tr>
+           <tr><td><code>{@link #WalletFragmentStyle_maskedWalletDetailsTextAppearance kr.actus.ckck:maskedWalletDetailsTextAppearance}</code></td><td> TextAppearance for masked wallet details </td></tr>
+           </table>
+           @see #WalletFragmentStyle_buyButtonAppearance
+           @see #WalletFragmentStyle_buyButtonHeight
+           @see #WalletFragmentStyle_buyButtonText
+           @see #WalletFragmentStyle_buyButtonWidth
+           @see #WalletFragmentStyle_maskedWalletDetailsBackground
+           @see #WalletFragmentStyle_maskedWalletDetailsButtonBackground
+           @see #WalletFragmentStyle_maskedWalletDetailsButtonTextAppearance
+           @see #WalletFragmentStyle_maskedWalletDetailsHeaderTextAppearance
+           @see #WalletFragmentStyle_maskedWalletDetailsLogoImageType
+           @see #WalletFragmentStyle_maskedWalletDetailsLogoTextColor
+           @see #WalletFragmentStyle_maskedWalletDetailsTextAppearance
+         */
+        public static final int[] WalletFragmentStyle = {
+            0x7f010015, 0x7f010016, 0x7f010017, 0x7f010018,
+            0x7f010019, 0x7f01001a, 0x7f01001b, 0x7f01001c,
+            0x7f01001d, 0x7f01001e, 0x7f01001f
+        };
+        /**
+          <p>
+          @attr description
+           Appearance of the buy button. Must be one of "classic", "grayscale" and "monochrome" 
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>classic</code></td><td>1</td><td></td></tr>
+<tr><td><code>grayscale</code></td><td>2</td><td></td></tr>
+<tr><td><code>monochrome</code></td><td>3</td><td></td></tr>
+</table>
+          <p>This is a private symbol.
+          @attr name kr.actus.ckck:buyButtonAppearance
+        */
+        public static final int WalletFragmentStyle_buyButtonAppearance = 3;
+        /**
+          <p>
+          @attr description
+           Height of the buy button. This includes an 8dp padding (4dp on each side) used for
+             pressed and focused states of the button. The value can be a specific height, e.g.
+             "48dp", or special values "match_parent" and "wrap_content". 
+
+
+          <p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+<p>May be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>match_parent</code></td><td>-1</td><td></td></tr>
+<tr><td><code>wrap_content</code></td><td>-2</td><td></td></tr>
+</table>
+          <p>This is a private symbol.
+          @attr name kr.actus.ckck:buyButtonHeight
+        */
+        public static final int WalletFragmentStyle_buyButtonHeight = 0;
+        /**
+          <p>
+          @attr description
+           Text on the buy button. Must be one of "buy_with_google", "buy_now" and "book_now" 
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>buy_with_google</code></td><td>1</td><td></td></tr>
+<tr><td><code>buy_now</code></td><td>2</td><td></td></tr>
+<tr><td><code>book_now</code></td><td>3</td><td></td></tr>
+</table>
+          <p>This is a private symbol.
+          @attr name kr.actus.ckck:buyButtonText
+        */
+        public static final int WalletFragmentStyle_buyButtonText = 2;
+        /**
+          <p>
+          @attr description
+           Width of the buy button. This includes an 8dp padding (4dp on each side) used for
+             pressed and focused states of the button. The value can be a specific width, e.g.
+             "300dp", or special values "match_parent" and "wrap_content". 
+
+
+          <p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+<p>May be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>match_parent</code></td><td>-1</td><td></td></tr>
+<tr><td><code>wrap_content</code></td><td>-2</td><td></td></tr>
+</table>
+          <p>This is a private symbol.
+          @attr name kr.actus.ckck:buyButtonWidth
+        */
+        public static final int WalletFragmentStyle_buyButtonWidth = 1;
+        /**
+          <p>
+          @attr description
+           Masked wallet details background 
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+          <p>This is a private symbol.
+          @attr name kr.actus.ckck:maskedWalletDetailsBackground
+        */
+        public static final int WalletFragmentStyle_maskedWalletDetailsBackground = 6;
+        /**
+          <p>
+          @attr description
+           "Change" button background in masked wallet details view 
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+          <p>This is a private symbol.
+          @attr name kr.actus.ckck:maskedWalletDetailsButtonBackground
+        */
+        public static final int WalletFragmentStyle_maskedWalletDetailsButtonBackground = 8;
+        /**
+          <p>
+          @attr description
+           TextAppearance for the "Change" button in masked wallet details view 
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          <p>This is a private symbol.
+          @attr name kr.actus.ckck:maskedWalletDetailsButtonTextAppearance
+        */
+        public static final int WalletFragmentStyle_maskedWalletDetailsButtonTextAppearance = 7;
+        /**
+          <p>
+          @attr description
+           TextAppearance for headers describing masked wallet details 
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          <p>This is a private symbol.
+          @attr name kr.actus.ckck:maskedWalletDetailsHeaderTextAppearance
+        */
+        public static final int WalletFragmentStyle_maskedWalletDetailsHeaderTextAppearance = 5;
+        /**
+          <p>
+          @attr description
+           Type of the wallet logo image in masked wallet details view 
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>classic</code></td><td>1</td><td></td></tr>
+<tr><td><code>monochrome</code></td><td>2</td><td></td></tr>
+</table>
+          <p>This is a private symbol.
+          @attr name kr.actus.ckck:maskedWalletDetailsLogoImageType
+        */
+        public static final int WalletFragmentStyle_maskedWalletDetailsLogoImageType = 10;
+        /**
+          <p>
+          @attr description
+           Color of the Google Wallet logo text in masked wallet details view 
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name kr.actus.ckck:maskedWalletDetailsLogoTextColor
+        */
+        public static final int WalletFragmentStyle_maskedWalletDetailsLogoTextColor = 9;
+        /**
+          <p>
+          @attr description
+           TextAppearance for masked wallet details 
+
+
+          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+          <p>This is a private symbol.
+          @attr name kr.actus.ckck:maskedWalletDetailsTextAppearance
+        */
+        public static final int WalletFragmentStyle_maskedWalletDetailsTextAppearance = 4;
+    };
 }

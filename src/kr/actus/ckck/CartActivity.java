@@ -135,7 +135,7 @@ public class CartActivity extends Activity implements OnClickListener {
 				editor.commit();
 				break;
 			} else {
-				Toast.makeText(this, "다른 상호의 장바구니 목록을 삭제하고 다시 선택하세요.",
+				Toast.makeText(this, "다른 상호의 메뉴가 등록되어 있습니다.",
 						Toast.LENGTH_SHORT).show();
 				break;
 			}
@@ -219,7 +219,7 @@ public class CartActivity extends Activity implements OnClickListener {
 		Log.v(ur.TAG, "removePref :" + pref.getString(ur.CARTSET[pos], null));
 		if(pos==0){
 			AlertDialog.Builder adb = new AlertDialog.Builder(this);
-			adb.setMessage("장바구니 목록이 없어 초기화면으로 이동 합니다.");
+			adb.setMessage("장바구니 목록이 없어 장바구니를 종료합니다.");
 			adb.setPositiveButton("확인", new DialogInterface.OnClickListener() {
 				
 				@Override

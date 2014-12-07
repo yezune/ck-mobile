@@ -164,9 +164,7 @@ public class SetAddrTab extends Fragment implements OnClickListener {
 								Element eitem = (Element) list.get(i);
 								String address = eitem.getChildText("address");
 								String postcd = eitem.getChildText("postcd");
-								// address와 postcd 변수를 이용하여 자신에게 알맞는 형태로 사용하기
-								// this.cbAddr.addItem(postcd+" | "+address);
-
+								
 								item = new SetAddrListItem(address, postcd);
 								itemList.add(item);
 

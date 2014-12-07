@@ -50,7 +50,7 @@ public class AddUserActivity extends Activity implements OnClickListener{
 	private final String TAG = "MainActivity";
 	String uniqueKey;
 	EditText regKey,cName, name, edAddr1, edAddr2, mobile;
-	CheckBox cbSms,cbEmail,cbAgree1,cbAgree2;
+	CheckBox cbSms,cbAgree1,cbAgree2;
 	boolean sms,email,agree1,agree2;
 	Button inReg, btnPost;
 	ListView listView;
@@ -157,7 +157,7 @@ public class AddUserActivity extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.user_btn_reg:
-			if(!cbSms.isChecked() && !cbEmail.isChecked() && !cbAgree1.isChecked() && !cbAgree2.isChecked()){
+			if(!cbSms.isChecked() && !cbAgree1.isChecked() && !cbAgree2.isChecked()){
 				
 			Toast.makeText(this, "서비스 제공을 위하여 동의 해주세요.", Toast.LENGTH_SHORT).show();	
 			}else{

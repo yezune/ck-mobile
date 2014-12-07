@@ -39,16 +39,31 @@
                 android:layout_height="0dp"
                 android:orientation="vertical"
                 android:layout_weight="45" >
-           
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
         <EditText
             android:id="@+id/send_edit_post_add"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            
+            android:layout_weight="1"
+            android:singleLine="true"
             android:ems="10" >
 
-           
+            <requestFocus />
         </EditText>
+
+        <Button
+            android:id="@+id/send_btn_add1"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="검색" />
+
+    </LinearLayout>
 
         <EditText
             android:id="@+id/send_edit_detail_add"
@@ -89,6 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/check_agree2" />
+
          </LinearLayout>
 
         <LinearLayout

@@ -70,7 +70,7 @@ public class MyHistoryAdapter extends BaseAdapter  {
 
 	
 	
-	public View getView(int position , View cView, ViewGroup parent) {
+	public View getView(final int position ,  View cView, ViewGroup parent) {
 
 		
 		
@@ -97,7 +97,21 @@ public class MyHistoryAdapter extends BaseAdapter  {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				Intent intent = new Intent(context,MyHistoryDialog.class);
+				
+				
+			
+				
+				intent.putExtra("shopName",data.get(position).getShopName());
+				intent.putExtra("orderMenu",data.get(position).getOrderMenu());
+				intent.putExtra("orderTime",data.get(position).getOrderTime());
+				intent.putExtra("price",data.get(position).getPrice());
+				intent.putExtra("payType",data.get(position).getPayType());
+				intent.putExtra("address",data.get(position).getAddress());
+				intent.putExtra("descript",data.get(position).getDescript());
+				intent.putExtra("status",data.get(position).getStatus());
+				intent.putExtra("deliverName",data.get(position).getDeliverName());
+				context.startActivity(intent);
 				
 			}
 		});

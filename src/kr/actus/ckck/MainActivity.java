@@ -16,7 +16,10 @@
 
 package kr.actus.ckck;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,13 +42,20 @@ import kr.actus.ckck.setaddr.SetAddrActivity;
 import kr.actus.ckck.util.AsyncData;
 import kr.actus.ckck.util.SetURL;
 import kr.actus.ckck.util.SetUtil;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
@@ -67,9 +77,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends FragmentActivity implements OnClickListener {
+
+public class MainActivity extends FragmentActivity implements OnClickListener, LocationListener {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
+	
+	private LocationManager locManager;
+	private Geocoder geoCoder;
+	private Location myLocation = null;
+	private double lat,lng;
 	
 	DrawerAdapter drawerAdapter;
 	DrawerItem drawerItem;
@@ -85,6 +101,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	public final static int MAINTAB = 0;
 	public final static int STORETAB = 1;
 	public final static int MENUTAB = 2;
+	
 	
 	Dialog dg;
 	AsyncData sResponese;
@@ -108,14 +125,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		checkNet();
+		
 		savebundle = new Bundle();
 		getActionBar().setTitle(getTitle());
 		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1b67bc")) );
 		pref = getSharedPreferences(ur.PREF, 0);
 		editor = pref.edit();
 
-		
+		checkNet();
 			setDrawer();
 		
 
@@ -161,14 +178,29 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
 		isMobile = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnectedOrConnecting();
 		isWiFi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
+		String gps = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 		if (!isMobile && !isWiFi) {
-			util.dialog(this,R.string.net_error);
-		}
-String gps = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-	   	
-		if (!(gps.matches(".*gps.*") && gps.matches(".*network.*"))) {
-			util.dialog(this,R.string.gps_check);
+//			util.dialog(this,R.string.net_error);
+			checkNet(R.string.net_error);
+			
+		}else if(!(gps.matches(".*gps.*") && gps.matches(".*network.*"))) {
+//			util.dialog(this,R.string.gps_check);
+			checkNet(R.string.gps_check);
+			
+			
+			
 		} 
+
+		// LocationListener 핸들
+		  locManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+		   // GPS로 부터 위치 정보를 업데이트 요청
+		  locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+		   // 기지국으로부터 위치 정보를 업데이트 요청
+		  locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, this);
+		   // 주소를 가져오기 위해 설정 - KOREA, KOREAN 모두 가능 
+		  geoCoder = new Geocoder(this, Locale.KOREA);
+	   	
+
 		
 		
 		
@@ -538,5 +570,117 @@ String gps = android.provider.Settings.Secure.getString(getContentResolver(), an
 		Log.v(TAG,"back newfragment :"+ newFragment.getId());
 		super.onBackPressed();
 	}
+	private void checkNet(int msg){
+		AlertDialog.Builder adb = new AlertDialog.Builder(this);
+		adb.setMessage(msg);
+		switch(msg){
+		case R.string.net_error:
+		
+		adb.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				android.os.Process.killProcess(android.os.Process.myPid());//앱 종료
+				
+			}
+		});
+		break;
+		case R.string.gps_check:
+			adb.setPositiveButton("확인", new DialogInterface.OnClickListener() {
 
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// GPS설정창 띄우기
+					Intent intent = new Intent(
+							android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+					intent.addCategory(Intent.CATEGORY_DEFAULT);
+					startActivityForResult(intent, 0);
+					
+					
+					
+				}
+
+			});
+			
+			adb.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					
+				}
+			});
+			
+			break;
+		}
+		adb.show();
+		
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode){
+		case 0:
+			
+			
+			
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	private void getGeoLocation() {
+		StringBuffer mAddress = new StringBuffer();
+		   if(myLocation != null) {
+		    lat = myLocation.getLatitude();
+		    lng = myLocation.getLongitude();
+		    try {
+		     // 위도,경도를 이용하여 현재 위치의 주소를 가져온다. 
+		     List<Address> addresses;
+		     addresses = geoCoder.getFromLocation(lat, lng, 1);
+		     for(Address addr: addresses){
+		      int index = addr.getMaxAddressLineIndex();
+		      for(int i=0;i<=index;i++){
+		       mAddress.append(addr.getAddressLine(i));
+		       mAddress.append(" ");
+		      }
+		      mAddress.append("\n");
+		     }
+		    } catch (IOException e) {
+		     e.printStackTrace();
+		    }
+		    Log.v(ur.TAG,"geo address:" + mAddress);
+		   }
+		
+	}
+	 boolean locationTag=true;
+	@Override
+	public void onLocationChanged(Location location) {
+		if(locationTag){//한번만 위치를 가져옴
+		myLocation = location;
+		getGeoLocation();
+		}
+		  locationTag=false;
+	}
+
+
+
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

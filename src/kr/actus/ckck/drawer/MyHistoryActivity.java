@@ -71,7 +71,7 @@ public class MyHistoryActivity extends Activity {
 				@Override
 				public void onSuccess(JSONArray response) {
 					
-					
+					Log.v(ur.TAG,"myhistory :"+response);
 					try {
 						for (int i = 0; i < response.length(); i++) {
 							JSONObject con = response.getJSONObject(i);
