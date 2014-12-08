@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/tab_focus_on" >
+    android:background="@color/tab_focus_on"
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/textView1"
@@ -27,99 +27,89 @@
             android:layout_height="wrap_content"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
     </LinearLayout>
 
-       
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:orientation="vertical"
-                >
-<TextView
-                     android:id="@+id/textView1"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:text="주소검색" />
-                 <LinearLayout
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="주소검색" />
 
-                     <EditText
-                         android:id="@+id/addrtab_ed_add1"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_weight="1"
-                         android:ems="10"
-                         android:inputType="textPostalAddress" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-                     <Button
-                         android:id="@+id/addrtab_btn_add1"
-                         style="?android:attr/buttonStyleSmall"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_weight="1"
-                         android:text="검색" />
-                 </LinearLayout>
-   
-                 <TextView
-                     android:id="@+id/textView1"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:text="읍, 면, 동, 리 명을 입력하고 검색하세요"
-                     android:textColor="@color/red" />
-</LinearLayout>
-              
-  <FrameLayout
-             android:layout_width="match_parent"
-             android:layout_height="match_parent" >
-                     
-                 <LinearLayout
-                     android:layout_width="match_parent"
-                     android:layout_height="match_parent"
-                      android:id="@+id/addrtab_lay_detailaddr"
-                       android:visibility="visible" >
+            <EditText
+                android:id="@+id/addrtab_ed_add1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPostalAddress" />
 
-                     <EditText
-                         android:id="@+id/addrtab_ed_add2"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_weight="1"
-                         android:ems="10"
-                         android:hint="세부주소를 입력하세요"
-                         android:inputType="textPostalAddress" >
+            <Button
+                android:id="@+id/addrtab_btn_add1"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="검색" />
+        </LinearLayout>
 
-                         
-                     </EditText>
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="읍, 면, 동, 리 명을 입력하고 검색하세요"
+            android:textColor="@color/red" />
+    </LinearLayout>
 
-                    
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
-                     <Button
-                         android:id="@+id/addrtab_btn_add2"
-                         style="?android:attr/buttonStyleSmall"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_weight="1"
-                         android:text="완료" />
+        <LinearLayout
+            android:id="@+id/addrtab_lay_detailaddr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" >
 
-                 </LinearLayout>
+            <EditText
+                android:id="@+id/addrtab_ed_add2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="세부주소를 입력하세요"
+                android:inputType="textPostalAddress" >
+            </EditText>
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:orientation="vertical" 
-                 android:id="@+id/addrtab_lay_postsearch"
-                  android:visibility="invisible">
+            <Button
+                android:id="@+id/addrtab_btn_add2"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="완료" />
+        </LinearLayout>
 
-                 <ListView
-                     android:id="@+id/addrtab_listview"
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content" >
-                 </ListView>
+        <LinearLayout
+            android:id="@+id/addrtab_lay_postsearch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="invisible" >
 
-             </LinearLayout>
-
-         </FrameLayout>
+            <ListView
+                android:id="@+id/addrtab_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </ListView>
+        </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>
