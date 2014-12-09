@@ -58,7 +58,7 @@
         <activity android:name=".drawer.SettingActivity"></activity>
         <activity android:name="kr.actus.ckck.drawer.MyHistoryActivity"></activity>
         <meta-data android:value="@integer/google_play_services_version" android:name="com.google.android.gms.version"/>
-        <meta-data android:value="AIzaSyD176OI6GiKc-2VOVrofw9VaaQSEXeWAlY" android:name="com.google.android.maps.v2.API_KEY"/>
+        <meta-data android:value="AIzaSyC5K5vvyMrwIKatjZMVAnBI2VaCcy4XTKo" android:name="com.google.android.maps.v2.API_KEY"/>
         <activity android:name=".myhistorylist.MyHistoryDialog"
             	  android:theme="@android:style/Theme.Dialog"
             	  android:windowSoftInputMode="stateHidden" 
