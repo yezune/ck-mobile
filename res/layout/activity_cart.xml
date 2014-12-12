@@ -28,11 +28,14 @@
         <Button
             android:id="@+id/cart_btn_insert"
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
             android:text="@string/menu_insert" 
+            android:background="@drawable/corner_red"
             android:layout_gravity="center"
-            android:layout_weight="3"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/white"
             />
 
             
@@ -82,7 +85,10 @@
             android:id="@+id/cart_btn_order"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:text="@string/title_order" 
+            android:background="@drawable/select_main_other_addr_corner"
+            android:textColor="@color/white"
             />
 
     </LinearLayout>

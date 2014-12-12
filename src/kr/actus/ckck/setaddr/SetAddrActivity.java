@@ -4,6 +4,7 @@ import kr.actus.ckck.R;
 import kr.actus.ckck.R.id;
 import kr.actus.ckck.R.layout;
 import android.app.Activity;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -40,8 +41,8 @@ public class SetAddrActivity extends FragmentActivity implements OnClickListener
 			btSetAddr.setOnClickListener(this);
 			btSetMap = (Button) findViewById(R.id.btn_setaddr_map);
 			btSetMap.setOnClickListener(this);
-			btSetDistance = (Button) findViewById(R.id.btn_setaddr_dis);
-			btSetDistance.setOnClickListener(this);
+//			btSetDistance = (Button) findViewById(R.id.btn_setaddr_dis);
+//			btSetDistance.setOnClickListener(this);
 			
 			
 			mCurrentFragmentIndex = SETADDR;
@@ -77,23 +78,26 @@ public class SetAddrActivity extends FragmentActivity implements OnClickListener
 
 		private Fragment getFragment(int idx) {
 			Fragment newFragment = null;
-
+			
 			switch (idx) {
 			case SETADDR:
 				newFragment = new SetAddrTab();
 				layoutSet();
+				btSetAddr.setTextColor(getResources().getColor(R.color.black));
 				btSetAddr.setSelected(true);
 				break;
 			case SETMAP:
 				newFragment = new SetMapTab();
 				layoutSet();
+				btSetMap.setTextColor(getResources().getColor(R.color.black));
 				btSetMap.setSelected(true);
 				break;
-			case SETDISTANCE:
-				newFragment = new SetDistanceTab();
-				layoutSet();
-				btSetDistance.setSelected(true);
-				break;
+//			case SETDISTANCE:
+//				newFragment = new SetDistanceTab();
+//				layoutSet();
+//				btSetDistance.setTextColor(getResources().getColor(R.color.black));
+//				btSetDistance.setSelected(true);
+//				break;
 			
 			default:
 				Log.d(TAG, "Unhandle case");
@@ -106,9 +110,10 @@ public class SetAddrActivity extends FragmentActivity implements OnClickListener
 		private void layoutSet() {
 			btSetAddr.setSelected(false);
 			btSetMap.setSelected(false);
-			btSetDistance.setSelected(false);
-			
-			
+//			btSetDistance.setSelected(false);
+//			btSetDistance.setTextColor(getResources().getColor(R.color.white));
+			btSetMap.setTextColor(getResources().getColor(R.color.white));
+			btSetAddr.setTextColor(getResources().getColor(R.color.white));
 		}
 		
 		
@@ -125,10 +130,10 @@ public class SetAddrActivity extends FragmentActivity implements OnClickListener
 				mCurrentFragmentIndex = SETMAP;
 				fragmentReplace(mCurrentFragmentIndex);
 				break;
-			case R.id.btn_setaddr_dis:
-				mCurrentFragmentIndex = SETDISTANCE;
-				fragmentReplace(mCurrentFragmentIndex);
-				break;
+//			case R.id.btn_setaddr_dis:
+//				mCurrentFragmentIndex = SETDISTANCE;
+//				fragmentReplace(mCurrentFragmentIndex);
+//				break;
 			
 			}
 			

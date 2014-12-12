@@ -3,12 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/tab_focus_on"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    >
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_height="30dp"
         android:text="현재 설정된 배송지" />
 
     <LinearLayout
@@ -37,7 +42,8 @@
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+             android:gravity="center"
+        android:layout_height="30dp"
             android:text="주소검색" />
 
         <LinearLayout
@@ -56,7 +62,10 @@
                 android:id="@+id/addrtab_btn_add1"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
+                android:background="@drawable/select_main_other_addr_corner"
+                android:textColor="@color/white"
+                android:layout_marginRight="5dp"
                 android:text="검색" />
         </LinearLayout>
 
@@ -92,9 +101,12 @@
                 android:id="@+id/addrtab_btn_add2"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_weight="1"
-                android:text="완료" />
+                android:text="완료" 
+              android:layout_marginRight="5dp"
+                  android:background="@drawable/select_main_other_addr_corner"
+                android:textColor="@color/white"/>
         </LinearLayout>
 
         <LinearLayout

@@ -2,20 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-     android:layout_margin="5dp" >
+    android:layout_margin="5dp"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal" >
 
         <TextView
             android:id="@+id/TextView07"
             android:layout_width="100sp"
             android:layout_height="wrap_content"
-            android:text="쿠폰번호"
             android:gravity="center"
+            android:text="쿠폰번호"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
@@ -24,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:hint="쿠폰번호 등록으로 회원가입이 가능합니다"
             android:inputType="number" >
 
             <requestFocus />
@@ -39,8 +41,8 @@
             android:id="@+id/TextView06"
             android:layout_width="100sp"
             android:layout_height="wrap_content"
-            android:text="추천인 이름"
             android:gravity="center"
+            android:text="추천인 이름"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
@@ -61,8 +63,8 @@
             android:id="@+id/TextView05"
             android:layout_width="100sp"
             android:layout_height="wrap_content"
-            android:text="이름"
             android:gravity="center"
+            android:text="이름"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
@@ -83,9 +85,8 @@
             android:id="@+id/TextView04"
             android:layout_width="100sp"
             android:layout_height="wrap_content"
-            android:text="주소"
             android:gravity="center"
-           
+            android:text="주소"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
@@ -101,148 +102,140 @@
             android:id="@+id/user_btn_post"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="검색" />
-
+            android:layout_height="30dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/select_main_other_addr_corner"
+            android:text="검색"
+            android:textColor="@color/white" />
     </LinearLayout>
-    <FrameLayout 
-         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        
-        
-        >
-       
-        <LinearLayout 
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
             android:id="@+id/user_lay1"
             android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-            android:visibility="visible"
-            >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/TextView03"
-            android:layout_width="100sp"
             android:layout_height="wrap_content"
-            android:text="상세주소"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:orientation="vertical"
+            android:visibility="visible" >
 
-        <EditText
-            android:id="@+id/user_dadd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPostalAddress" />
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/TextView03"
+                    android:layout_width="100sp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="상세주소"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
-            android:id="@+id/TextView02"
-            android:layout_width="100sp"
-            android:layout_height="wrap_content"
-            android:text="휴대폰 번호"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-	<Spinner 
-	    android:id="@+id/user_mobile_spinner"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"/>
-	
-        <EditText
-            android:id="@+id/user_mobile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-           
-            android:ems="10"
-            android:inputType="phone" />
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/user_dadd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPostalAddress" />
+            </LinearLayout>
 
-  
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+                <TextView
+                    android:id="@+id/TextView02"
+                    android:layout_width="100sp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="휴대폰 번호"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <CheckBox
-            android:id="@+id/user_check_sms"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/check_sms" />
+                <Spinner
+                    android:id="@+id/user_mobile_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-        <CheckBox
-            android:id="@+id/user_check_agree1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/check_agree1" />
+                <EditText
+                    android:id="@+id/user_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="phone" />
+            </LinearLayout>
 
-        <CheckBox
-            android:id="@+id/user_check_agree2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/check_agree2" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/adduser_tv1" />
+                <CheckBox
+                    android:id="@+id/user_check_sms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/check_sms" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/adduser_tv2" />
+                <CheckBox
+                    android:id="@+id/user_check_agree1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/check_agree1" />
 
-    </LinearLayout>
-      <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="bottom" >
+                <CheckBox
+                    android:id="@+id/user_check_agree2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/check_agree2" />
 
-        <Button
-            android:id="@+id/user_btn_reg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/title_add_user" />
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/adduser_tv1" />
 
-    </LinearLayout>
-</LinearLayout>
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/adduser_tv2"
+                    android:textColor="@color/red" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/user_btn_reg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/select_main_other_addr_corner"
+                    android:text="@string/title_add_user"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/user_lay2"
             android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="invisible" >
-      
-        
-        <ListView
-            android:id="@+id/user_listView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </ListView>
-            
-            
-            
-            
-            
-            
-            
-            
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="invisible" >
+
+            <ListView
+                android:id="@+id/user_listView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </ListView>
         </LinearLayout>
-      
-      </FrameLayout>
+    </FrameLayout>
+
 </LinearLayout>

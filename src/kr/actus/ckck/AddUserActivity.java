@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import kr.actus.ckck.setaddrlist.SetAddrAdapter;
@@ -85,6 +86,7 @@ public class AddUserActivity extends Activity implements OnClickListener{
 	    setSpinner();
 	    
 	    uniqueKey = Secure.getString(this.getContentResolver(),Secure.ANDROID_ID);
+	    client = new AsyncHttpClient();
 	}
 	   
 	private void setSpinner() {
@@ -171,50 +173,82 @@ public class AddUserActivity extends Activity implements OnClickListener{
 				param.put("address1",edAddr1.getText().toString());
 				param.put("address2", edAddr2.getText().toString());
 				
-				sr = new AsyncData(this,SetURL.JOIN, param);
-				JSONArray result = sr.postJSONArray();
-				Log.v(TAG,"result :"+result);
-				try {
-				if(result!=null){
-					
-						if(result.getJSONArray(0).equals("ok")){
-//							pro.dismiss();
-							Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-							editor.putString("uniqueKey", uniqueKey);
-							editor.putString("memName", name.getText().toString());
-							editor.putString("regKey", regKey.getText().toString());
-							editor.putString("mobile", mobile.getText().toString());
-//							editor.putString("address1", edAddr1.getText().toString());
-							editor.putString("address2", edAddr2.getText().toString());
-							
-							editor.putBoolean("sms", cbSms.isChecked());
-							editor.putBoolean("agree1", cbAgree1.isChecked());
-							editor.putBoolean("agree2", cbAgree2.isChecked());
-							
-							editor.commit();
-							
-						}else if(result.getJSONArray(0).equals("fail")){
-//							pro.dismiss();
-							Toast.makeText(this, "오류 : "+result.getJSONArray(1), Toast.LENGTH_SHORT).show();
-							
-						}
+//				sr = new AsyncData(this,SetURL.JOIN, param);
+				client.post(SetURL.JOIN, param, new JsonHttpResponseHandler(){
+
+					@Override
+					public void onFailure(int statusCode, Throwable e,
+							JSONObject errorResponse) {
+						Log.v(TAG,"fail :"+errorResponse);
+						super.onFailure(statusCode, e, errorResponse);
+					}
+
+					@Override
+					public void onSuccess(JSONObject response) {
+						Log.v(TAG,"success :"+response);
 						
-						
+						super.onSuccess(response);
+					}
+
+					@Override
+					protected Object parseResponse(String responseBody)
+							throws JSONException {
+						Log.v(TAG,"parseResponse :"+ responseBody);
+						return super.parseResponse(responseBody);
+					}
 					
 					
-				}else
-				{
-//					pro.dismiss();
-					Toast.makeText(this, "다시 시도 하세요.", Toast.LENGTH_SHORT).show();
 					
-				}
-				
-				
-				}catch (JSONException e) {
-//					pro.dismiss();
-					Log.v(TAG,"jsonException :"+e);
-					e.printStackTrace();
-				}
+					
+					
+					
+					
+					
+				});
+//				JSONArray result = sr.postJSONArray();
+//				Log.v(TAG,"result :"+result);
+//				try {
+//					
+//				if(result!=null){
+//					
+//						if(result.getJSONArray(0).equals("ok")){
+////							pro.dismiss();
+//							Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+//							editor.putString("uniqueKey", uniqueKey);
+//							editor.putString("memName", name.getText().toString());
+//							editor.putString("regKey", regKey.getText().toString());
+//							editor.putString("mobile", mobile.getText().toString());
+////							editor.putString("address1", edAddr1.getText().toString());
+//							editor.putString("address2", edAddr2.getText().toString());
+//							
+//							editor.putBoolean("sms", cbSms.isChecked());
+//							editor.putBoolean("agree1", cbAgree1.isChecked());
+//							editor.putBoolean("agree2", cbAgree2.isChecked());
+//							
+//							editor.commit();
+//							
+//						}else if(result.getJSONArray(0).equals("fail")){
+////							pro.dismiss();
+//							Toast.makeText(this, "오류 : "+result.getJSONArray(1), Toast.LENGTH_SHORT).show();
+//							
+//						}
+//						
+//						
+//					
+//					
+//				}else
+//				{
+////					pro.dismiss();
+//					Toast.makeText(this, "다시 시도 하세요.", Toast.LENGTH_SHORT).show();
+//					
+//				}
+//				
+//				
+//				}catch (JSONException e) {
+////					pro.dismiss();
+//					Log.v(TAG,"jsonException :"+e);
+//					e.printStackTrace();
+//				}
 			}
 			
 			
@@ -237,7 +271,7 @@ public class AddUserActivity extends Activity implements OnClickListener{
 		try {
 			layPost.setVisibility(View.VISIBLE);
 			layBasic.setVisibility(View.INVISIBLE);
-			client = new AsyncHttpClient();
+			
 			String url = ur.POSTIP + "?regkey=" + ur.REGKEY + "&target="
 					+ ur.TARGET + "&query="
 					+ URLEncoder.encode(edAddr1.getText().toString(), "EUC-KR");

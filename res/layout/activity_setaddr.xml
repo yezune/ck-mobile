@@ -21,6 +21,7 @@
                 android:layout_weight="1"
                android:background="@drawable/btn_on_off"
                android:text="주소로 설정"
+               android:textColor="@color/white"
                
                 
                
@@ -34,10 +35,10 @@
                 android:text="지도로 설정"
                 android:background="@drawable/btn_on_off"
                  android:layout_gravity="bottom"
-               
+                 android:textColor="@color/white"
                
                  />
-
+<!--  검색거리 현재 사용안함.
             <Button
                 android:id="@+id/btn_setaddr_dis"
                 android:layout_width="0dp"
@@ -46,9 +47,11 @@
                  android:text="검색거리 설정"
                 android:background="@drawable/btn_on_off"
                    android:layout_gravity="bottom"
-                  
+                    android:textColor="@color/white"
                  
                 />
+                
+-->
         </LinearLayout>
 
         <FrameLayout

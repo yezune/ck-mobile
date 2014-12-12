@@ -15,6 +15,7 @@
   -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+  
     <item android:id="@+id/action_search"
           android:icon="@drawable/action_search"
           android:title="@string/action_search"
@@ -23,9 +24,10 @@
           android:icon="@drawable/action_cart"
           android:title="@string/title_cart"
           android:showAsAction="ifRoom|withText" />
-   
+
     <item android:id="@+id/action_add_user"
           android:icon="@drawable/action_user"
           android:title="@string/title_add_user"
-          android:showAsAction="ifRoom|withText" />
+         
+          android:showAsAction="always|withText" />
 </menu>

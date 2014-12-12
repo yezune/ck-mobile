@@ -3,14 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="100" >
+    android:weightSum="100" 
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp">
 
    
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp" 
-            android:layout_weight="10">
+            android:layout_weight="7">
 
             <TextView
                 android:id="@+id/textView1"
@@ -38,8 +41,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="vertical"
-                android:layout_weight="45" >
-
+                android:layout_weight="48" >
+  <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="* 표시는 필수 입력사항입니다."
+                android:textColor="@color/gray" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
@@ -58,9 +66,11 @@
         <Button
             android:id="@+id/send_btn_add1"
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
             android:layout_weight="1"
+            android:textColor="@color/white"
+            android:background="@drawable/select_main_other_addr_corner"
             android:text="검색" />
 
     </LinearLayout>
@@ -70,7 +80,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPostalAddress" />
+            android:inputType="textPostalAddress"
+            android:hint="* 상세주소를 입력해 주세요" />
 
         <EditText
             android:id="@+id/send_edit_request"
@@ -86,7 +97,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="phone" 
-             android:hint="연락처를 입력하세요. 예)01000000000"/>
+             android:hint="연락처를 입력하세요. 예)01011111111"/>
 	  <CheckBox
             android:id="@+id/send_cb_sms"
             android:layout_width="wrap_content"
@@ -221,8 +232,10 @@
         <Button
             android:id="@+id/send_btn_finish"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="주문 완료" />
+            android:layout_height="40dp"
+            android:text="주문 완료" 
+            android:textColor="@color/white"
+            android:background="@drawable/select_main_other_addr_corner"/>
 
    </LinearLayout>
 </LinearLayout>

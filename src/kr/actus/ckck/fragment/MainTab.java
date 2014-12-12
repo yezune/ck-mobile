@@ -167,7 +167,7 @@ public class MainTab extends Fragment {
 				@Override
 				public void onSuccess(JSONArray response) {
 
-					Log.v(ur.TAG, "menu response array:" + response);
+//					Log.v(ur.TAG, "menu response array:" + response);
 					try {
 						for (int i = 0; i < response.length(); i++) {
 							JSONObject con = response.getJSONObject(i);

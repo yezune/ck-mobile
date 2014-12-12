@@ -77,16 +77,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-public class MainActivity extends FragmentActivity implements OnClickListener, LocationListener {
+public class MainActivity extends FragmentActivity implements OnClickListener,
+		LocationListener {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
-	
+
 	private LocationManager locManager;
 	private Geocoder geoCoder;
 	private Location myLocation = null;
-	private double lat,lng;
-	
+	private double lat, lng;
+
 	DrawerAdapter drawerAdapter;
 	DrawerItem drawerItem;
 	ArrayList<DrawerItem> drawerItemList = new ArrayList<DrawerItem>();
@@ -101,8 +101,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, L
 	public final static int MAINTAB = 0;
 	public final static int STORETAB = 1;
 	public final static int MENUTAB = 2;
-	
-	
+
 	Dialog dg;
 	AsyncData sResponese;
 	SetUtil util;
@@ -116,7 +115,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, L
 	Bundle savebundle;
 	JSONObject con;
 	int len;
-	boolean isWiFi, isMobile;
+	boolean isWiFi, isMobile, AddTag = true;
 	Fragment newFragment;
 	// ServerResponse sr = new ServerResponse();
 	AsyncHttpClient client = new AsyncHttpClient();
@@ -125,22 +124,22 @@ public class MainActivity extends FragmentActivity implements OnClickListener, L
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		savebundle = new Bundle();
 		getActionBar().setTitle(getTitle());
-		getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1b67bc")) );
+		getActionBar().setBackgroundDrawable(
+				new ColorDrawable(Color.parseColor("#1b67bc")));
 		pref = getSharedPreferences(ur.PREF, 0);
 		editor = pref.edit();
 
 		checkNet();
-			setDrawer();
-		
+		setDrawer();
 
 		addrOther = (Button) findViewById(R.id.main_btn_addr_reg);
 		addrOther.setOnClickListener(this);
 		addrBasic = (TextView) findViewById(R.id.main_tv_addr_basic);
 
-	// 액션바 아이콘 활성화
+		// 액션바 아이콘 활성화
 		getActionBar().setDisplayHomeAsUpEnabled(false);
 
 		getActionBar().setHomeButtonEnabled(true);
@@ -170,45 +169,44 @@ public class MainActivity extends FragmentActivity implements OnClickListener, L
 		fragmentReplace(mCurrentFragmentIndex);
 		setStatus();
 		// setActionBar();
-		
+
 	}
 
-	
-	private void checkNet() { //wifi & mobile 상태 체크 후 다이얼로그 출력
-		ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-		isMobile = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnectedOrConnecting();
-		isWiFi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
-		String gps = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+	private void checkNet() { // wifi & mobile 상태 체크 후 다이얼로그 출력
+		ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		isMobile = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
+				.isConnectedOrConnecting();
+		isWiFi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+				.isConnectedOrConnecting();
+		String gps = android.provider.Settings.Secure.getString(
+				getContentResolver(),
+				android.provider.Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 		if (!isMobile && !isWiFi) {
-//			util.dialog(this,R.string.net_error);
+			// util.dialog(this,R.string.net_error);
 			checkNet(R.string.net_error);
-			
-		}else if(!(gps.matches(".*gps.*") && gps.matches(".*network.*"))) {
-//			util.dialog(this,R.string.gps_check);
+
+		} else if (!(gps.matches(".*gps.*") && gps.matches(".*network.*"))) {
+			// util.dialog(this,R.string.gps_check);
 			checkNet(R.string.gps_check);
-			
-			
-			
-		} 
+
+		}
 
 		// LocationListener 핸들
-		  locManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-		   // GPS로 부터 위치 정보를 업데이트 요청
-		  locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-		   // 기지국으로부터 위치 정보를 업데이트 요청
-		  locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, this);
-		   // 주소를 가져오기 위해 설정 - KOREA, KOREAN 모두 가능 
-		  geoCoder = new Geocoder(this, Locale.KOREA);
-	   	
+		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		// GPS로 부터 위치 정보를 업데이트 요청
+		locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
+				this);
+		// 기지국으로부터 위치 정보를 업데이트 요청
+		locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+				1000, 0, this);
+		// 주소를 가져오기 위해 설정 - KOREA, KOREAN 모두 가능
+		geoCoder = new Geocoder(this, Locale.KOREA);
 
-		
-		
-		
 	}
 
-	private void setDrawer()  {
+	private void setDrawer() {
 		mDrawerTitle = getText(R.string.menu);
-//		mCategory = getResources().getStringArray(R.array.category_arr);
+		// mCategory = getResources().getStringArray(R.array.category_arr);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerLayout.setOnClickListener(this);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -218,7 +216,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener, L
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
 				GravityCompat.START);
 
-		
 		client.post(ur.SHOPCATE, new JsonHttpResponseHandler() {
 
 			@Override
@@ -236,15 +233,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener, L
 					for (int i = 0; i < response.length(); i++) {
 						con = response.getJSONObject(i);
 						//
-						drawerItem = new DrawerItem(con.getString("shopCate"), con
-								.getString("cateName"));
-						
+						drawerItem = new DrawerItem(con.getString("shopCate"),
+								con.getString("cateName"));
+
 						drawerItemList.add(drawerItem);
 
 					}
 					setAdapter();
 
-					
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -252,8 +248,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener, L
 
 				super.onSuccess(statusCode, response);
 			}
-
-			
 
 			@Override
 			public void onFinish() {
@@ -269,11 +263,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener, L
 
 		});
 
-		
-
 	}
 
-	private void setAdapter() {	//drawer리스트뷰연결
+	private void setAdapter() { // drawer리스트뷰연결
 		// TODO Auto-generated method stub
 		View header = getLayoutInflater().inflate(
 				R.layout.drawer_list_item_header, null, false);
@@ -299,12 +291,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener, L
 		drawerAdapter = new DrawerAdapter(this, this,
 				R.layout.drawer_list_item, drawerItemList);
 		mDrawerList.setAdapter(drawerAdapter);
-		
+
 	}
 
 	// 액션바 아이콘 변경으로 인해서 회원정보 리턴값 처리해야함 14/11/23
 	private void setStatus() {
-//		dg = util.setProgress(this);
+		// dg = util.setProgress(this);
 		uniqueKey = Secure.getString(this.getContentResolver(),
 				Secure.ANDROID_ID);
 		RequestParams param = new RequestParams();
@@ -324,11 +316,32 @@ public class MainActivity extends FragmentActivity implements OnClickListener, L
 			@Override
 			public void onSuccess(JSONArray response) {
 				try {
-					 Log.v(TAG,"array success : "+response.getJSONObject(0));
+					AddTag = false;
+					invalidateOptionsMenu();
 					con = response.getJSONObject(0);
+					Log.v(TAG, "array success : " + con);
 					saveInfo();
-			
 
+				} catch (JSONException e) {
+					Log.v(TAG, "setStatus JSONException : " + e);
+					e.printStackTrace();
+				}
+
+				super.onSuccess(response);
+			}
+
+			@Override
+			public void onSuccess(JSONObject response) {
+				try {
+					String add = response.getString("memberID");
+					if (add.equals("0")) {
+
+						AddTag = true;
+						if (AddTag) {
+
+						}
+
+					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -337,61 +350,53 @@ public class MainActivity extends FragmentActivity implements OnClickListener, L
 				super.onSuccess(response);
 			}
 
-		
-
-			
-
 		});
-		
-		
 
 	}
-	
+
 	public void saveInfo() {
-//		 editor.clear();
-			 try {
+		// editor.clear();
+		try {
 			editor.putString("memPoint", con.getString("memPoint"));
-//			 editor.putString("RegDate", con.getString("regDate"));
-			 editor.putString("useraddress1", con.getString("address1"));
-			 editor.putString("useraddress2", con.getString("address2"));
-			 editor.putString("memName", con.getString("memName"));
-			 editor.putString("uniqueKey",con.getString("uniqueKey"));
-			 editor.putString("mobile", con.getString("mobile"));
+			// editor.putString("RegDate", con.getString("regDate"));
+			editor.putString("useraddress1", con.getString("address1"));
+			editor.putString("useraddress2", con.getString("address2"));
+			editor.putString("memName", con.getString("memName"));
+			editor.putString("uniqueKey", con.getString("uniqueKey"));
+			editor.putString("mobile", con.getString("mobile"));
 
-			 editor.commit();
-//			 dg.dismiss();
-			 String address1 = pref.getString("address1", con.getString("address1"));
-//			if(address1!=null){
-				addrBasic.setText("배송지 | "+address1);
-//			}else{
-//			 addrBasic.setText("배송지 | "+con.getString("useraddress1"));
-//			}
-			
-			 Log.v(TAG,"check pref uniqueKey : "+pref.getString("uniqueKey", ""));
-			 
-			 } catch (JSONException e) {
-					Log.v(TAG, "error :"+e);
-					e.printStackTrace();
-				}
-		
+			editor.commit();
+			// dg.dismiss();
+			String address1 = pref.getString("address1",
+					con.getString("address1"));
+			// if(address1!=null){
+			addrBasic.setText("배송지 | " + address1);
+			// }else{
+			// addrBasic.setText("배송지 | "+con.getString("useraddress1"));
+			// }
+
+			Log.v(TAG,
+					"check pref uniqueKey : " + pref.getString("uniqueKey", ""));
+
+		} catch (JSONException e) {
+			Log.v(TAG, "error :" + e);
+			e.printStackTrace();
+		}
+
 	}
-	
-	
-	
 
-	
 	private Fragment getFragment(int idx) {
-		 newFragment = null;
+		newFragment = null;
 		switch (idx) {
 		case MAINTAB:
 			newFragment = new MainTab(this);
 
 			break;
 		case STORETAB:
-			newFragment = new StoreTab(this,savebundle);
+			newFragment = new StoreTab(this, savebundle);
 			break;
 		case MENUTAB:
-			newFragment = new MenuTab(this,savebundle);
+			newFragment = new MenuTab(this, savebundle);
 			break;
 		default:
 
@@ -406,27 +411,31 @@ public class MainActivity extends FragmentActivity implements OnClickListener, L
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
-		
-		menu.findItem(R.id.action_add_user).setVisible(true);
-		menu.findItem(R.id.action_search).setVisible(false);
-		menu.findItem(R.id.action_cart).setVisible(false);
+		if (AddTag) {
+			menu.findItem(R.id.action_search).setVisible(false);
+			menu.findItem(R.id.action_cart).setVisible(false);
+		} else {
+			menu.findItem(R.id.action_add_user).setVisible(true);
+		}
 		return super.onCreateOptionsMenu(menu);
 	}
 
 	// invalidateOptionsMenu()호출
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
-		//서버에서 회원정보를 받아왔응ㄹ때 액션바 아이콘 변경
-		
-		menu.findItem(R.id.action_search).setVisible(true);
-		menu.findItem(R.id.action_cart).setVisible(true);
-		menu.findItem(R.id.action_add_user).setVisible(false);
-		
-		
-		
+		// 서버에서 회원정보를 받아왔응ㄹ때 액션바 아이콘 변경
+		if (!AddTag) {
+			menu.findItem(R.id.action_search).setVisible(true);
+			menu.findItem(R.id.action_cart).setVisible(true);
+			menu.findItem(R.id.action_add_user).setVisible(false);
+		}
+		// menu.findItem(R.id.action_search).setVisible(true);
+		// menu.findItem(R.id.action_cart).setVisible(true);
+		// menu.findItem(R.id.action_add_user).setVisible(false);
+
 		// drawer 메뉴가 열려있을때 액션바 아이콘 설정
 		// boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerLinear);
-//		 menu.findItem(R.id.action_cart).setVisible(!drawerOpen);
+		// menu.findItem(R.id.action_cart).setVisible(!drawerOpen);
 
 		return super.onPrepareOptionsMenu(menu);
 	}
@@ -441,15 +450,15 @@ public class MainActivity extends FragmentActivity implements OnClickListener, L
 		switch (item.getItemId()) {
 		case R.id.action_cart: // 장바구니 선택시 화면 전환
 			String temp = pref.getString(ur.CARTSET[0], null);
-			if(temp!=null){
-			Intent intent = new Intent(this, CartActivity.class);
-			intent.putExtra("onAir",1);
-			startActivity(intent);
-			}else{
-				Toast.makeText(this, "장바구니가 비어있습니다.", Toast.LENGTH_SHORT).show();
+			if (temp != null) {
+				Intent intent = new Intent(this, CartActivity.class);
+				intent.putExtra("onAir", 1);
+				startActivity(intent);
+			} else {
+				Toast.makeText(this, "장바구니가 비어있습니다.", Toast.LENGTH_SHORT)
+						.show();
 			}
-			
-			
+
 			return true;
 		case R.id.action_add_user: // 회원가입선택시 화면전환
 
@@ -465,24 +474,21 @@ public class MainActivity extends FragmentActivity implements OnClickListener, L
 		}
 	}
 
-
 	public void fragmentReplace(int fragmentIndex) {
-		
+
 		newFragment = null;
 		newFragment = getFragment(fragmentIndex);
 		newFragment.setArguments(savebundle);
-	
+
 		// 플래그먼트 교체
 		final FragmentTransaction transaction = getSupportFragmentManager()
 				.beginTransaction();
 		// Bundle savebundle = new Bundle();
 		// savebundle.putString("title", "bundle value");
 
-		
-		
 		transaction.replace(R.id.content_frame, newFragment);
 		transaction.addToBackStack(null);
-//		Log.v(TAG, "newFragment :" + newFragment);
+		// Log.v(TAG, "newFragment :" + newFragment);
 		transaction.commit();
 
 	}
@@ -491,7 +497,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, L
 	public void setTitle(CharSequence title) {
 		mTitle = title;
 		getActionBar().setTitle(mTitle);
-//		Log.v(TAG, "title : " + mTitle);
+		// Log.v(TAG, "title : " + mTitle);
 	}
 
 	@Override
@@ -517,7 +523,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, L
 			Intent intent = new Intent(this, SetAddrActivity.class);
 			startActivity(intent);
 			break;
-	
+
 		case R.id.drawer_list_item_header_tv1:
 			Intent intent1 = new Intent(this, MyHistoryActivity.class);
 			startActivity(intent1);
@@ -546,6 +552,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, L
 		}
 
 	}
+
 	public void receive(Bundle bundle, int index) {
 		if (savebundle != null) {
 			savebundle = null;
@@ -553,10 +560,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener, L
 		savebundle = bundle;
 		mDrawerLayout.closeDrawer(mDrawerList);
 		fragmentReplace(index);
-		
-	}
-	
 
+	}
 
 	@Override
 	protected void onResume() {
@@ -566,25 +571,26 @@ public class MainActivity extends FragmentActivity implements OnClickListener, L
 
 	@Override
 	public void onBackPressed() {
-		
-		Log.v(TAG,"back newfragment :"+ newFragment.getId());
+
+		Log.v(TAG, "back newfragment :" + newFragment.getId());
 		super.onBackPressed();
 	}
-	private void checkNet(int msg){
+
+	private void checkNet(int msg) {
 		AlertDialog.Builder adb = new AlertDialog.Builder(this);
 		adb.setMessage(msg);
-		switch(msg){
+		switch (msg) {
 		case R.string.net_error:
-		
-		adb.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				android.os.Process.killProcess(android.os.Process.myPid());//앱 종료
-				
-			}
-		});
-		break;
+
+			adb.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					android.os.Process.killProcess(android.os.Process.myPid());// 앱 종료
+
+				}
+			});
+			break;
 		case R.string.gps_check:
 			adb.setPositiveButton("확인", new DialogInterface.OnClickListener() {
 
@@ -595,92 +601,93 @@ public class MainActivity extends FragmentActivity implements OnClickListener, L
 							android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
 					intent.addCategory(Intent.CATEGORY_DEFAULT);
 					startActivityForResult(intent, 0);
-					
-					
-					
+
 				}
 
 			});
-			
+
 			adb.setNegativeButton("취소", new DialogInterface.OnClickListener() {
 
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					
+
 				}
 			});
-			
+
 			break;
 		}
 		adb.show();
-		
+
 	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		switch (requestCode){
+		switch (requestCode) {
 		case 0:
-			
-			
-			
+
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	private void getGeoLocation() {
 		StringBuffer mAddress = new StringBuffer();
-		   if(myLocation != null) {
-		    lat = myLocation.getLatitude();
-		    lng = myLocation.getLongitude();
-		    try {
-		     // 위도,경도를 이용하여 현재 위치의 주소를 가져온다. 
-		     List<Address> addresses;
-		     addresses = geoCoder.getFromLocation(lat, lng, 1);
-		     for(Address addr: addresses){
-		      int index = addr.getMaxAddressLineIndex();
-		      for(int i=0;i<=index;i++){
-		       mAddress.append(addr.getAddressLine(i));
-		       mAddress.append(" ");
-		      }
-		      mAddress.append("\n");
-		     }
-		    } catch (IOException e) {
-		     e.printStackTrace();
-		    }
-		    Log.v(ur.TAG,"geo address:" + mAddress);
-		   }
-		
+		if (myLocation != null) {
+			lat = myLocation.getLatitude();
+			lng = myLocation.getLongitude();
+			try {
+				// 위도,경도를 이용하여 현재 위치의 주소를 가져온다.
+				List<Address> addresses;
+				addresses = geoCoder.getFromLocation(lat, lng, 1);
+
+				if (null != addresses && addresses.size() > 0) {
+					editor.putString("myLat", Double.toString(lat));
+					editor.putString("myLng", Double.toString(lng));
+					editor.commit();
+					Log.v(ur.TAG,"myLat : "+pref.getString("myLat", null));
+					
+					Address addr = addresses.get(0);
+
+					mAddress.append(addr.getAdminArea()).append("");
+					mAddress.append(addr.getLocality()).append("");
+					mAddress.append(addr.getThoroughfare()).append("");
+					mAddress.append(addr.getFeatureName());
+
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			Log.v(ur.TAG, "geo address:" + mAddress);
+		}
+
 	}
-	 boolean locationTag=true;
+
+	boolean locationTag = true;
+
 	@Override
 	public void onLocationChanged(Location location) {
-		if(locationTag){//한번만 위치를 가져옴
-		myLocation = location;
-		getGeoLocation();
+		if (locationTag) {// 한번만 위치를 가져옴
+			myLocation = location;
+			getGeoLocation();
 		}
-		  locationTag=false;
+		locationTag = false;
 	}
-
-
-
 
 	@Override
 	public void onProviderDisabled(String provider) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 	@Override
 	public void onProviderEnabled(String provider) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }

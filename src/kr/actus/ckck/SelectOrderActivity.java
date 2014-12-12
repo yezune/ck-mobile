@@ -45,18 +45,18 @@ public class SelectOrderActivity extends Activity implements OnClickListener {
 	
 	menuName = (TextView)findViewById(R.id.order_tv_title);
 	img = (ImageView)findViewById(R.id.order_img_main);
-	edPrice=(TextView) findViewById(R.id.order_tv_price);
-	eventFunc=(TextView) findViewById(R.id.order_tv_service);
+//	edPrice=(TextView) findViewById(R.id.order_tv_price);
+//	eventFunc=(TextView) findViewById(R.id.order_tv_service);
 	edPriceSum = (TextView) findViewById(R.id.order_tv_price_sum);
 	descript = (TextView) findViewById(R.id.order_tv_descript);
 	tvPriceMin = (TextView) findViewById(R.id.order_tv_price_min);
 	menuName.setText(getIntent().getStringExtra("menuName"));
 	descript.setText(getIntent().getStringExtra("descript"));
 	price = getIntent().getIntExtra("price", 0);
-	edPrice.setText(price+"");
+//	edPrice.setText(price+"");
 	Bitmap bm = BitmapFactory.decodeFile(getIntent().getStringExtra("menuImg"));
 	img.setImageBitmap(bm);
-	eventFunc.setText(getIntent().getStringExtra("eventFunc"));
+//	eventFunc.setText(getIntent().getStringExtra("eventFunc"));
 	
 	priceMin = getIntent().getIntExtra("minPrice", 0);
 	tvPriceMin.setText("최소 주문 금액 : "+priceMin+"원 이상");
