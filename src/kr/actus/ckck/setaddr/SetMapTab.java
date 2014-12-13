@@ -25,6 +25,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,7 +34,7 @@ import android.widget.Button;
 
 
 public class SetMapTab extends Fragment {
-	View v;
+	static View v;
 	GoogleMap map;
 	SetURL ur;
 	SetUtil util;
@@ -48,11 +49,13 @@ public class SetMapTab extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
-		if (v == null) {
+		try{
+//		if (v == null) {
 			v = inflater.inflate(R.layout.tab_setmap, container, false);
+//		}
+		}catch(InflateException e){
+			
 		}
-		
 		map = ((SupportMapFragment) getActivity().getSupportFragmentManager()
 				.findFragmentById(R.id.setaddr_mapview)).getMap();
 		geoCoder = new Geocoder(v.getContext(), Locale.KOREA);
@@ -164,6 +167,7 @@ public class SetMapTab extends Fragment {
 
 	@Override
 	public void onDestroyView() {
+		
 		if (v != null) {
 			ViewGroup parent = (ViewGroup) v.getParent();
 			if (parent != null) {

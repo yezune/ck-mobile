@@ -4,9 +4,8 @@
     android:layout_height="match_parent"
     android:background="@color/tab_focus_on"
     android:orientation="vertical" 
-    android:layout_marginTop="10dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
+    
+  
     >
 
     <TextView
@@ -14,11 +13,15 @@
         android:layout_width="wrap_content"
         android:gravity="center"
         android:layout_height="30dp"
-        android:text="현재 설정된 배송지" />
+        android:text="현재 설정된 배송지" 
+          android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+          android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp" >
 
         <ImageView
             android:id="@+id/addrtab_img"
@@ -37,7 +40,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+          android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp" >
 
         <TextView
             android:id="@+id/textView1"
@@ -48,7 +53,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content" 
+              android:layout_marginLeft="10dp"
+   >
 
             <EditText
                 android:id="@+id/addrtab_ed_add1"
@@ -65,7 +72,7 @@
                 android:layout_height="30dp"
                 android:background="@drawable/select_main_other_addr_corner"
                 android:textColor="@color/white"
-                android:layout_marginRight="5dp"
+                
                 android:text="검색" />
         </LinearLayout>
 
@@ -74,12 +81,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="읍, 면, 동, 리 명을 입력하고 검색하세요"
-            android:textColor="@color/red" />
+            android:textColor="@color/red" 
+              android:layout_marginLeft="10dp"
+    />
     </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+          android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp" >
 
         <LinearLayout
             android:id="@+id/addrtab_lay_detailaddr"
@@ -101,11 +112,10 @@
                 android:id="@+id/addrtab_btn_add2"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
+                
                 android:layout_height="30dp"
-                android:layout_weight="1"
                 android:text="완료" 
-              android:layout_marginRight="5dp"
-                  android:background="@drawable/select_main_other_addr_corner"
+                              android:background="@drawable/select_main_other_addr_corner"
                 android:textColor="@color/white"/>
         </LinearLayout>
 

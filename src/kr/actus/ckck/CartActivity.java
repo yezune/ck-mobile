@@ -63,26 +63,27 @@ public class CartActivity extends Activity implements OnClickListener {
 		cartList = (ListView) findViewById(R.id.cart_listview);
 
 		cartPrice = (TextView) findViewById(R.id.cart_tv_order_sum);
-
-		cartTitle.setText(shopName);
+		
+	
 
 		if (intent.getIntExtra("onAir", 0) == 1) {
 			btnInsert.setVisibility(View.INVISIBLE);
 			
 			
-		}else{
+		}
 			activity = ActivityReference.activityReference;
 			price = intent.getIntExtra("price", 0);
 			count = intent.getIntExtra("count", 0);
 			shopId = intent.getStringExtra("shopId");
 			shopName = intent.getStringExtra("shopName");
 			menuName = intent.getStringExtra("menuName");
-
+			Log.v(ur.TAG,"menuName cart :"+menuName);
 			checkItem();
 
 			
 			
-		}
+		
+		cartTitle.setText(shopName);
 		setItem();
 
 	}
@@ -112,6 +113,7 @@ public class CartActivity extends Activity implements OnClickListener {
 		for (i = 0; i < len; i++) {
 			
 			if (arr[i] == null&& i==0) {
+				
 				temp = shopId + ":" + shopName + ":" + menuName + ":" + count + ":"
 						+ price;
 				editor.putString(ur.CARTSET[0], temp);

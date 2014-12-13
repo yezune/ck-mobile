@@ -142,7 +142,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
   			
-  			<RadioButton
+       	<RadioButton
   			    android:id="@+id/send_rb_cash"
   			    android:layout_width="wrap_content"
   			    android:layout_height="wrap_content"
@@ -225,7 +225,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
            android:layout_gravity="center_horizontal"
-            android:text="주문완료 후 주문을 취소하실 수 없습니다."
+            android:text="주문완료 후 음식 조리가 시작되면 주문을 취소하실 수 없습니다."
             android:gravity="center_horizontal"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -234,6 +234,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text="주문 완료" 
+            android:textStyle="bold"
             android:textColor="@color/white"
             android:background="@drawable/select_main_other_addr_corner"/>
 

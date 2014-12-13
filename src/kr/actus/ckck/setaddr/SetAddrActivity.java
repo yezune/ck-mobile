@@ -144,10 +144,19 @@ public class SetAddrActivity extends FragmentActivity implements OnClickListener
 		public boolean onOptionsItemSelected(MenuItem item) {
 			switch(item.getItemId()){
 			case android.R.id.home:
+				setResult(3);
 				finish();
 				return true;
 			}
 			return super.onOptionsItemSelected(item);
+		}
+
+
+		@Override
+		public void onBackPressed() {
+			setResult(0);
+			finish();
+			super.onBackPressed();
 		}
 
 		

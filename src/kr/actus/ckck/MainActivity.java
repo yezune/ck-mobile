@@ -97,7 +97,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 	private CharSequence mTitle;
 	private Button addrOther;
 	final static String TAG = "MainActivity";
-
+	final int OTHERADDR = 3;
 	public final static int MAINTAB = 0;
 	public final static int STORETAB = 1;
 	public final static int MENUTAB = 2;
@@ -521,7 +521,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 		case R.id.main_btn_addr_reg:
 
 			Intent intent = new Intent(this, SetAddrActivity.class);
-			startActivity(intent);
+			startActivityForResult(intent, OTHERADDR);
 			break;
 
 		case R.id.drawer_list_item_header_tv1:
@@ -623,7 +623,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
-		case 0:
+		case OTHERADDR:
+			
+			addrBasic.setText("¹è¼ÛÁö | " + pref.getString("address1", null));
+			
+			break;
 
 		}
 		super.onActivityResult(requestCode, resultCode, data);
@@ -690,4 +694,5 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 
 	}
 
+	
 }

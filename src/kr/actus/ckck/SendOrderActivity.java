@@ -54,7 +54,8 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 	SetURL ur;
 	AsyncHttpClient client;
 	AlertDialog.Builder ab;
-	String shopId,memberKey,address,descript,orderMenu;
+	String shopId,memberKey,address,descript;
+	StringBuffer orderMenu = new StringBuffer();
 	int payType,orderPrice;
 	CartAdapter cartAdapter;
 	CartItem cItem;
@@ -104,20 +105,26 @@ public class SendOrderActivity extends Activity implements OnClickListener,
 		setItem();
 		
 	}
-
+	
 	private void setItem() {
 		int j;
 for (j = 0; j < ur.CARTSET.length; j++) {
 			
 			String saveName = ur.CARTSET[j];
 			String tempItem = pref.getString(saveName, null);
+			
 		if(tempItem!=null){
-
+			
 				String tem[] = tempItem.split(":");
 
 				cItem = new CartItem(tem[0], tem[1], tem[2],
 						Integer.parseInt(tem[3]), Integer.parseInt(tem[4]));
 				cItemList.add(cItem);
+				if(j==0){
+					orderMenu.append(tem[2]+":"+tem[3]+":"+tem[4]);
+				}else{
+					orderMenu.append(","+tem[2]+":"+tem[3]+":"+tem[4]);
+				}
 			}
 		
 		}
@@ -153,9 +160,10 @@ listView.setAdapter(cartAdapter);
 		
 		orderPrice = intent.getIntExtra("orderPrice",0);
 		descript = edRequest.getText().toString();
-		orderMenu = intent.getStringExtra("menuName")
-			+":"+intent.getIntExtra("count",0)
-		    +":"+intent.getIntExtra("price",0);
+//		orderMenu = intent.getStringExtra("menuName")
+//			+":"+intent.getIntExtra("count",0)
+//		    +":"+intent.getIntExtra("price",0);
+		Log.v(ur.TAG,"orderMenu :"+orderMenu);
 		RequestParams param = new RequestParams();
 		param.put("shopID", shopId);
 		param.put("memberKey",memberKey);
@@ -163,8 +171,8 @@ listView.setAdapter(cartAdapter);
 		param.put("address",address);
 		param.put("orderPrice",orderPrice+"");
 		param.put("descript",descript);
-		param.put("orderMenu",orderMenu);
-		
+		param.put("orderMenu",orderMenu.toString());
+		Log.v(ur.TAG,"orderMenu :"+orderMenu.toString());
 		client.post(ur.ORDER, param, new JsonHttpResponseHandler(){
 
 			@Override

@@ -121,6 +121,7 @@ public class SetAddrTab extends Fragment implements OnClickListener {
 				Toast.makeText(v.getContext(), "주소검색을 완료 하세요",
 						Toast.LENGTH_SHORT).show();
 			}
+			
 			break;
 		}
 
