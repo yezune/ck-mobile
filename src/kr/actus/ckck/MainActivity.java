@@ -98,10 +98,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 	private Button addrOther;
 	final static String TAG = "MainActivity";
 	final int OTHERADDR = 3;
+	final int ADDUSER = 4;
 	public final static int MAINTAB = 0;
 	public final static int STORETAB = 1;
 	public final static int MENUTAB = 2;
 
+	boolean stat = true;
 	Dialog dg;
 	AsyncData sResponese;
 	SetUtil util;
@@ -367,16 +369,18 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 
 			editor.commit();
 			// dg.dismiss();
+			
 			String address1 = pref.getString("address1",
 					con.getString("address1"));
-			// if(address1!=null){
+//			 if(address1.equals("null")){
 			addrBasic.setText("배송지 | " + address1);
-			// }else{
-			// addrBasic.setText("배송지 | "+con.getString("useraddress1"));
-			// }
+			
+//			 }else{
+//			 addrBasic.setText("배송지 | "+address1);
+//			 }
 
 			Log.v(TAG,
-					"check pref uniqueKey : " + pref.getString("uniqueKey", ""));
+					"address1 : " + address1);
 
 		} catch (JSONException e) {
 			Log.v(TAG, "error :" + e);
@@ -464,7 +468,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 
 			Intent intentUser = new Intent(this, AddUserActivity.class);
 
-			startActivity(intentUser);
+			startActivityForResult(intentUser, ADDUSER);
 
 			return true;
 
@@ -530,7 +534,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 			break;
 		case R.id.drawer_list_item_header_tv2:
 			Intent intent2 = new Intent(this, AddUserActivity.class);
-			startActivity(intent2);
+			startActivityForResult(intent2, ADDUSER);
 			break;
 		case R.id.drawer_list_item_header_tv3:
 			Log.v(TAG, "카테고리 click");
@@ -625,7 +629,15 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 		switch (requestCode) {
 		case OTHERADDR:
 			
-			addrBasic.setText("배송지 | " + pref.getString("address1", null));
+			addrBasic.setText(pref.getString("address1", "배송지를 등록하세요."));
+			
+			break;
+		case ADDUSER:
+			if(resultCode==0){
+				
+				AddTag=false;
+				invalidateOptionsMenu();
+			}
 			
 			break;
 

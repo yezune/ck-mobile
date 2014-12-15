@@ -29,5 +29,5 @@
           android:icon="@drawable/action_user"
           android:title="@string/title_add_user"
          
-          android:showAsAction="always|withText" />
+          android:showAsAction="ifRoom|withText" />
 </menu>

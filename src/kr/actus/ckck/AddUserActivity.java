@@ -156,7 +156,7 @@ public class AddUserActivity extends Activity implements OnClickListener{
 	}
 
 	@Override
-	public void onClick(View v) {
+	public void onClick(final View v) {
 		switch(v.getId()){
 		case R.id.user_btn_reg:
 			if(!cbSms.isChecked() && !cbAgree1.isChecked() && !cbAgree2.isChecked()){
@@ -179,14 +179,30 @@ public class AddUserActivity extends Activity implements OnClickListener{
 					@Override
 					public void onFailure(int statusCode, Throwable e,
 							JSONObject errorResponse) {
-						Log.v(TAG,"fail :"+errorResponse);
+						Toast.makeText(v.getContext(), "오류가 발생했습니다.다시시도해주세요.", Toast.LENGTH_SHORT).show();	
 						super.onFailure(statusCode, e, errorResponse);
 					}
 
 					@Override
 					public void onSuccess(JSONObject response) {
 						Log.v(TAG,"success :"+response);
+						Toast.makeText(v.getContext(), "가입성공", Toast.LENGTH_SHORT).show();	
+						editor.putString("uniqueKey", uniqueKey);
+						editor.putString("memName", name.getText().toString());
+						editor.putString("regKey", regKey.getText().toString());
+						editor.putString("mobile", mobile.getText().toString());
+						editor.putString("address1", edAddr1.getText().toString());
+						editor.putString("address2", edAddr2.getText().toString());
 						
+						editor.putBoolean("sms", cbSms.isChecked());
+						editor.putBoolean("agree1", cbAgree1.isChecked());
+						editor.putBoolean("agree2", cbAgree2.isChecked());
+//						
+						editor.commit();
+						
+						
+						setResult(0);
+						finish();
 						super.onSuccess(response);
 					}
 
@@ -195,6 +211,18 @@ public class AddUserActivity extends Activity implements OnClickListener{
 							throws JSONException {
 						Log.v(TAG,"parseResponse :"+ responseBody);
 						return super.parseResponse(responseBody);
+					}
+
+					@Override
+					public void onFinish() {
+						dg.dismiss();
+						super.onFinish();
+					}
+
+					@Override
+					public void onStart() {
+						dg = util.setProgress(v.getContext());
+						super.onStart();
 					}
 					
 					

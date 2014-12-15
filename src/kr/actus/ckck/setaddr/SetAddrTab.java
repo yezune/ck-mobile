@@ -70,7 +70,7 @@ public class SetAddrTab extends Fragment implements OnClickListener {
 		edAddr2 = (EditText) v.findViewById(R.id.addrtab_ed_add2);
 		loc = (TextView) v.findViewById(R.id.addrtab_tv_loc);
 		loc.setText(pref.getString("address1", "설정된 배송지가 없습니다.")
-				+ pref.getString("address2", null));
+				+ pref.getString("address2", ""));
 		btnAddr1 = (Button) v.findViewById(R.id.addrtab_btn_add1);
 		btnAddr2 = (Button) v.findViewById(R.id.addrtab_btn_add2);
 		listView = (ListView) v.findViewById(R.id.addrtab_listview);

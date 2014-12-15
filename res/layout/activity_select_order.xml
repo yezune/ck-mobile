@@ -263,7 +263,7 @@
            
             android:text="취소"
             android:textColor="@color/white" 
-            android:background="@drawable/corner_gray" />
+            android:background="@drawable/selectorder_cancel_corner" />
 
         <View
             android:layout_width="0dp"
@@ -276,7 +276,7 @@
             android:layout_height="40dp"
            
             android:text="장바구니담기"
-            android:background="@drawable/corner_red"
+            android:background="@drawable/selectorder_select_corner"
             android:textColor="@color/white" />
     </LinearLayout>
 

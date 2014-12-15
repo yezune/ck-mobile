@@ -5,7 +5,7 @@
     android:orientation="vertical" >
    
     
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/myhistory_item_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,30 +21,25 @@
             android:layout_marginLeft="5dp"
             android:text="상호명"
              />
-        	<TextView
+
+        <TextView
             android:id="@+id/myhistory_item_tv_orderMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
+            android:layout_alignLeft="@+id/myhistory_item_tv_shopName"
+            android:layout_alignParentBottom="true"
             android:text="메뉴"
-            android:textColor="@color/blue"
-             />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:textColor="@color/blue" />
 
         <TextView
             android:id="@+id/myhistory_item_tv_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
             android:text="50,000원"
-            android:textColor="@color/red"
-             />
-</LinearLayout>
+            android:textColor="@color/red" />
+
+</RelativeLayout>
 
 </LinearLayout>
