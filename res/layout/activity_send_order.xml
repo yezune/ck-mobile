@@ -48,13 +48,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="vertical"
-                android:layout_weight="48" >
+                android:layout_weight="10" >
   <TextView
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="* 표시는 필수 입력사항입니다."
                 android:textColor="@color/gray" />
+  </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
@@ -81,7 +82,22 @@
             android:text="검색" />
 
     </LinearLayout>
-
+    <FrameLayout 
+         android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:layout_weight="38"
+        
+        >
+        
+        
+<LinearLayout
+    android:id="@+id/send_lay_basic"
+        android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible"
+               >
         <EditText
             android:id="@+id/send_edit_detail_add"
             android:layout_width="match_parent"
@@ -90,6 +106,7 @@
             android:inputType="textPostalAddress"
             android:hint="* 상세주소를 입력해 주세요" />
 
+      
         <EditText
             android:id="@+id/send_edit_request"
             android:layout_width="match_parent"
@@ -124,7 +141,24 @@
             android:text="@string/check_agree2" />
 
          </LinearLayout>
+<LinearLayout
+    android:id="@+id/send_lay_post"
+        android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="invisible"
+               >
+          <ListView
+            android:id="@+id/send_post_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             >
+        </ListView>
+    
+    
+    </LinearLayout>
 
+</FrameLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"

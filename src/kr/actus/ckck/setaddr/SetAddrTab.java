@@ -56,7 +56,7 @@ public class SetAddrTab extends Fragment implements OnClickListener {
 	SharedPreferences pref;
 	SharedPreferences.Editor editor;
 	LinearLayout layPost, layAddr;
-
+	
 	ArrayList<SetAddrListItem> itemList = new ArrayList<SetAddrListItem>();
 
 	@Override

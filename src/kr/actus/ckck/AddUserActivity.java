@@ -56,7 +56,7 @@ public class AddUserActivity extends Activity implements OnClickListener{
 	Button inReg, btnPost;
 	ListView listView;
 	SetURL ur;
-	SetUtil util;
+	SetUtil util; 
 	Spinner mobileSpin;
 	String fMobileNum;
 	ArrayAdapter<CharSequence> spinAdapter;

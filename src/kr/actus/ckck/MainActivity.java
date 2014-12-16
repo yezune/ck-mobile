@@ -575,7 +575,24 @@ public class MainActivity extends FragmentActivity implements OnClickListener,
 
 	@Override
 	public void onBackPressed() {
-
+//		if(newFragment==getFragment(MAINTAB)){
+			AlertDialog.Builder ab = new AlertDialog.Builder(this);
+			ab.setMessage("종료하시겠습니까?");
+			ab.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					finish();
+					
+				}
+			});
+			ab.setNegativeButton("취소", null);
+			ab.show();
+			
+			
+//		}else{
+//			fragmentReplace(MAINTAB);
+//		}
 		Log.v(TAG, "back newfragment :" + newFragment.getId());
 		super.onBackPressed();
 	}

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import kr.actus.ckck.AddUserActivity;
 import kr.actus.ckck.R;
+import kr.actus.ckck.SendOrderActivity;
 import kr.actus.ckck.setaddr.SetAddrActivity;
 import kr.actus.ckck.setaddr.SetAddrTab;
 import kr.actus.ckck.util.SetURL;
@@ -34,6 +35,7 @@ public class SetAddrAdapter extends BaseAdapter  {
 	Button btnSelect;
 	SetAddrTab setAddr;
 	AddUserActivity addUser;
+	SendOrderActivity sendOrder;
 	ArrayList<SetAddrListItem> data = new ArrayList<SetAddrListItem>();
 	int layout;
 	SharedPreferences pref;
@@ -56,7 +58,14 @@ public class SetAddrAdapter extends BaseAdapter  {
 		this.layout = layout;
 		
 	}
-
+	public SetAddrAdapter(SendOrderActivity sendOrder,Context context, int layout, ArrayList<SetAddrListItem> data){
+		this.context = context;
+		this.sendOrder = sendOrder;
+		this.Inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		this.data = data;
+		this.layout = layout;
+		
+	}
 	
 	
 
@@ -106,6 +115,9 @@ public class SetAddrAdapter extends BaseAdapter  {
 				else if(addUser!=null){
 				
 					addUser.requestAdapter(data.get(position).getPost(),data.get(position).getAddr());
+				}else if(sendOrder!=null){
+				
+					sendOrder.requestAdapter(data.get(position).getPost(),data.get(position).getAddr());
 				}
 				
 				

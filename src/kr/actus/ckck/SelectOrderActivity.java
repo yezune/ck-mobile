@@ -114,13 +114,13 @@ private void total(int cnt) {
 		switch(v.getId()){
 			case R.id.order_btn_cart:
 				
-				if(priceMin>sum){
-					AlertDialog.Builder ab = new AlertDialog.Builder(this);
-					ab.setMessage("최소주문금액 이상 주문 가능합니다.");
-					ab.setPositiveButton("확인", null);
-					ab.show();
+//				if(priceMin>sum){
+//					AlertDialog.Builder ab = new AlertDialog.Builder(this);
+//					ab.setMessage("최소주문금액 이상 주문 가능합니다.");
+//					ab.setPositiveButton("확인", null);
+//					ab.show();
 					
-				}else{
+//				}else{
 				Intent intent = new Intent(this,CartActivity.class);
 				getIntent().putExtra("count", flagCount);
 				
@@ -131,7 +131,7 @@ private void total(int cnt) {
 //				intent.putExtra("count", count.getText().toString());
 				ActivityReference.activityReference = SelectOrderActivity.this;
 				startActivity(intent);
-				}
+//				}
 				break;
 			case R.id.order_btn_cancel:
 				finish();

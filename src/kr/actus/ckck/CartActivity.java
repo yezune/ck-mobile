@@ -30,12 +30,12 @@ public class CartActivity extends Activity implements OnClickListener {
 	ListView cartList;
 	CartItem cItem;
 	ArrayList<CartItem> cItemList = new ArrayList<CartItem>();
-	TextView cartTitle, cartPrice;
+	TextView cartTitle, cartPrice,minOrder;
 	EditText cartCount;
 	CartAdapter cartAdapter;
 	SetURL ur;
 	Intent intent;
-	int price, count;
+	int price, count, minPrice;
 	
 	SharedPreferences pref;
 	SharedPreferences.Editor editor;
@@ -58,14 +58,15 @@ public class CartActivity extends Activity implements OnClickListener {
 		btnOrder.setOnClickListener(this);
 		btnInsert = (Button) findViewById(R.id.cart_btn_insert);
 		btnInsert.setOnClickListener(this);
-
+		minOrder = (TextView)findViewById(R.id.cart_tv_order_min);
 		cartTitle = (TextView) findViewById(R.id.cart_tv_store_name);
 		cartList = (ListView) findViewById(R.id.cart_listview);
 
 		cartPrice = (TextView) findViewById(R.id.cart_tv_order_sum);
 		
-	
-
+		minPrice = getIntent().getIntExtra("minPrice", 0);
+		minOrder.setText("최소 주문 금액 : "+minPrice+"원");
+//		Log.v(ur.TAG,"minPrice :"+minPrice);
 		if (intent.getIntExtra("onAir", 0) == 1) {
 			btnInsert.setVisibility(View.INVISIBLE);
 			
@@ -129,7 +130,7 @@ public class CartActivity extends Activity implements OnClickListener {
 				editor.commit();
 				break;
 			} else {
-				Toast.makeText(this, "다른 상호의 메뉴가 등록되어 있습니다.",
+				Toast.makeText(this, "다른 상호의 장바구니 목록을 확인하세요.",
 						Toast.LENGTH_SHORT).show();
 				break;
 			}
@@ -183,7 +184,7 @@ public class CartActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.cart_btn_order:
-			
+			if(tPriceSum>=minPrice){
 			Intent intent1 = new Intent(this, SendOrderActivity.class);
 			
 			// intent1.putExtras(intent);
@@ -194,7 +195,12 @@ public class CartActivity extends Activity implements OnClickListener {
 			intent1.putExtra("cartList", cItemList);
 			
 			startActivityForResult(intent1,0);
-
+			}else{
+				AlertDialog.Builder ab = new AlertDialog.Builder(this);
+				ab.setMessage("최소주문금액 이상 주문 가능합니다.");
+				ab.setPositiveButton("확인", null);
+				ab.show();
+			}
 			break;
 		case R.id.cart_btn_insert:
 			
